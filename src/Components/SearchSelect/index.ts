@@ -1,7 +1,7 @@
-import { MultiSearchSelectProps as InternalMultiSearchSelectProps } from "./MultiSearchSelect";
-import { SearchSelectProps as InternalSearchSelectProps } from "./SearchSelect";
-
-export type SearchSelectProps = InternalSearchSelectProps;
-export type MultiSearchSelectProps = InternalMultiSearchSelectProps;
-
+export { MultiSearchSelect } from "./MultiSearchSelect";
+export type { MultiSearchSelectProps } from "./MultiSearchSelect";
 export { SearchSelect } from "./SearchSelect";
+export type {
+  OptionContent as Option,
+  SearchSelectProps,
+} from "./SearchSelect";

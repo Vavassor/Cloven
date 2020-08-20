@@ -3,7 +3,7 @@ import React from "react";
 import { MultiSelect, MultiSelectProps } from "../../Components/MultiSelect";
 import { Option } from "../../Components/MultiSelectList";
 import { toKebabCase } from "../../Utilities/String";
-import productTypes from "../Data/ProductTypes.json";
+import productTypes from "../Data/product_types.json";
 
 export default {
   title: "Form/MultiSelect",
