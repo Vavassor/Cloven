@@ -1,11 +1,11 @@
-import React, { ChangeEventHandler, forwardRef, useContext } from "react";
+import React, { ChangeEventHandler, forwardRef, useContext, useState } from "react";
 import { joinClassNames, joinIds } from "../../Utilities/Style";
 import { FormControlContext } from "../FormControl";
 import styles from "./TextField.module.scss";
 
 type InputType = "password" | "search" | "text";
 
-interface TextFieldProps {
+export interface TextFieldProps {
   className?: string;
   handleChange: ChangeEventHandler<HTMLInputElement>;
   hasError?: boolean;
@@ -15,14 +15,13 @@ interface TextFieldProps {
   name?: string;
   placeholder?: string;
   type?: InputType;
-  value: string;
 }
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
       className,
-      handleChange,
+      handleChange: handleChangeProp,
       hasError: hasErrorProp,
       id: idProp,
       isDisabled: isDisabledProp,
@@ -30,11 +29,11 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       name,
       placeholder,
       type = "text",
-      value,
     },
     ref
   ) => {
     const formControlState = useContext(FormControlContext);
+    const [value, setValue] = useState("");
 
     const errorId = formControlState.errorId;
     const helpId = formControlState.helpId;
@@ -42,6 +41,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const id = idProp || formControlState.inputId;
     const isDisabled = isDisabledProp || formControlState.isDisabled;
     const isRequired = isRequiredProp || formControlState.isRequired;
+
+    const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+      setValue(event.currentTarget.value);
+      if (handleChangeProp) {
+        handleChangeProp(event);
+      }
+    };
 
     return (
       <input

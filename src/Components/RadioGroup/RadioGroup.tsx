@@ -10,7 +10,7 @@ export interface RadioOption {
   value: string;
 }
 
-interface RadioGroupProps {
+export interface RadioGroupProps {
   className?: string;
   errorId?: string;
   hasError?: boolean;
