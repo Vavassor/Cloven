@@ -10,7 +10,7 @@ import React, {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-import { usePopper } from "react-popper";
+import { usePopper } from "react-popper-workaround";
 import CSSTransition, {
   CSSTransitionClassNames,
   CSSTransitionProps,

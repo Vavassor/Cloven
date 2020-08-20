@@ -219,7 +219,7 @@ const App = () => {
               help="suppose something is going on"
               label="Name"
             >
-              <TextField handleChange={handleChangeName} value={name} />
+              <TextField handleChange={handleChangeName} />
             </FormControl>
             <FormControl
               className={styles.formControl}
