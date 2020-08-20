@@ -1,0 +1,21 @@
+@import "abstracts/mixins";
+
+.clearButton {
+  @include reset-button;
+  border-radius: 999px;
+  display: inline-flex;
+}
+
+.clearButton:active {
+  background-color: $medium-grey;
+}
+
+.clearButton:hover:not(:active) {
+  background-color: $light-grey;
+}
+
+.icon {
+  fill: $black;
+  height: 24px;
+  width: 24px;
+}

@@ -1,0 +1,18 @@
+@import "abstracts/variables";
+
+.error {
+  color: $red;
+  font-size: $font-size-small;
+  margin-block-start: $spacing-4;
+}
+
+.help {
+  color: $dark-grey-blue;
+  display: block;
+  font-size: $font-size-small;
+  margin-block-start: $spacing-4;
+}
+
+.label {
+  margin-block-end: $spacing-8;
+}

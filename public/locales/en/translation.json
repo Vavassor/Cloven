@@ -1,0 +1,25 @@
+{
+  "dashboard": {
+    "snakeDance": "Snake dance"
+  },
+  "generic": {
+    "ok": "OK"
+  },
+  "multiSearchSelect": {
+    "addValueMessage": "Add “{{value}}”",
+    "clearButtonLabel": "Clear",
+    "hideSuggestionsButtonLabel": "Hide suggestions",
+    "noSuggestionsMessage": "No options",
+    "showSuggestionsButtonLabel": "Show suggestions"
+  },
+  "multiSelect": {
+    "buttonLabelNoneSelected": "--None selected--"
+  },
+  "searchSelect": {
+    "addValueMessage": "Add “{{value}}”",
+    "clearButtonLabel": "Clear",
+    "hideSuggestionsButtonLabel": "Hide suggestions",
+    "noSuggestionsMessage": "No options",
+    "showSuggestionsButtonLabel": "Show suggestions"
+  }
+}

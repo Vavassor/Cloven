@@ -1,0 +1,75 @@
+@import "abstracts/mixins";
+
+$sqrt-2: 1.41421356;
+$arrow-width: 10px;
+$arrow-radius: $arrow-width / (2 * $sqrt-2);
+
+$growDuration: 200ms;
+
+.appear {
+  opacity: 0;
+  transform: scale(0);
+
+  &Active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity $growDuration, transform $growDuration;
+  }
+}
+
+.arrow,
+.arrow::before {
+  height: $arrow-width;
+  position: absolute;
+  width: $arrow-width;
+  z-index: -1;
+}
+
+.arrow {
+  &::before {
+    background-color: $white;
+    box-shadow: 0 0 0 1px $drop-shadow-color;
+    content: "";
+    transform: rotate(45deg);
+  }
+}
+
+.popper {
+  &[data-popper-placement^="top"] > .arrow {
+    bottom: -$arrow-radius;
+  }
+
+  &[data-popper-placement^="bottom"] > .arrow {
+    top: -$arrow-radius;
+  }
+
+  &[data-popper-placement^="left"] > .arrow {
+    right: -$arrow-radius;
+  }
+
+  &[data-popper-placement^="right"] > .arrow {
+    left: -$arrow-radius;
+  }
+}
+
+.enter {
+  opacity: 0;
+  transform: scale(0);
+
+  &Active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity $growDuration, transform $growDuration;
+  }
+}
+
+.exit {
+  opacity: 1;
+  transform: scale(1);
+
+  &Active {
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity $growDuration, transform $growDuration;
+  }
+}

@@ -1,0 +1,11 @@
+@import "abstracts/variables";
+
+.selectList {
+  background-color: $white;
+  border: $border-width-1 solid $black;
+  display: block;
+  margin: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 0;
+}

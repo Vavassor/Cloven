@@ -1,0 +1,33 @@
+@import "abstracts/mixins";
+
+.app {
+  height: 1200px;
+  padding: $spacing-16;
+}
+
+.button {
+  margin-bottom: $spacing-16;
+}
+
+.formControl {
+  margin-bottom: $spacing-16;
+}
+
+.main {
+  border: 1px solid $black;
+  height: 600px;
+  overflow: auto;
+  padding: $spacing-16;
+}
+
+.menu {
+  padding: $spacing-16;
+}
+
+.popper {
+  @include drop-shadow;
+}
+
+.popperBox {
+  background-color: $white;
+}

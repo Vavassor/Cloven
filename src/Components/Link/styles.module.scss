@@ -1,0 +1,28 @@
+@import "abstracts/mixins";
+
+.anchor {
+  @include focus-indicator-disappear;
+
+  border-radius: $border-radius-2;
+
+  &:active,
+  &:link,
+  &:visited {
+    color: $blue;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    @include focus-indicator-appear;
+    outline: none;
+  }
+
+  &:focus,
+  &:hover {
+    color: $dark-grey-blue;
+  }
+
+  &:lang(ar) {
+    text-decoration: none;
+  }
+}

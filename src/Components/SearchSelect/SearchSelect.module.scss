@@ -1,0 +1,44 @@
+@import "abstracts/mixins";
+
+.input {
+  @include body-regular;
+  @include reset-input;
+
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.list {
+  @include reset-ul;
+
+  background-color: $white;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.popper {
+  @include drop-shadow;
+}
+
+.searchSelect {
+  @include focus-indicator-disappear($border-width-1);
+
+  align-items: center;
+  border: $border-width-1 solid $dark-grey-blue;
+  border-radius: $border-radius-4;
+  display: inline-flex;
+  padding: $spacing-8;
+
+  &Error {
+    background-color: $pink;
+    border-color: $red;
+  }
+
+  &Focused {
+    @include focus-indicator-appear($border-width-1);
+    border-color: $blue;
+  }
+}

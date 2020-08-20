@@ -1,0 +1,35 @@
+@import "abstracts/mixins";
+
+.chip {
+  @include reset-button;
+  @include font-body-small;
+
+  align-items: center;
+  background-color: $medium-grey;
+  border-radius: $border-radius-pill;
+  color: $black;
+  display: inline-flex;
+  line-height: 1;
+  margin-inline-end: $spacing-8;
+  padding-block-end: $spacing-3;
+  padding-block-start: $spacing-3;
+  padding-inline-end: $spacing-3;
+  padding-inline-start: $spacing-12;
+
+  &:hover {
+    background-color: $light-grey;
+  }
+}
+
+.chip:hover .icon {
+  fill: $light-grey;
+}
+
+.icon {
+  background-color: $dark-grey;
+  border-radius: $border-radius-pill;
+  fill: $medium-grey;
+  height: 18px;
+  margin-inline-start: $spacing-8;
+  width: 18px;
+}

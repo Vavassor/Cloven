@@ -1,0 +1,28 @@
+@import "abstracts/mixins";
+
+$border-width: $border-width-1;
+
+.input {
+  @include focus-indicator-disappear($border-width);
+  @include font-body-regular;
+  @include reset-input;
+
+  border: $border-width solid $dark-grey-blue;
+  border-radius: $border-radius-4;
+  padding: $spacing-4 $spacing-8;
+
+  &:disabled {
+    background-color: $light-grey;
+  }
+
+  &:focus {
+    @include focus-indicator-appear($border-width);
+
+    outline: none;
+  }
+
+  &Error {
+    background-color: $pink;
+    border-color: $red;
+  }
+}

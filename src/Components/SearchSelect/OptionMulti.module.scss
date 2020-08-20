@@ -1,0 +1,26 @@
+@import "abstracts/variables";
+
+.option {
+  align-items: center;
+  color: $dark-grey;
+  display: flex;
+  list-style: none;
+  padding-inline-end: $spacing-8;
+  padding-inline-start: $spacing-8;
+  padding-block-end: $spacing-16;
+  padding-block-start: $spacing-16;
+  user-select: none;
+
+  &Active {
+    background-color: $medium-grey;
+    color: $black;
+  }
+
+  &Selected {
+    color: $black;
+  }
+}
+
+.startAdornment {
+  margin-inline-end: $spacing-8;
+}

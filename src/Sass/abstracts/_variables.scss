@@ -1,0 +1,63 @@
+/* Color custom properties are 'src/Sass/base/_color_table.scss'. */
+$black: var(--black);
+$blue: var(--blue);
+$dark-grey: var(--dark-grey);
+$dark-grey-blue: var(--dark-grey-blue);
+$light-grey: var(--light-grey);
+$medium-grey: var(--medium-grey);
+$pink: var(--pink);
+$red: var(--red);
+$white: var(--white);
+$yellow: var(--yellow);
+
+$drop-shadow-color: rgba(0, 0, 0, 0.5);
+
+/* Animation */
+$focus-indicator-appear-duration: 130ms;
+
+/* Typography */
+$font-family-body: sans-serif;
+
+$font-size-body: 1em;
+$font-size-small: 0.875em;
+
+$font-weight-thin: 100;
+$font-weight-extra-light: 200;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+$font-weight-extra-bold: 800;
+$font-weight-black: 900;
+
+$line-height-body: 1.5;
+
+$body-height: $font-size-body * $line-height-body;
+
+/* Spacing */
+$spacing-1: 1px;
+$spacing-2: 2px;
+$spacing-3: 3px;
+$spacing-4: 4px;
+$spacing-8: 8px;
+$spacing-12: 12px;
+$spacing-16: 16px;
+
+/* Borders */
+$border-1: 1px;
+$border-2: 2px;
+$border-3: 3px;
+$border-4: 4px;
+
+$border-radius-2: 2px;
+$border-radius-4: 4px;
+$border-radius-pill: 999px;
+
+$border-width-1: 1px;
+$border-width-2: 2px;
+$border-width-3: 3px;
+$border-width-4: 4px;
+$border-width-5: 5px;
+$border-width-6: 6px;
+$border-width-8: 8px;

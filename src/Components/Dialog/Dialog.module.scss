@@ -1,0 +1,54 @@
+@import "abstracts/variables";
+
+$growDuration: 200ms;
+
+.appear {
+  opacity: 0;
+}
+
+.appearActive {
+  opacity: 1;
+  transition: opacity $growDuration;
+}
+
+.container {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.container::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+
+.dialog {
+  background-color: $white;
+  box-shadow: 0 0.3rem 0.5rem 0.1rem rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  margin: 32px;
+  position: relative;
+  vertical-align: middle;
+}
+
+.enter {
+  opacity: 0;
+}
+
+.enterActive {
+  opacity: 1;
+  transition: opacity $growDuration;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exitActive {
+  opacity: 0;
+  transition: opacity $growDuration;
+}

@@ -1,0 +1,61 @@
+@import "abstracts/variables";
+
+/** @deprecated */
+@mixin body-regular {
+  font-size: $font-size-body;
+  font-style: normal;
+  font-weight: 400;
+  line-height: $line-height-body;
+}
+
+@mixin drop-shadow {
+  box-shadow: 0 3px 5px 1px $drop-shadow-color;
+}
+
+@mixin focus-indicator-appear($border-width: 0) {
+  box-shadow: 0 0 0 ($border-width-2 - $border-width) $blue;
+  @if $border-width != 0 {
+    border-color: $blue;
+  }
+}
+
+@mixin focus-indicator-disappear($border-width: 0) {
+  box-shadow: 0 0 0 ($border-width-6 - $border-width) transparent;
+  transition-duration: $focus-indicator-appear-duration;
+  @if $border-width != 0 {
+    transition-property: box-shadow, border-color;
+  } @else {
+    transition-property: box-shadow;
+  }
+}
+
+@mixin font-body-regular {
+  font-size: $font-size-body;
+  font-style: normal;
+  font-weight: 400;
+  line-height: $line-height-body;
+}
+
+@mixin font-body-small {
+  font-size: $font-size-small;
+  font-style: normal;
+  font-weight: 400;
+  line-height: $line-height-body;
+}
+
+@mixin reset-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+@mixin reset-input {
+  border: none;
+  padding: 0;
+}
+
+@mixin reset-ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

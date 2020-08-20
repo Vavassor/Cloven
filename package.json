@@ -1,25 +1,35 @@
 {
-  "name": "modal-test",
+  "name": "cloven",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.4.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/i18next": "^13.0.0",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "i18next-browser-languagedetector": "^5.0.0",
+    "i18next-http-backend": "^1.0.17",
+    "node-sass": "^4.14.1",
+    "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-i18next": "^11.7.0",
+    "react-popper": "^2.2.3",
     "react-scripts": "3.4.1",
-    "typescript": "~3.7.2"
+    "react-transition-group": "^4.4.1",
+    "typescript": "~3.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-pseudolocale": "ts-node -O {\"module\":\"commonjs\"} ./scripts/generate-pseudolocale.ts"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-transition-group": "^4.2.4"
   }
 }

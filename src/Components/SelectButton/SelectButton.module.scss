@@ -1,0 +1,41 @@
+@import "abstracts/mixins";
+
+.button {
+  @include body-regular;
+  @include reset-button;
+  @include focus-indicator-disappear;
+  align-items: center;
+  background-color: $light-grey;
+  border-radius: $spacing-4;
+  display: inline-flex;
+  padding-block-end: $spacing-4;
+  padding-block-start: $spacing-4;
+  padding-inline-end: $spacing-8;
+  padding-inline-start: $spacing-8;
+}
+
+.button:focus {
+  @include focus-indicator-appear;
+  outline: none;
+}
+
+.button:hover {
+  background-color: $medium-grey;
+}
+
+.buttonPopoverOpen {
+}
+
+.endAdornment {
+  fill: $black;
+  height: $body-height;
+  margin-inline-start: $spacing-4;
+  width: $body-height;
+}
+
+.label {
+  max-width: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

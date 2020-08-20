@@ -1,0 +1,12 @@
+@import "abstracts/variables";
+
+.option {
+  list-style: none;
+  padding: $spacing-8 $spacing-16;
+  user-select: none;
+}
+
+.optionSelected {
+  background-color: $blue;
+  color: $white;
+}

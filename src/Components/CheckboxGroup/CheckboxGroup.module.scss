@@ -1,0 +1,14 @@
+@import "abstracts/variables";
+
+.checkboxGroup {
+  align-items: center;
+  display: flex;
+}
+
+.checkbox {
+  margin-right: $spacing-8;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

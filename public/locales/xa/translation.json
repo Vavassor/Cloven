@@ -1,0 +1,25 @@
+{
+  "dashboard": {
+    "snakeDance": "[!!! §ñáƙè δáñçè !!!]"
+  },
+  "generic": {
+    "ok": "[!!! ÓK !!!]"
+  },
+  "multiSearchSelect": {
+    "addValueMessage": "[!!! Âδδ “{{value}}” !!!]",
+    "clearButtonLabel": "[!!! Çℓèář !!!]",
+    "hideSuggestionsButtonLabel": "[!!! Hïδè ƨúϱϱèƨƭïôñƨ !!!]",
+    "noSuggestionsMessage": "[!!! Nô ôƥƭïôñƨ !!!]",
+    "showSuggestionsButtonLabel": "[!!! §λôω ƨúϱϱèƨƭïôñƨ !!!]"
+  },
+  "multiSelect": {
+    "buttonLabelNoneSelected": "[!!! --Nôñè ƨèℓèçƭèδ-- !!!]"
+  },
+  "searchSelect": {
+    "addValueMessage": "[!!! Âδδ “{{value}}” !!!]",
+    "clearButtonLabel": "[!!! Çℓèář !!!]",
+    "hideSuggestionsButtonLabel": "[!!! Hïδè ƨúϱϱèƨƭïôñƨ !!!]",
+    "noSuggestionsMessage": "[!!! Nô ôƥƭïôñƨ !!!]",
+    "showSuggestionsButtonLabel": "[!!! §λôω ƨúϱϱèƨƭïôñƨ !!!]"
+  }
+}

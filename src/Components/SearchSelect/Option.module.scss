@@ -1,0 +1,11 @@
+@import "abstracts/variables";
+
+.listItem {
+  padding: $spacing-4;
+  user-select: none;
+}
+
+.listItemActive {
+  background-color: $blue;
+  color: $white;
+}

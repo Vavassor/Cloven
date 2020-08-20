@@ -1,0 +1,25 @@
+{
+  "dashboard": {
+    "snakeDance": "ecnad ekanS"
+  },
+  "generic": {
+    "ok": "KO"
+  },
+  "multiSearchSelect": {
+    "addValueMessage": "”}}eulav{{“ ddA",
+    "clearButtonLabel": "raelC",
+    "hideSuggestionsButtonLabel": "snoitseggus ediH",
+    "noSuggestionsMessage": "snoitpo oN",
+    "showSuggestionsButtonLabel": "snoitseggus wohS"
+  },
+  "multiSelect": {
+    "buttonLabelNoneSelected": "--detceles enoN--"
+  },
+  "searchSelect": {
+    "addValueMessage": "”}}eulav{{“ ddA",
+    "clearButtonLabel": "raelC",
+    "hideSuggestionsButtonLabel": "snoitseggus ediH",
+    "noSuggestionsMessage": "snoitpo oN",
+    "showSuggestionsButtonLabel": "snoitseggus wohS"
+  }
+}
