@@ -170,6 +170,9 @@ const App = () => {
               className={styles.formControl}
               inputId="games"
               label="Games"
+              labelProps={{
+                Component: "span",
+              }}
             >
               <Select options={getGameOptions(games)} />
             </FormControl>
@@ -187,6 +190,9 @@ const App = () => {
               className={styles.formControl}
               inputId="pizza-options"
               label="Pizza options"
+              labelProps={{
+                Component: "span",
+              }}
             >
               <MultiSelect options={getStringOptions(pizzaOptions)} />
             </FormControl>

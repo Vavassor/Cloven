@@ -3,7 +3,7 @@ import { Label, LabelProps } from "../Label";
 import styles from "./FormControl.module.scss";
 import { FormControlContext, FormControlState } from "./FormControlContext";
 
-interface FormControlProps {
+export interface FormControlProps {
   className?: string;
   error?: string;
   help?: string;

@@ -1,4 +1,10 @@
-import React, { ChangeEventHandler, forwardRef, useContext, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  forwardRef,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 import { joinClassNames, joinIds } from "../../Utilities/Style";
 import { FormControlContext } from "../FormControl";
 import styles from "./TextField.module.scss";
@@ -7,20 +13,23 @@ type InputType = "password" | "search" | "text";
 
 export interface TextFieldProps {
   className?: string;
-  handleChange: ChangeEventHandler<HTMLInputElement>;
+  endInsert?: ReactNode;
+  handleChange?: ChangeEventHandler<HTMLInputElement>;
   hasError?: boolean;
   id?: string;
   isDisabled?: boolean;
   isRequired?: boolean;
   name?: string;
   placeholder?: string;
+  startInsert?: ReactNode;
   type?: InputType;
 }
 
-export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
   (
     {
       className,
+      endInsert,
       handleChange: handleChangeProp,
       hasError: hasErrorProp,
       id: idProp,
@@ -28,6 +37,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       isRequired: isRequiredProp,
       name,
       placeholder,
+      startInsert,
       type = "text",
     },
     ref
@@ -50,26 +60,29 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     };
 
     return (
-      <input
-        aria-describedby={joinIds(errorId, helpId)}
-        aria-invalid={hasError}
-        autoComplete="off"
-        className={joinClassNames(
-          styles.input,
-          hasError && styles.inputError,
-          className
-        )}
-        disabled={isDisabled}
-        id={id}
-        name={name}
-        onChange={handleChange}
-        required={isRequired ? true : undefined}
-        placeholder={placeholder}
-        ref={ref}
-        spellCheck={false}
-        type={type}
-        value={value}
-      />
+      <div className={styles.container} ref={ref}>
+        {startInsert}
+        <input
+          aria-describedby={joinIds(errorId, helpId)}
+          aria-invalid={hasError}
+          autoComplete="off"
+          className={joinClassNames(
+            styles.input,
+            hasError && styles.inputError,
+            className
+          )}
+          disabled={isDisabled}
+          id={id}
+          name={name}
+          onChange={handleChange}
+          required={isRequired ? true : undefined}
+          placeholder={placeholder}
+          spellCheck={false}
+          type={type}
+          value={value}
+        />
+        {endInsert}
+      </div>
     );
   }
 );

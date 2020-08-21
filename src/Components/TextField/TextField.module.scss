@@ -2,12 +2,22 @@
 
 $border-width: $border-width-1;
 
-.input {
+.container {
   @include focus-indicator-disappear($border-width);
+
+  border: $border-width solid $dark-grey-blue;
+  border-radius: $border-radius-4;
+  display: inline-flex;
+
+  &:focus-within {
+    @include focus-indicator-appear($border-width);
+  }
+}
+
+.input {
   @include font-body-regular;
   @include reset-input;
 
-  border: $border-width solid $dark-grey-blue;
   border-radius: $border-radius-4;
   padding: $spacing-4 $spacing-8;
 
@@ -16,8 +26,6 @@ $border-width: $border-width-1;
   }
 
   &:focus {
-    @include focus-indicator-appear($border-width);
-
     outline: none;
   }
 

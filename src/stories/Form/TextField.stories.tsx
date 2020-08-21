@@ -9,8 +9,8 @@ export default {
 
 const Template: Story<TextFieldProps> = (args) => <TextField {...args} />;
 
-export const Normal = Template.bind({});
+export const Unlabeled = Template.bind({});
 
-Normal.args = {
+Unlabeled.args = {
   name: "text-field",
 };
