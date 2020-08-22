@@ -1,0 +1,17 @@
+@import "abstracts/mixins";
+
+.button {
+  @include focus-indicator-disappear;
+  @include reset-button;
+
+  border-radius: $border-radius-pill;
+  height: 24px;
+  margin-inline-end: 4px;
+  width: 24px;
+
+  &:focus {
+    @include focus-indicator-appear;
+
+    outline: none;
+  }
+}

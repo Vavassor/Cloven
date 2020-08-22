@@ -5,12 +5,23 @@ $border-width: $border-width-1;
 .container {
   @include focus-indicator-disappear($border-width);
 
+  align-items: center;
+  background-color: $white;
   border: $border-width solid $dark-grey-blue;
   border-radius: $border-radius-4;
   display: inline-flex;
 
-  &:focus-within {
+  &Focused {
     @include focus-indicator-appear($border-width);
+  }
+
+  &Disabled {
+    background-color: $light-grey;
+  }
+
+  &Error {
+    background-color: $pink;
+    border-color: $red;
   }
 }
 
@@ -18,19 +29,11 @@ $border-width: $border-width-1;
   @include font-body-regular;
   @include reset-input;
 
+  background-color: transparent;
   border-radius: $border-radius-4;
   padding: $spacing-4 $spacing-8;
 
-  &:disabled {
-    background-color: $light-grey;
-  }
-
   &:focus {
     outline: none;
-  }
-
-  &Error {
-    background-color: $pink;
-    border-color: $red;
   }
 }

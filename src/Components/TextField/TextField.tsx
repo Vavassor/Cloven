@@ -42,6 +42,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
     },
     ref
   ) => {
+    const [isFocused, setIsFocused] = useState(false);
     const formControlState = useContext(FormControlContext);
     const [value, setValue] = useState("");
 
@@ -52,6 +53,10 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
     const isDisabled = isDisabledProp || formControlState.isDisabled;
     const isRequired = isRequiredProp || formControlState.isRequired;
 
+    const handleBlur = () => {
+      setIsFocused(false);
+    };
+
     const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
       setValue(event.currentTarget.value);
       if (handleChangeProp) {
@@ -59,22 +64,32 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
       }
     };
 
+    const handleFocus = () => {
+      setIsFocused(true);
+    };
+
     return (
-      <div className={styles.container} ref={ref}>
+      <div
+        className={joinClassNames(
+          styles.container,
+          isDisabled && styles.containerDisabled,
+          isFocused && styles.containerFocused,
+          hasError && styles.containerError
+        )}
+        ref={ref}
+      >
         {startInsert}
         <input
           aria-describedby={joinIds(errorId, helpId)}
           aria-invalid={hasError}
           autoComplete="off"
-          className={joinClassNames(
-            styles.input,
-            hasError && styles.inputError,
-            className
-          )}
+          className={joinClassNames(styles.input, className)}
           disabled={isDisabled}
           id={id}
           name={name}
+          onBlur={handleBlur}
           onChange={handleChange}
+          onFocus={handleFocus}
           required={isRequired ? true : undefined}
           placeholder={placeholder}
           spellCheck={false}

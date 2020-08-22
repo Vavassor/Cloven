@@ -9,7 +9,7 @@ export default {
 
 const Template: Story<RadioGroupProps> = (args) => <RadioGroup {...args} />;
 
-export const Normal = Template.bind({});
+const Normal = Template.bind({});
 
 Normal.args = {
   name: "radio-group",
@@ -19,3 +19,5 @@ Normal.args = {
     { label: "Pear", id: "pear", value: "pear" },
   ],
 };
+
+export { Normal };

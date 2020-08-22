@@ -15,6 +15,10 @@
   "multiSelect": {
     "buttonLabelNoneSelected": "--None selected--"
   },
+  "passwordField": {
+    "hideButtonLabel": "Hide password",
+    "showButtonLabel": "Show password"
+  },
   "searchSelect": {
     "addValueMessage": "Add “{{value}}”",
     "clearButtonLabel": "Clear",

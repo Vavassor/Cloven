@@ -19,8 +19,27 @@ $checkbox-width: 18px;
   border-color: $blue;
 }
 
+.input:disabled + .checkbox {
+  background-color: $dark-grey-blue;
+  border-color: $dark-grey-blue;
+}
+
+.input:disabled:not(:checked) + .checkbox {
+  background-color: $light-grey;
+}
+
 .input:focus + .checkbox {
   @include focus-indicator-appear($border-width);
+}
+
+.input:checked + .checkboxError {
+  background-color: $red;
+  border-color: $red;
+}
+
+.input + .checkboxError {
+  background-color: $pink;
+  border-color: $red;
 }
 
 .checkmark {
@@ -50,4 +69,12 @@ $checkbox-width: 18px;
 
 .label {
   padding: 0 $spacing-4;
+
+  &Error {
+    color: $red;
+  }
+}
+
+.input:disabled ~ .label {
+  color: $dark-grey;
 }

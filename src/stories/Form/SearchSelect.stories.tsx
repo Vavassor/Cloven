@@ -30,5 +30,6 @@ const Template: Story<SearchSelectProps> = (args) => <SearchSelect {...args} />;
 export const Normal = Template.bind({});
 
 Normal.args = {
+  idPrefix: "state",
   options: getStateArray(states),
 };

@@ -1,41 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import { ReactComponent as Checkmark } from "../../Assets/svg/checkmark.svg";
 import { joinClassNames } from "../../Utilities/Style";
 import styles from "./Checkbox.module.scss";
-import { CheckboxOption } from "./CheckboxGroup";
 
-interface CheckboxProps {
+export interface CheckboxProps {
   className?: string;
-  handleChange?: (option: CheckboxOption, isChecked: boolean) => void;
-  isGroupDisabled?: boolean;
+  handleChange?: (newIsChecked: boolean) => void;
+  hasError?: boolean;
+  id?: string;
+  isChecked: boolean;
+  isDisabled?: boolean;
+  isRequired?: boolean;
+  label: string;
   name: string;
-  option: CheckboxOption;
+  value: string;
 }
 
 export const Checkbox = ({
   className,
   handleChange,
-  isGroupDisabled,
+  hasError,
+  id,
+  isChecked,
+  isDisabled,
+  isRequired,
+  label,
   name,
-  option,
+  value,
 }: CheckboxProps) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const { id, isDisabled, isRequired, label, value } = option;
-
   const handleClick = () => {
-    const newIsChecked = !isChecked;
     if (handleChange) {
-      handleChange(option, newIsChecked);
+      handleChange(!isChecked);
     }
-    setIsChecked(newIsChecked);
   };
 
   return (
     <div className={joinClassNames(styles.container, className)}>
       <input
+        aria-invalid={hasError ? "true" : undefined}
         checked={isChecked}
         className={styles.input}
-        disabled={isGroupDisabled || isDisabled}
+        disabled={isDisabled}
         id={id}
         onClick={handleClick}
         name={name}
@@ -43,13 +48,22 @@ export const Checkbox = ({
         type="checkbox"
         value={value}
       />
-      <span className={styles.checkbox}>
+      <span
+        className={joinClassNames(
+          styles.checkbox,
+          hasError && styles.checkboxError
+        )}
+      >
         {isChecked && (
           <Checkmark className={styles.checkmark} viewBox="2 2 20 20" />
         )}
       </span>
-      <label className={styles.label} htmlFor={id}>
+      <label
+        className={joinClassNames(styles.label, hasError && styles.labelError)}
+        htmlFor={id}
+      >
         {label}
+        {isRequired && <span aria-hidden="true">&thinsp;*</span>}
       </label>
     </div>
   );
