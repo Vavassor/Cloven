@@ -23,6 +23,7 @@ export interface TextFieldProps {
   placeholder?: string;
   startInsert?: ReactNode;
   type?: InputType;
+  value?: string;
 }
 
 export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
@@ -30,7 +31,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
     {
       className,
       endInsert,
-      handleChange: handleChangeProp,
+      handleChange,
       hasError: hasErrorProp,
       id: idProp,
       isDisabled: isDisabledProp,
@@ -39,13 +40,12 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
       placeholder,
       startInsert,
       type = "text",
+      value,
     },
     ref
   ) => {
     const [isFocused, setIsFocused] = useState(false);
     const formControlState = useContext(FormControlContext);
-    const [value, setValue] = useState("");
-
     const errorId = formControlState.errorId;
     const helpId = formControlState.helpId;
     const hasError = hasErrorProp || formControlState.hasError;
@@ -55,13 +55,6 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
 
     const handleBlur = () => {
       setIsFocused(false);
-    };
-
-    const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-      setValue(event.currentTarget.value);
-      if (handleChangeProp) {
-        handleChangeProp(event);
-      }
     };
 
     const handleFocus = () => {

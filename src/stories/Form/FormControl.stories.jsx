@@ -1,17 +1,16 @@
-import { Meta, Story } from "@storybook/react/types-6-0";
 import React from "react";
-import { FormControl, FormControlProps } from "../../Components/FormControl";
+import { FormControl } from "../../Components/FormControl";
 import { Normal as UnlabeledRadioGroup } from "./RadioGroup.stories";
 import { Unlabeled as UnlabeledTextField } from "./TextField.stories";
 
 export default {
   title: "Form/FormControl",
   component: FormControl,
-} as Meta;
+};
 
-const RadioGroupTemplate: Story<FormControlProps> = (args) => (
+const RadioGroupTemplate = (args) => (
   <FormControl {...args}>
-    <UnlabeledRadioGroup name="" options={[]} {...UnlabeledRadioGroup.args} />
+    <UnlabeledRadioGroup {...UnlabeledRadioGroup.args} />
   </FormControl>
 );
 
@@ -22,7 +21,7 @@ RadioGroup.args = {
   label: "Fruit",
 };
 
-const TextFieldTemplate: Story<FormControlProps> = (args) => (
+const TextFieldTemplate = (args) => (
   <FormControl {...args}>
     <UnlabeledTextField {...UnlabeledTextField.args} />
   </FormControl>

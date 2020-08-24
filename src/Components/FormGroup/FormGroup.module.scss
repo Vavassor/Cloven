@@ -1,0 +1,15 @@
+@import "abstracts/mixins";
+
+.fieldset {
+  @include reset-fieldset;
+
+  &:not(:last-child) {
+    border-bottom: $border-width-1 solid $black;
+  }
+}
+
+.legend {
+  @include reset-legend;
+
+  margin-bottom: $spacing-16;
+}
