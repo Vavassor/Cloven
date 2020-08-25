@@ -11,19 +11,45 @@ export default {
 
 const Template = (args) => (
   <FormGroup {...args}>
-    <FormControl className="mb-8" inputId="line1" label="Address Line 1">
+    <FormControl
+      className="gap-y-16"
+      help="Street address, P.O. box, company name, c/o"
+      inputId="addressLine1"
+      isRequired={true}
+      label="Address Line 1"
+    >
       <TextField />
     </FormControl>
-    <FormControl className="mb-8" inputId="line2" label="Address Line 2">
+    <FormControl
+      className="gap-y-16"
+      help="Apartment, suite, unit, building, floor, etc."
+      inputId="addressLine2"
+      label="Address Line 2"
+    >
       <TextField />
     </FormControl>
-    <FormControl className="mb-8" inputId="city" label="City">
+    <FormControl
+      className="gap-y-16"
+      inputId="city"
+      isRequired={true}
+      label="City"
+    >
       <TextField />
     </FormControl>
-    <FormControl className="mb-8" inputId="state" label="State">
+    <FormControl
+      className="gap-y-16"
+      inputId="state"
+      isRequired={true}
+      label="State"
+    >
       <StateSearchSelect {...StateSearchSelect.args} />
     </FormControl>
-    <FormControl inputId="zipCode" label="ZIP Code">
+    <FormControl
+      className="gap-y-16"
+      inputId="zipCode"
+      isRequired={true}
+      label="ZIP Code"
+    >
       <TextField />
     </FormControl>
   </FormGroup>

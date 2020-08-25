@@ -18,7 +18,7 @@ const Wrapper: React.FC<{}> = ({ children }) => {
   useEffect(() => {
     const { documentElement } = document;
     documentElement.dir =
-      layoutDirection === LayoutDirection.LTR ? "ltr" : "rtl";
+      layoutDirection === LayoutDirection.RTL ? "rtl" : "ltr";
   }, [layoutDirection]);
 
   return <>{children}</>;

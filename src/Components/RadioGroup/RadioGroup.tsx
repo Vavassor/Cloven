@@ -54,11 +54,13 @@ export const RadioGroup = ({
     >
       {options.map((option) => (
         <RadioButton
+          className="gap-x-16"
           handleChangeSelection={setSelectedOption}
           isChecked={option.id === selectedOption.id}
           isGroupDisabled={isDisabled}
-          option={option}
+          key={option.id}
           name={name}
+          option={option}
         />
       ))}
     </div>

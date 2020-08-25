@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import styles from "./App.module.scss";
 import countries from "./Assets/countries.json";
 import states from "./Assets/states.json";
-import { CheckboxGroup } from "./Components/CheckboxGroup";
 import { Dialog } from "./Components/Dialog/Dialog";
 import { FormControl } from "./Components/FormControl";
 import { Link } from "./Components/Link";
@@ -241,25 +240,6 @@ const App = () => {
                   { id: "veggie", label: "Veggie", value: "veggie" },
                   { id: "cheese", label: "Cheese", value: "cheese" },
                   { id: "ham", label: "Ham", value: "ham" },
-                ]}
-              />
-            </FormControl>
-            <FormControl
-              className={styles.formControl}
-              error="Please don't select anything."
-              help="Select all that apply."
-              inputId="fruit"
-              label="Fruit"
-              labelProps={{
-                Component: "span",
-              }}
-            >
-              <CheckboxGroup
-                name="fruit"
-                options={[
-                  { id: "apple", label: "Apple", value: "apple" },
-                  { id: "pear", label: "Pear", value: "pear" },
-                  { id: "orange", label: "Orange", value: "orange" },
                 ]}
               />
             </FormControl>

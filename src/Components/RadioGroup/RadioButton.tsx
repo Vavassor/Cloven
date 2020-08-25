@@ -1,7 +1,10 @@
 import React from "react";
+import { joinClassNames } from "../../Utilities/Style";
+import styles from "./RadioButton.module.scss";
 import { RadioOption } from "./RadioGroup";
 
 interface RadioButtonProps {
+  className?: string;
   handleChangeSelection: (option: RadioOption) => void;
   isChecked: boolean;
   isGroupDisabled?: boolean;
@@ -10,6 +13,7 @@ interface RadioButtonProps {
 }
 
 export const RadioButton = ({
+  className,
   handleChangeSelection,
   isChecked,
   isGroupDisabled,
@@ -23,7 +27,7 @@ export const RadioButton = ({
   };
 
   return (
-    <>
+    <div className={joinClassNames(styles.button, className)}>
       <input
         checked={isChecked}
         disabled={isGroupDisabled || isDisabled}
@@ -34,6 +38,6 @@ export const RadioButton = ({
         value={value}
       />
       <label htmlFor={id}>{label}</label>
-    </>
+    </div>
   );
 };

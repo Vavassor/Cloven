@@ -30,7 +30,7 @@
   border: $border-width-1 solid $dark-grey-blue;
   border-radius: $border-radius-4;
   display: inline-flex;
-  padding: $spacing-8;
+  padding: $spacing-4 $spacing-8;
 
   &Error {
     background-color: $pink;
