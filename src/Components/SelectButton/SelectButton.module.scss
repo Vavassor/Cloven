@@ -1,12 +1,17 @@
 @import "abstracts/mixins";
 
+$border-width: $border-width-1;
+
 .button {
   @include body-regular;
   @include reset-button;
-  @include focus-indicator-disappear;
+  @include focus-indicator-disappear($border-width);
+
   align-items: center;
-  background-color: $light-grey;
+  background-color: $background;
+  border: $border-width solid $on-background;
   border-radius: $spacing-4;
+  color: $on-background;
   display: inline-flex;
   padding-block-end: $spacing-4;
   padding-block-start: $spacing-4;
@@ -15,19 +20,20 @@
 }
 
 .button:focus {
-  @include focus-indicator-appear;
+  @include focus-indicator-appear($border-width);
+
   outline: none;
 }
 
 .button:hover {
-  background-color: $medium-grey;
+  background-color: $on-background-hover;
 }
 
 .buttonPopoverOpen {
 }
 
 .endAdornment {
-  fill: $black;
+  fill: $on-background;
   height: $body-height;
   margin-inline-start: $spacing-4;
   width: $body-height;

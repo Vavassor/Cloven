@@ -1,24 +1,32 @@
 @import "abstracts/variables";
 
 .checkbox {
-  background-color: $white;
+  background-color: $on-primary;
   border-radius: $border-radius-4;
   height: $font-size-body;
   width: $font-size-body;
 }
 
+.checkboxActiveUnchecked {
+  border-color: $on-surface;
+}
+
 .checkboxChecked {
-  background-color: $blue;
+  background-color: $primary;
 }
 
 .checkboxUnchecked {
-  border-color: $dark-grey-blue;
+  background-color: inherit;
   border-style: solid;
   border-width: $border-width-1;
 }
 
+.checkboxInactiveUnchecked {
+  border-color: $on-surface-low;
+}
+
 .checkmark {
   height: 100%;
-  fill: $white;
+  fill: $on-primary;
   width: 100%;
 }

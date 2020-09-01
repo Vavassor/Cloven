@@ -7,7 +7,7 @@ $checkbox-width: 18px;
 .input + .checkbox {
   @include focus-indicator-disappear($border-width);
 
-  border: $border-width solid $black;
+  border: $border-width solid $on-background;
   border-radius: $border-radius-4;
   display: inline-block;
   height: $checkbox-height;
@@ -15,17 +15,17 @@ $checkbox-width: 18px;
 }
 
 .input:checked + .checkbox {
-  background-color: $blue;
-  border-color: $blue;
+  background-color: $primary;
+  border-color: $primary;
 }
 
 .input:disabled + .checkbox {
-  background-color: $dark-grey-blue;
-  border-color: $dark-grey-blue;
+  background-color: $on-disabled;
+  border-color: $on-disabled;
 }
 
 .input:disabled:not(:checked) + .checkbox {
-  background-color: $light-grey;
+  background-color: $disabled;
 }
 
 .input:focus + .checkbox {
@@ -33,17 +33,17 @@ $checkbox-width: 18px;
 }
 
 .input:checked + .checkboxError {
-  background-color: $red;
-  border-color: $red;
+  background-color: $negative;
+  border-color: $negative;
 }
 
 .input + .checkboxError {
-  background-color: $pink;
-  border-color: $red;
+  background-color: $error;
+  border-color: $on-error;
 }
 
 .checkmark {
-  fill: $white;
+  fill: $on-primary;
   height: 100%;
   width: 100%;
 }
@@ -71,10 +71,10 @@ $checkbox-width: 18px;
   padding: 0 $spacing-4;
 
   &Error {
-    color: $red;
+    color: $negative;
   }
 }
 
 .input:disabled ~ .label {
-  color: $dark-grey;
+  color: $on-background-disabled;
 }

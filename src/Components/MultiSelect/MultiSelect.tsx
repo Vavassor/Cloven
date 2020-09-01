@@ -15,6 +15,7 @@ import { FormControlContext } from "../FormControl";
 import { MultiSelectList, Option } from "../MultiSelectList";
 import { Popper } from "../Popper";
 import { SelectButton, SelectButtonProps } from "../SelectButton";
+import styles from "./MultiSelect.module.scss";
 
 type RenderSelection = (selectedOptions: Option[]) => ReactNode;
 
@@ -97,6 +98,7 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
           shouldUseAltBoundary={false}
         >
           <MultiSelectList
+            className={styles.list}
             handleBlur={handleClose}
             handleKeyDown={handleKeyDown}
             handleSelectionChange={setSelectedOptions}

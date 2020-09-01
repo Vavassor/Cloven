@@ -10,7 +10,31 @@ $red: var(--red);
 $white: var(--white);
 $yellow: var(--yellow);
 
-$drop-shadow-color: rgba(0, 0, 0, 0.5);
+$drop-shadow-color: var(--drop-shadow-color);
+
+/* Color by use */
+
+$background: var(--background);
+$color-focus: var(--focus);
+$disabled: var(--disabled);
+$error: var(--error);
+$negative: var(--negative);
+$primary: $blue;
+$selected: var(--selected);
+$structure: var(--structure);
+$surface: var(--surface);
+$on-background: var(--on-background);
+$on-background-disabled: var(--on-background-disabled);
+$on-background-hover: var(--on-background-hover);
+$on-background-low: var(--on-background-low);
+$on-disabled: var(--on-disabled);
+$on-error: var(--on-error);
+$on-primary: var(--on-primary);
+$on-selected: var(--on-selected);
+$on-structure: var(--on-structure);
+$on-structure-hover: var(--on-structure-hover);
+$on-surface: var(--on-surface);
+$on-surface-low: var(--on-surface-low);
 
 /* Animation */
 $focus-indicator-appear-duration: 130ms;

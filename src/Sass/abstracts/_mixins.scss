@@ -13,9 +13,9 @@
 }
 
 @mixin focus-indicator-appear($border-width: 0) {
-  box-shadow: 0 0 0 ($border-width-2 - $border-width) $blue;
+  box-shadow: 0 0 0 ($border-width-2 - $border-width) $color-focus;
   @if $border-width != 0 {
-    border-color: $blue;
+    border-color: $color-focus;
   }
 }
 

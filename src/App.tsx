@@ -1,4 +1,11 @@
-import React, { ChangeEventHandler, useReducer, useRef, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  PropsWithChildren,
+  useContext,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./App.module.scss";
 import countries from "./Assets/countries.json";
@@ -13,20 +20,26 @@ import { SearchSelect } from "./Components/SearchSelect";
 import { MultiSearchSelect } from "./Components/SearchSelect/MultiSearchSelect";
 import { Select } from "./Components/Select";
 import { Option } from "./Components/SelectList";
+import { Switch } from "./Components/Switch";
 import { TextField } from "./Components/TextField";
 import {
   initialThemeState,
   ThemeContext,
   themeReducer,
 } from "./Contexts/ThemeContext";
-import { ThemeDispatch } from "./Contexts/ThemeDispatch";
+import { setTheme, ThemeDispatch } from "./Contexts/ThemeDispatch";
 import { useLocaleSetup } from "./Utilities/Hooks/useLocaleSetup";
+import { useThemeSetup } from "./Utilities/Hooks/useThemeSetup";
 import { toKebabCase } from "./Utilities/String";
 import { StyledDiv, StyledMain } from "./Utilities/StyleWrappers";
 
 const Main = StyledMain(styles.main);
 const Menu = StyledDiv(styles.menu);
-const AppContainer = StyledDiv(styles.app);
+
+const AppContainer = ({ children }: PropsWithChildren<{}>) => {
+  useThemeSetup();
+  return <div className={styles.app}>{children}</div>;
+};
 
 interface Country {
   abbreviation: string;
@@ -102,6 +115,24 @@ const pizzaOptions = [
   "Well done",
 ];
 
+const DarkModeSwitch = () => {
+  const [isPressed, setIsPressed] = useState(false);
+  const dispatch = useContext(ThemeDispatch);
+
+  const handleChange = (newIsPressed: boolean) => {
+    setIsPressed(newIsPressed);
+    dispatch(setTheme(newIsPressed ? "DARK" : "LIGHT"));
+  };
+
+  return (
+    <Switch
+      handleChange={handleChange}
+      isPressed={isPressed}
+      label="Dark Mode"
+    />
+  );
+};
+
 const renderWows = () => {
   const wow = [];
   for (let i = 0; i < 25; i++) {
@@ -165,6 +196,7 @@ const App = () => {
               </Menu>
             </Popover>
             <DialogSample />
+            <DarkModeSwitch />
             <FormControl
               className={styles.formControl}
               inputId="games"

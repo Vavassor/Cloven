@@ -19,6 +19,18 @@ export const globalTypes = {
       ],
     },
   },
+  themeType: {
+    name: "Theme Type",
+    description: "Theme type",
+    defaultValue: "LIGHT",
+    toolbar: {
+      icon: "circle",
+      items: [
+        { title: "Dark", value: "DARK" },
+        { title: "Light", value: "LIGHT" },
+      ],
+    },
+  },
 };
 
 export const parameters = {

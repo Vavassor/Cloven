@@ -4,9 +4,17 @@
   list-style: none;
   padding: $spacing-8 $spacing-16;
   user-select: none;
+
+  &:hover {
+    background-color: $on-structure-hover;
+  }
 }
 
 .optionSelected {
-  background-color: $blue;
-  color: $white;
+  background-color: $selected;
+  color: $on-selected;
+
+  &:hover {
+    background-color: $selected;
+  }
 }

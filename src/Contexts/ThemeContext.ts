@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { LayoutDirection, Theme } from "../Types/Theme";
+import { LayoutDirection, Theme, ThemeType } from "../Types/Theme";
 
 export interface ThemeState {
   theme: Theme;
@@ -10,10 +10,16 @@ export interface LayoutDirectionAction {
   type: "LAYOUT_DIRECTION";
 }
 
-export type ThemeAction = LayoutDirectionAction;
+export interface ThemeChangeAction {
+  theme: ThemeType;
+  type: "THEME_CHANGE";
+}
+
+export type ThemeAction = LayoutDirectionAction | ThemeChangeAction;
 
 const theme: Theme = {
   layoutDirection: LayoutDirection.LTR,
+  type: "LIGHT",
 };
 
 export const initialThemeState: ThemeState = {
@@ -35,9 +41,13 @@ export const themeReducer = (
           layoutDirection: action.layoutDirection,
         },
       };
-    default:
-      throw new Error(
-        `Invalid 'ThemeAction' dispatched with type ${action.type}.`
-      );
+    case "THEME_CHANGE":
+      return {
+        ...state,
+        theme: {
+          ...state.theme,
+          type: action.theme,
+        },
+      };
   }
 };

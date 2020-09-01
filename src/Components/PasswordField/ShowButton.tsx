@@ -28,7 +28,11 @@ export const ShowButton = ({
       onClick={handleClick}
       type="button"
     >
-      {isShowing ? <VisiblilityOff /> : <Visiblility />}
+      {isShowing ? (
+        <VisiblilityOff className={styles.icon} />
+      ) : (
+        <Visiblility className={styles.icon} />
+      )}
     </button>
   );
 };

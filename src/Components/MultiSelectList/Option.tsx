@@ -64,7 +64,11 @@ export const Option = forwardRef<HTMLLIElement, OptionProps>(
         role="option"
         ref={ref}
       >
-        <StartAdornment isChecked={isSelected} {...startAdornmentProps} />
+        <StartAdornment
+          isActive={isActive}
+          isChecked={isSelected}
+          {...startAdornmentProps}
+        />
         {label}
       </li>
     );

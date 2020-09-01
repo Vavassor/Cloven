@@ -1,12 +1,17 @@
 import { Story, StoryContext } from "@storybook/react/types-6-0";
 import React, { useContext, useEffect } from "react";
 import { ThemeContext, ThemeState } from "../../Contexts/ThemeContext";
-import { LayoutDirection } from "../../Types/Theme";
+import { LayoutDirection, ThemeType } from "../../Types/Theme";
+import { useThemeSetup } from "../../Utilities/Hooks/useThemeSetup";
 
-const getThemeState = (layoutDirection: LayoutDirection): ThemeState => {
+const getThemeState = (
+  layoutDirection: LayoutDirection,
+  type: ThemeType
+): ThemeState => {
   return {
     theme: {
       layoutDirection,
+      type,
     },
   };
 };
@@ -14,6 +19,7 @@ const getThemeState = (layoutDirection: LayoutDirection): ThemeState => {
 const Wrapper: React.FC<{}> = ({ children }) => {
   const { theme } = useContext(ThemeContext);
   const { layoutDirection } = theme;
+  useThemeSetup();
 
   useEffect(() => {
     const { documentElement } = document;
@@ -25,7 +31,10 @@ const Wrapper: React.FC<{}> = ({ children }) => {
 };
 
 export function withThemeProvider(Story: Story, context: StoryContext) {
-  const themeState = getThemeState(context.globals.layoutDirection);
+  const themeState = getThemeState(
+    context.globals.layoutDirection,
+    context.globals.themeType
+  );
   return (
     <ThemeContext.Provider value={themeState}>
       <Wrapper>

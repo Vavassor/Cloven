@@ -8,7 +8,7 @@
   &:active,
   &:link,
   &:visited {
-    color: $blue;
+    color: $primary;
     text-decoration: underline;
   }
 
@@ -19,7 +19,7 @@
 
   &:focus,
   &:hover {
-    color: $dark-grey-blue;
+    color: $on-background-hover;
   }
 
   &:lang(ar) {

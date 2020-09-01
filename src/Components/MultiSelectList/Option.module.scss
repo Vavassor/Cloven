@@ -2,7 +2,7 @@
 
 .option {
   align-items: center;
-  color: $dark-grey;
+  color: $on-surface-low;
   display: flex;
   list-style: none;
   padding-inline-end: $spacing-8;
@@ -13,12 +13,12 @@
 }
 
 .optionActive {
-  background-color: $medium-grey;
-  color: $black;
+  background-color: $structure;
+  color: $on-structure;
 }
 
 .optionSelected {
-  color: $black;
+  color: $on-structure;
 }
 
 .startAdornment {

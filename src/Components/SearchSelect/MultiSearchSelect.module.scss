@@ -5,6 +5,7 @@
   @include reset-input;
 
   background-color: transparent;
+  color: $on-background;
 
   &:focus {
     outline: none;

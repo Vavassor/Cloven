@@ -1,13 +1,13 @@
 @import "abstracts/variables";
 
 .error {
-  color: $red;
+  color: $negative;
   font-size: $font-size-small;
   margin-block-start: $spacing-4;
 }
 
 .help {
-  color: $dark-grey-blue;
+  color: $on-background-low;
   display: block;
   font-size: $font-size-small;
   margin-block-start: $spacing-4;

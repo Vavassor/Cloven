@@ -5,6 +5,9 @@ export enum LayoutDirection {
   RTL,
 }
 
+export type ThemeType = "DARK" | "LIGHT";
+
 export interface Theme {
   layoutDirection: LayoutDirection;
+  type: ThemeType;
 }
