@@ -67,7 +67,8 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
           styles.container,
           isDisabled && styles.containerDisabled,
           isFocused && styles.containerFocused,
-          hasError && styles.containerError
+          hasError && styles.containerError,
+          hasError && !isFocused && styles.containerErrorBlurred
         )}
         ref={ref}
       >

@@ -2,7 +2,7 @@
 
 .option {
   align-items: center;
-  color: $on-surface-low;
+  color: $on-structure-low;
   display: flex;
   list-style: none;
   padding-inline-end: $spacing-8;
@@ -13,7 +13,7 @@
 }
 
 .optionActive {
-  background-color: $structure;
+  background-color: $structure-active;
   color: $on-structure;
 }
 

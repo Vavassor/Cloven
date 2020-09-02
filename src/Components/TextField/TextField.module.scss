@@ -6,7 +6,7 @@ $border-width: $border-width-1;
   @include focus-indicator-disappear($border-width);
 
   align-items: center;
-  background-color: $surface;
+  background-color: $background;
   border: $border-width solid $on-background-low;
   border-radius: $border-radius-4;
   display: inline-flex;
@@ -16,11 +16,15 @@ $border-width: $border-width-1;
   }
 
   &Disabled {
-    background-color: $light-grey;
+    background-color: $disabled;
+    color: $on-disabled;
   }
 
   &Error {
     background-color: $error;
+  }
+
+  &ErrorBlurred {
     border-color: $on-error;
   }
 }
@@ -31,7 +35,7 @@ $border-width: $border-width-1;
 
   background-color: transparent;
   border-radius: $border-radius-4;
-  color: $on-surface;
+  color: $on-background;
   padding: $spacing-4 $spacing-8;
 
   &:focus {

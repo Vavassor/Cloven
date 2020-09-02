@@ -22,6 +22,8 @@ $negative: var(--negative);
 $primary: $blue;
 $selected: var(--selected);
 $structure: var(--structure);
+$structure-active: var(--structure-active);
+$structure-hover: var(--structure-hover);
 $surface: var(--surface);
 $on-background: var(--on-background);
 $on-background-disabled: var(--on-background-disabled);
@@ -32,7 +34,7 @@ $on-error: var(--on-error);
 $on-primary: var(--on-primary);
 $on-selected: var(--on-selected);
 $on-structure: var(--on-structure);
-$on-structure-hover: var(--on-structure-hover);
+$on-structure-low: var(--on-structure-low);
 $on-surface: var(--on-surface);
 $on-surface-low: var(--on-surface-low);
 

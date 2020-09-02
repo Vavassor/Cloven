@@ -106,6 +106,7 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
             options={options}
             selectedOptions={selectedOptions}
             shouldAutofocus={true}
+            shouldShowFocus={false}
             ref={list}
           />
         </Popper>

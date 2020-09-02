@@ -20,6 +20,8 @@
   --negative: #c8102e;
   --selected: #0172ce;
   --structure: #666666;
+  --structure-active: #a49797;
+  --structure-hover: #818282;
   --surface: #272828;
   --on-background: #dedede;
   --on-background-disabled: #666666;
@@ -33,7 +35,7 @@
   --on-surface: #ffffff;
   --on-surface-low: #7f8595;
   --on-structure: #ffffff;
-  --on-structure-hover: #818282;
+  --on-structure-low: #bfc7d2;
 }
 
 :root[data-theme-type="LIGHT"] {
@@ -45,6 +47,8 @@
   --negative: #c8102e;
   --selected: #0172ce;
   --structure: #ffffff;
+  --structure-active: #d1e9ec;
+  --structure-hover: #e2f3fd;
   --surface: #ffffff;
   --on-background: #000000;
   --on-background-disabled: #666666;
@@ -58,5 +62,5 @@
   --on-surface: #000000;
   --on-surface-low: #7f8595;
   --on-structure: #000000;
-  --on-structure-hover: #e2f3fd;
+  --on-structure-low: #7f8595;
 }

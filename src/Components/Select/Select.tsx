@@ -109,6 +109,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
             options={options}
             ref={list}
             selectedOption={selectedOption}
+            shouldShowFocus={false}
           />
         </Popper>
       </>

@@ -18,6 +18,7 @@ const SEARCH_DURATION_IN_MILLISECONDS = 500;
 
 export interface SelectListClassNames {
   selectList: string;
+  selectListShowFocus: string;
 }
 
 export interface SelectListProps {
@@ -34,6 +35,7 @@ export interface SelectListProps {
   optionClassNames?: OptionClassNames;
   options: OptionContent[];
   selectedOption: OptionContent;
+  shouldShowFocus?: boolean;
 }
 
 export interface OptionContent {
@@ -49,6 +51,7 @@ interface Search {
 
 const defaultClassNames: SelectListClassNames = {
   selectList: styles.selectList,
+  selectListShowFocus: styles.selectListShowFocus,
 };
 
 const findMatchInRange = (
@@ -80,6 +83,7 @@ export const SelectList = forwardRef<HTMLUListElement, SelectListProps>(
       optionClassNames,
       options,
       selectedOption,
+      shouldShowFocus = true,
     },
     ref
   ) {
@@ -211,7 +215,11 @@ export const SelectList = forwardRef<HTMLUListElement, SelectListProps>(
       <ul
         aria-activedescendant={selectedOption.id}
         aria-labelledby={labelId}
-        className={joinClassNames(classNames.selectList, className)}
+        className={joinClassNames(
+          classNames.selectList,
+          shouldShowFocus && classNames.selectListShowFocus,
+          className
+        )}
         onBlur={handleBlur}
         onFocus={handleFocus}
         onKeyDown={localHandleKeyDown}

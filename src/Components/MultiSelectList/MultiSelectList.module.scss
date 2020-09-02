@@ -1,4 +1,4 @@
-@import "abstracts/variables";
+@import "abstracts/mixins";
 
 .selectList {
   background-color: $structure;
@@ -6,4 +6,16 @@
   max-height: 100vh;
   overflow-y: auto;
   padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &ShowFocus {
+    @include focus-indicator-disappear;
+
+    &:focus {
+      @include focus-indicator-appear;
+    }
+  }
 }

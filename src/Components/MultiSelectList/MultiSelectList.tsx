@@ -22,6 +22,7 @@ export interface OptionContent {
 
 export interface MultiSelectListClassNames {
   selectList: string;
+  selectListShowFocus: string;
 }
 
 export interface MultiSelectListProps {
@@ -35,11 +36,13 @@ export interface MultiSelectListProps {
   options: OptionContent[];
   selectedOptions: OptionContent[];
   shouldAutofocus?: boolean;
+  shouldShowFocus?: boolean;
   tabIndex?: number;
 }
 
 const defaultClassNames: MultiSelectListClassNames = {
   selectList: styles.selectList,
+  selectListShowFocus: styles.selectListShowFocus,
 };
 
 const addInSortedOrder = (
@@ -79,6 +82,7 @@ export const MultiSelectList = forwardRef<
       options,
       selectedOptions,
       shouldAutofocus,
+      shouldShowFocus = true,
       tabIndex = 0,
     },
     ref
@@ -323,7 +327,11 @@ export const MultiSelectList = forwardRef<
         aria-activedescendant={activeDescendantId}
         aria-labelledby={labelId}
         aria-multiselectable={true}
-        className={joinClassNames(classNames.selectList, className)}
+        className={joinClassNames(
+          classNames.selectList,
+          shouldShowFocus && classNames.selectListShowFocus,
+          className
+        )}
         onBlur={localHandleBlur}
         onFocus={handleFocus}
         onKeyDown={localHandleKeyDown}
