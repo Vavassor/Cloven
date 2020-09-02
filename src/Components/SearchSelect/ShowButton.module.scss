@@ -8,6 +8,7 @@
 
 .showButton {
   @include reset-button;
+  
   border-radius: 999px;
   display: inline-flex;
   margin-inline-start: $spacing-4;
@@ -18,5 +19,5 @@
 }
 
 .showButton:hover:not(:active) {
-  background-color: $light-grey;
+  background-color: $background-hover;
 }

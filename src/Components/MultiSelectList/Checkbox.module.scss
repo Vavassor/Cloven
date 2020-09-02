@@ -15,14 +15,14 @@
   background-color: $selected;
 }
 
+.checkboxInactiveUnchecked {
+  border-color: $on-structure-low;
+}
+
 .checkboxUnchecked {
   background-color: inherit;
   border-style: solid;
   border-width: $border-width-1;
-}
-
-.checkboxInactiveUnchecked {
-  border-color: $on-structure-low;
 }
 
 .checkmark {

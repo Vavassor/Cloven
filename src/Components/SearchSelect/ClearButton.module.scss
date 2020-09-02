@@ -2,6 +2,7 @@
 
 .clearButton {
   @include reset-button;
+
   border-radius: 999px;
   display: inline-flex;
 }
@@ -11,7 +12,7 @@
 }
 
 .clearButton:hover:not(:active) {
-  background-color: $light-grey;
+  background-color: $background-hover;
 }
 
 .icon {

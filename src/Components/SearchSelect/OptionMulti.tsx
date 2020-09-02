@@ -50,7 +50,11 @@ export const OptionMulti = forwardRef<HTMLLIElement, OptionMultiProps>(
         role="option"
         ref={ref}
       >
-        <StartAdornment isChecked={isSelected} {...startAdornmentProps} />
+        <StartAdornment
+          isActive={isActive}
+          isChecked={isSelected}
+          {...startAdornmentProps}
+        />
         {content.label}
       </li>
     );

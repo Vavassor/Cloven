@@ -15,7 +15,7 @@
 .list {
   @include reset-ul;
 
-  background-color: $white;
+  background-color: $structure;
   max-height: 40vh;
   overflow-y: auto;
 }
@@ -28,19 +28,17 @@
   @include focus-indicator-disappear($border-width-1);
 
   align-items: center;
-  border: $border-width-1 solid $dark-grey-blue;
+  border: $border-width-1 solid $on-structure-low;
   border-radius: $border-radius-4;
   display: inline-flex;
   padding: $spacing-4 $spacing-8;
 
   &Error {
-    background-color: $pink;
-    border-color: $red;
+    background-color: $error;
+    border-color: $on-error;
   }
 
   &Focused {
     @include focus-indicator-appear($border-width-1);
-
-    border-color: $blue;
   }
 }

@@ -2,7 +2,7 @@
 
 .option {
   align-items: center;
-  color: $dark-grey;
+  color: $on-structure-low;
   display: flex;
   list-style: none;
   padding-inline-end: $spacing-8;
@@ -12,12 +12,12 @@
   user-select: none;
 
   &Active {
-    background-color: $medium-grey;
-    color: $black;
+    background-color: $structure-active;
+    color: $on-structure;
   }
 
   &Selected {
-    color: $black;
+    color: $on-structure;
   }
 }
 

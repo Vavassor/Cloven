@@ -13,6 +13,7 @@
 
 :root[data-theme-type="DARK"] {
   --background: #121212;
+  --background-hover: #2d3d48;
   --disabled: #2f2f2f;
   --drop-shadow-color: transparent;
   --error: #5b2e2e;
@@ -25,7 +26,6 @@
   --surface: #272828;
   --on-background: #dedede;
   --on-background-disabled: #666666;
-  --on-background-hover: #2d3d48;
   --on-background-low: #7f8595;
   --on-disabled: #666666;
   --on-error: #c8102e;
@@ -40,6 +40,7 @@
 
 :root[data-theme-type="LIGHT"] {
   --background: #ffffff;
+  --background-hover: #e2f3fd;
   --disabled: #ffffff;
   --drop-shadow-color: rgba(0, 0, 0, 0.5);
   --error: #5b2e2e;
@@ -52,7 +53,6 @@
   --surface: #ffffff;
   --on-background: #000000;
   --on-background-disabled: #666666;
-  --on-background-hover: #e2f3fd;
   --on-background-low: #7f8595;
   --on-disabled: #666666;
   --on-error: #c8102e;

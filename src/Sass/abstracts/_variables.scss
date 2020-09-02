@@ -15,6 +15,7 @@ $drop-shadow-color: var(--drop-shadow-color);
 /* Color by use */
 
 $background: var(--background);
+$background-hover: var(--background-hover);
 $color-focus: var(--focus);
 $disabled: var(--disabled);
 $error: var(--error);
@@ -27,7 +28,6 @@ $structure-hover: var(--structure-hover);
 $surface: var(--surface);
 $on-background: var(--on-background);
 $on-background-disabled: var(--on-background-disabled);
-$on-background-hover: var(--on-background-hover);
 $on-background-low: var(--on-background-low);
 $on-disabled: var(--on-disabled);
 $on-error: var(--on-error);
