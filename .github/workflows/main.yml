@@ -13,10 +13,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+    
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
 
       - name: Install and Deploy
         run: |
-          npm install
-          npm run deploy-storybook -- --ci --out=build
+          yarn install
+          yarn deploy-storybook -- --ci --out=build
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
