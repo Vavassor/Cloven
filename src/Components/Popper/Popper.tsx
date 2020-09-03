@@ -21,8 +21,6 @@ import { LayoutDirection } from "../../Types/Theme";
 import { useMergeRef } from "../../Utilities/Hooks/useMergeRef";
 import styles from "./styles.module.scss";
 
-type EndHandlerWithNodeRef = (done: () => void) => void;
-
 type Placement =
   | "bottom"
   | "bottom-end"
@@ -55,9 +53,9 @@ interface PopperProps {
   placement?: Placement;
   shouldUseAltBoundary?: boolean;
   transitionClassNames?: CSSTransitionClassNames;
-  TransitionComponent?: ComponentType<CSSTransitionProps>;
+  TransitionComponent?: ComponentType<CSSTransitionProps<HTMLDivElement>>;
   transitionDuration?: number;
-  transitionProps?: Partial<CSSTransitionProps>;
+  transitionProps?: Partial<CSSTransitionProps<HTMLDivElement>>;
 }
 
 const getPlacement = (
@@ -267,7 +265,7 @@ export const Popper = forwardRef<
       theme.layoutDirection
     );
 
-    const addEndListener: EndHandlerWithNodeRef = (done) => {
+    const addEndListener: EndHandler<HTMLDivElement> = (done) => {
       const currentNode = transition.current;
       if (currentNode) {
         currentNode.addEventListener("transitionend", done, false);
@@ -299,7 +297,7 @@ export const Popper = forwardRef<
             {...attributes.popper}
           >
             <TransitionComponent
-              addEndListener={(addEndListener as unknown) as EndHandler}
+              addEndListener={addEndListener}
               appear
               classNames={transitionClassNames}
               in={isOpen}

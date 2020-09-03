@@ -15,7 +15,7 @@ import { EnterHandler } from "react-transition-group/Transition";
 import { debounce } from "../../Utilities/Debounce";
 import { getOwnerDocument, getOwnerWindow } from "../../Utilities/Owner";
 import { BackdropProps, Modal, ModalCloseEvent, ModalProps } from "../Modal";
-import { ModalTransition } from "../ModalTransition";
+import { ModalTransition, ModalTransitionProps } from "../ModalTransition";
 import { Backdrop } from "./Backdrop";
 import styles from "./Popover.module.scss";
 
@@ -65,9 +65,9 @@ export interface PopoverProps {
   isOpen: boolean;
   pivot?: HTMLElement | null;
   pivotPlacement?: Placement;
-  TransitionComponent?: ComponentType<CSSTransitionProps>;
+  TransitionComponent?: ComponentType<CSSTransitionProps<HTMLDivElement>>;
   transitionDuration?: number;
-  transitionProps?: Partial<CSSTransitionProps>;
+  transitionProps?: Partial<CSSTransitionProps<HTMLDivElement>>;
   windowMargin?: number;
 }
 
@@ -296,7 +296,7 @@ export const Popover = forwardRef<
     windowMargin,
   ]);
 
-  const handleEntering: EnterHandler = (element, isAppearing) => {
+  const handleEntering: EnterHandler<HTMLDivElement> = (isAppearing) => {
     updatePosition();
   };
 
@@ -337,7 +337,9 @@ export const Popover = forwardRef<
         classNames={classNames}
         onEntering={handleEntering}
         in={isOpen}
-        TransitionComponent={TransitionComponent}
+        TransitionComponent={
+          TransitionComponent as ModalTransitionProps["TransitionComponent"]
+        }
         transitionDuration={transitionDuration}
         transitionProps={transitionProps}
         windowMargin={windowMargin}

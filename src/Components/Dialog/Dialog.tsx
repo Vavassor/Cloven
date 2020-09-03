@@ -3,14 +3,14 @@ import React, {
   forwardRef,
   HTMLAttributes,
   MouseEventHandler,
-  PropsWithChildren,
+  PropsWithChildren
 } from "react";
 import CSSTransition, {
   CSSTransitionClassNames,
-  CSSTransitionProps,
+  CSSTransitionProps
 } from "react-transition-group/CSSTransition";
 import { Modal, ModalCloseEvent } from "../Modal";
-import { ModalTransition } from "../ModalTransition";
+import { ModalTransition, ModalTransitionProps } from "../ModalTransition";
 import styles from "./Dialog.module.scss";
 
 export interface DialogClassNames extends CSSTransitionClassNames {
@@ -26,9 +26,9 @@ export interface DialogProps {
   handleClose?: (event: ModalCloseEvent) => void;
   isOpen: boolean;
   labelId: string;
-  TransitionComponent?: ComponentType<CSSTransitionProps>;
+  TransitionComponent?: ComponentType<CSSTransitionProps<HTMLDivElement>>;
   transitionDuration?: number;
-  transitionProps?: Partial<CSSTransitionProps>;
+  transitionProps?: Partial<CSSTransitionProps<HTMLDivElement>>;
 }
 
 const defaultClassNames: DialogClassNames = {
@@ -84,7 +84,9 @@ export const Dialog = forwardRef<
         <ModalTransition
           classNames={classNames}
           in={isOpen}
-          TransitionComponent={TransitionComponent}
+          TransitionComponent={
+            TransitionComponent as ModalTransitionProps["TransitionComponent"]
+          }
           transitionDuration={transitionDuration}
           transitionProps={transitionProps}
         >
