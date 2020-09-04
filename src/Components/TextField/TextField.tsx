@@ -1,6 +1,9 @@
 import React, {
   ChangeEventHandler,
+  DetailedHTMLProps,
+  FocusEventHandler,
   forwardRef,
+  InputHTMLAttributes,
   ReactNode,
   useContext,
   useState,
@@ -14,12 +17,16 @@ type InputType = "password" | "search" | "text";
 export interface TextFieldProps {
   className?: string;
   endInsert?: ReactNode;
-  handleChange?: ChangeEventHandler<HTMLInputElement>;
   hasError?: boolean;
   id?: string;
+  inputProps?: DetailedHTMLProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >;
   isDisabled?: boolean;
   isRequired?: boolean;
   name?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   startInsert?: ReactNode;
   type?: InputType;
@@ -31,12 +38,13 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
     {
       className,
       endInsert,
-      handleChange,
       hasError: hasErrorProp,
       id: idProp,
+      inputProps = {},
       isDisabled: isDisabledProp,
       isRequired: isRequiredProp,
       name,
+      onChange,
       placeholder,
       startInsert,
       type = "text",
@@ -44,6 +52,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
     },
     ref
   ) => {
+    const { onBlur, ...otherProps } = inputProps;
     const [isFocused, setIsFocused] = useState(false);
     const formControlState = useContext(FormControlContext);
     const errorId = formControlState.errorId;
@@ -53,8 +62,11 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
     const isDisabled = isDisabledProp || formControlState.isDisabled;
     const isRequired = isRequiredProp || formControlState.isRequired;
 
-    const handleBlur = () => {
+    const handleBlur: FocusEventHandler<HTMLInputElement> = (event) => {
       setIsFocused(false);
+      if (onBlur) {
+        onBlur(event);
+      }
     };
 
     const handleFocus = () => {
@@ -82,13 +94,14 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
           id={id}
           name={name}
           onBlur={handleBlur}
-          onChange={handleChange}
+          onChange={onChange}
           onFocus={handleFocus}
           required={isRequired ? true : undefined}
           placeholder={placeholder}
           spellCheck={false}
           type={type}
           value={value}
+          {...otherProps}
         />
         {endInsert}
       </div>

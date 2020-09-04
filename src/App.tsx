@@ -1,5 +1,5 @@
+import { Field, FieldProps, Form, Formik, FormikProps } from "formik";
 import React, {
-  ChangeEventHandler,
   PropsWithChildren,
   useContext,
   useReducer,
@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
 import styles from "./App.module.scss";
 import countries from "./Assets/countries.json";
 import states from "./Assets/states.json";
@@ -150,7 +151,6 @@ const App = () => {
   const main = useRef<HTMLElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null);
-  const [name, setName] = useState("");
   useLocaleSetup(themeDispatch);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -161,10 +161,6 @@ const App = () => {
   const handleClose = () => {
     setAnchor(null);
     setIsOpen(false);
-  };
-
-  const handleChangeName: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setName(event.currentTarget.value);
   };
 
   const tagsLabelId = "tags-label";
@@ -250,15 +246,7 @@ const App = () => {
                 options={getCountryOptions(countries)}
               />
             </FormControl>
-            <FormControl
-              className={styles.formControl}
-              inputId="name"
-              isRequired={true}
-              help="suppose something is going on"
-              label="Name"
-            >
-              <TextField handleChange={handleChangeName} />
-            </FormControl>
+            <FormSample />
             <FormControl
               className={styles.formControl}
               inputId="burger"
@@ -314,6 +302,46 @@ const DialogSample = () => {
         <button type="submit">{t("generic.ok")}</button>
       </Dialog>
     </>
+  );
+};
+
+const SubmitButton = () => {
+  const { t } = useTranslation();
+  return <button type="submit">{t("generic.ok")}</button>;
+};
+
+const FormSample = () => {
+  return (
+    <Formik
+      initialValues={{ name: "" }}
+      onSubmit={(values, actions) => {
+        console.log(`submitted form: ${JSON.stringify(values, null, 2)}`);
+        actions.setSubmitting(false);
+      }}
+      validationSchema={Yup.object({
+        name: Yup.string().required("Please enter a name."),
+      })}
+    >
+      {(props: FormikProps<any>) => (
+        <Form noValidate>
+          <Field name="name">
+            {({ field, form, meta }: FieldProps<any>) => (
+              <FormControl
+                className={styles.formControl}
+                error={meta.touched ? meta.error : undefined}
+                inputId="name"
+                isRequired={true}
+                help="suppose something is going on"
+                label="Name"
+              >
+                <TextField inputProps={field} />
+              </FormControl>
+            )}
+          </Field>
+          <SubmitButton />
+        </Form>
+      )}
+    </Formik>
   );
 };
 
