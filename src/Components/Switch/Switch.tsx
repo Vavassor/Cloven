@@ -1,28 +1,49 @@
 import React, { forwardRef } from "react";
+import { joinClassNames } from "../../Utilities/Style";
+import styles from "./Switch.module.scss";
 
 export interface SwitchProps {
-  handleChange?: (isPressed: boolean) => void;
-  isPressed?: boolean;
+  handleChange?: (isChecked: boolean) => void;
+  idPrefix: string;
+  isChecked?: boolean;
+  isDisabled?: boolean;
   label: string;
 }
 
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ handleChange, isPressed = false, label }, ref) => {
+  ({ handleChange, idPrefix, isChecked = false, isDisabled, label }, ref) => {
+    const buttonId = `${idPrefix}-button`;
+
     const handleClick = () => {
       if (handleChange) {
-        handleChange(!isPressed);
+        handleChange(!isChecked);
       }
     };
 
     return (
-      <button
-        aria-pressed={isPressed}
-        onClick={handleClick}
-        ref={ref}
-        type="button"
-      >
-        {label}
-      </button>
+      <div className={styles.switch}>
+        <button
+          aria-checked={isChecked}
+          className={styles.button}
+          disabled={isDisabled}
+          id={buttonId}
+          onClick={handleClick}
+          ref={ref}
+          role="switch"
+          type="button"
+        >
+          <div className={styles.track}></div>
+          <div
+            className={joinClassNames(
+              styles.thumb,
+              isChecked && styles.thumbChecked
+            )}
+          ></div>
+        </button>
+        <label className={styles.label} htmlFor={buttonId}>
+          {label}
+        </label>
+      </div>
     );
   }
 );

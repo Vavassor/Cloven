@@ -6,6 +6,14 @@
   }
 }
 
+.gap-x-8 {
+  margin-inline-end: $spacing-8;
+
+  &:last-child {
+    margin-inline-end: 0;
+  }
+}
+
 .gap-y-16 {
   margin-block-end: $spacing-16;
 

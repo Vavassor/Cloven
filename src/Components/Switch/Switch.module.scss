@@ -1,0 +1,67 @@
+@import "abstracts/mixins";
+
+$thumb-radius: 12px;
+$thumb-diameter: 2 * $thumb-radius;
+$track-length: 48px;
+$track-width: 8px;
+
+.button {
+  @include reset-button;
+
+  align-items: center;
+  display: inline-flex;
+  height: $thumb-diameter;
+  margin-inline-end: $spacing-8;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.button:disabled + .label {
+  color: $on-background-disabled;
+}
+
+.switch {
+  align-items: center;
+  display: inline-flex;
+}
+
+.thumb {
+  @include focus-indicator-disappear;
+
+  background-color: $on-background;
+  border-radius: $border-radius-pill;
+  height: $thumb-diameter;
+  position: absolute;
+  transform: translateX(0);
+  transition: transform 200ms;
+  width: $thumb-diameter;
+
+  &Checked {
+    background-color: $selected;
+    transform: translateX($track-length - $track-width);
+  }
+}
+
+.button:disabled .thumb {
+  background-color: $on-disabled;
+}
+
+.button:focus .thumb {
+  @include focus-indicator-appear;
+}
+
+.track {
+  background-color: $on-background-low;
+  border-radius: $border-radius-pill;
+  height: $track-width;
+  margin-inline-end: $thumb-radius - $track-width / 2;
+  margin-inline-start: $thumb-radius - $track-width / 2;
+  width: $track-length;
+}
+
+.button:disabled .track {
+  background-color: $disabled;
+}
