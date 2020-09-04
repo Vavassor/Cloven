@@ -28,7 +28,7 @@ export const Checkbox = ({
   name,
   value,
 }: CheckboxProps) => {
-  const handleClick = () => {
+  const localHandleChange = () => {
     if (handleChange) {
       handleChange(!isChecked);
     }
@@ -42,7 +42,7 @@ export const Checkbox = ({
         className={styles.input}
         disabled={isDisabled}
         id={id}
-        onClick={handleClick}
+        onChange={localHandleChange}
         name={name}
         required={isRequired}
         type="checkbox"

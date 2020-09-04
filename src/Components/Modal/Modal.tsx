@@ -123,17 +123,17 @@ export const Modal = forwardRef<HTMLDivElement, PropsWithChildren<ModalProps>>(
       manager.remove(getMount());
     }, [getMount, manager]);
 
-    const handleEnter: EnterHandler = (node, isAppearing) => {
+    const handleEnter: EnterHandler<HTMLDivElement> = (isAppearing) => {
       setHasExited(false);
       if (hasTransition(children) && children.props.onEnter) {
-        children.props.onEnter(node, isAppearing);
+        children.props.onEnter(isAppearing);
       }
     };
 
-    const handleExited: ExitHandler = (node) => {
+    const handleExited: ExitHandler<HTMLDivElement> = () => {
       setHasExited(true);
       if (hasTransition(children) && children.props.onExited) {
-        children.props.onExited(node);
+        children.props.onExited();
       }
     };
 

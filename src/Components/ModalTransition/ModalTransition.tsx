@@ -19,15 +19,13 @@ import { EndHandler, EnterHandler } from "react-transition-group/Transition";
 import { useMergeRef } from "../../Utilities/Hooks/useMergeRef";
 import { hasRef, isReactElement } from "../../Utilities/TypeGuards";
 
-type EndHandlerWithNodeRef = (done: () => void) => void;
-
 export interface ModalTransitionProps {
   classNames: CSSTransitionClassNames;
-  onEntering?: EnterHandler;
+  onEntering?: EnterHandler<HTMLDivElement>;
   in: boolean;
-  TransitionComponent: ComponentType<CSSTransitionProps>;
+  TransitionComponent: ComponentType<CSSTransitionProps<HTMLDivElement>>;
   transitionDuration?: number;
-  transitionProps?: Partial<CSSTransitionProps>;
+  transitionProps?: Partial<CSSTransitionProps<HTMLDivElement>>;
   windowMargin?: number;
 }
 
@@ -60,7 +58,7 @@ export const ModalTransition = forwardRef<
     );
     const handleRef = useMergeRef(nodeRef, foreignRef);
 
-    const addEndListener: EndHandlerWithNodeRef = (done) => {
+    const addEndListener: EndHandler<HTMLDivElement> = (done) => {
       const currentNode = nodeRef.current;
       if (currentNode) {
         currentNode.addEventListener("transitionend", done, false);
@@ -69,7 +67,7 @@ export const ModalTransition = forwardRef<
 
     return (
       <TransitionComponent
-        addEndListener={(addEndListener as unknown) as EndHandler}
+        addEndListener={addEndListener}
         appear
         classNames={classNames}
         in={inProp}

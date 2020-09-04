@@ -14,7 +14,7 @@ export function hasRef<T>(
 
 export const hasTransition = (
   children: ReactNode
-): children is ReactElement<CSSTransitionProps> => {
+): children is ReactElement<CSSTransitionProps<HTMLElement>> => {
   return isReactElement(children) ? children.props.hasOwnProperty("in") : false;
 };
 

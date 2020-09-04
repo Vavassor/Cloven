@@ -127,7 +127,8 @@ const DarkModeSwitch = () => {
   return (
     <Switch
       handleChange={handleChange}
-      isPressed={isPressed}
+      idPrefix="dark-mode"
+      isChecked={isPressed}
       label="Dark Mode"
     />
   );

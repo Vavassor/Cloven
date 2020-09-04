@@ -11,7 +11,7 @@ export interface BackdropProps extends HTMLAttributes<HTMLDivElement> {
   classNames?: CSSTransitionClassNames;
   handleClick?: MouseEventHandler<HTMLDivElement>;
   isOpen: boolean;
-  TransitionComponent?: ComponentType<CSSTransitionProps>;
+  TransitionComponent?: ComponentType<CSSTransitionProps<undefined>>;
   transitionDuration?: number;
 }
 
@@ -35,7 +35,7 @@ export const Backdrop: React.FC<BackdropProps> = ({
   transitionDuration,
   ...otherProps
 }) => {
-  const addEndListener: EndHandler = (node, done) => {
+  const addEndListener: EndHandler<undefined> = (node, done) => {
     node.addEventListener("transitionend", done, false);
   };
 
