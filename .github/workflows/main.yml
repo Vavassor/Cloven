@@ -22,6 +22,6 @@ jobs:
       - name: Install and Deploy
         run: |
           yarn install
-          yarn deploy-storybook -- --ci --out=build
+          yarn deploy-storybook --ci --out=./
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
