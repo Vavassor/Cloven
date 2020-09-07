@@ -127,7 +127,8 @@ const parseExtendedLanguages = (parser: Parser) => {
   }
 
   let { subtagIndex } = parser;
-  for (let i = 0; i < Math.min(subtags.length - subtagIndex, 3); i++) {
+  const endIndex = subtags.length - subtagIndex;
+  for (let i = 0; i < Math.min(endIndex, 3); i++) {
     const subtag = subtags[subtagIndex];
     if (!matchExtendedLanguage(subtag)) {
       break;
