@@ -18,10 +18,12 @@ import styles from "./Select.module.scss";
 export interface SelectProps {
   buttonId?: string;
   className?: string;
+  handleChange?: (value: Option) => void;
   isAutoWidth?: boolean;
   labelId?: string;
   options: Option[];
   selectButtonProps?: Partial<SelectButtonProps>;
+  value: Option;
 }
 
 export const Select = forwardRef<HTMLButtonElement, SelectProps>(
@@ -29,10 +31,12 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     {
       buttonId: buttonIdProp,
       className,
+      handleChange,
       isAutoWidth = true,
       labelId: labelIdProp,
       options,
       selectButtonProps,
+      value,
     },
     ref
   ) => {
@@ -42,7 +46,6 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const handleButtonRef = useMergeRef(button, ref);
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const list = useRef<HTMLUListElement | null>(null);
-    const [selectedOption, setSelectedOption] = useState(options[0]);
 
     const buttonId = buttonIdProp || formControlState.inputId;
     const labelId = labelIdProp || formControlState.labelId;
@@ -74,7 +77,9 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       selectedOption: Option,
       wasClicked: boolean
     ) => {
-      setSelectedOption(selectedOption);
+      if (handleChange) {
+        handleChange(selectedOption);
+      }
       if (wasClicked) {
         setIsPopoverOpen(false);
       }
@@ -90,7 +95,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
           ref={handleButtonRef}
           {...selectButtonProps}
         >
-          {selectedOption.label}
+          {value.label}
         </SelectButton>
         <Popper
           anchor={anchor}
@@ -108,7 +113,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
             labelId={labelId}
             options={options}
             ref={list}
-            selectedOption={selectedOption}
+            selectedOption={value}
             shouldShowFocus={false}
           />
         </Popper>

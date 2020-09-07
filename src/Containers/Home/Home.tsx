@@ -1,5 +1,5 @@
 import { Field, FieldProps, Form, Formik, FormikProps } from "formik";
-import React, { MouseEventHandler, useContext, useRef, useState } from "react";
+import React, { MouseEventHandler, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import countries from "../../Assets/countries.json";
@@ -13,9 +13,7 @@ import { RadioGroup } from "../../Components/RadioGroup";
 import { MultiSearchSelect, SearchSelect } from "../../Components/SearchSelect";
 import { Select } from "../../Components/Select";
 import { Option } from "../../Components/SelectList";
-import { Switch } from "../../Components/Switch";
 import { TextField } from "../../Components/TextField";
-import { setTheme, ThemeDispatch } from "../../Contexts/ThemeDispatch";
 import { toKebabCase } from "../../Utilities/String";
 import styles from "./Home.module.scss";
 
@@ -48,6 +46,8 @@ const getStateOptions = (states: State[]): Option[] => {
     };
   });
 };
+
+const stateOptions = getStateOptions(states);
 
 interface Game {
   label: string;
@@ -95,6 +95,8 @@ const pizzaOptions = [
 
 export const Home = () => {
   const main = useRef<HTMLElement | null>(null);
+  const [game, setGame] = useState(games[0]);
+  const [state, setState] = useState(stateOptions[0]);
   const tagsLabelId = "tags-label";
 
   return (
@@ -105,7 +107,6 @@ export const Home = () => {
       <main className={styles.main} ref={main} id="yoyo">
         <MenuSample container={main.current} />
         <DialogSample />
-        <DarkModeSwitch />
         <FormControl
           className={styles.formControl}
           inputId="games"
@@ -114,7 +115,7 @@ export const Home = () => {
             Component: "span",
           }}
         >
-          <Select options={getGameOptions(games)} />
+          <Select handleChange={setGame} options={games} value={game} />
         </FormControl>
         <FormControl
           className={styles.formControl}
@@ -124,7 +125,11 @@ export const Home = () => {
             Component: "span",
           }}
         >
-          <Select options={getStateOptions(states)} />
+          <Select
+            handleChange={setState}
+            options={stateOptions}
+            value={state}
+          />
         </FormControl>
         <FormControl
           className={styles.formControl}
@@ -295,25 +300,6 @@ const FormSample = () => {
         </Form>
       )}
     </Formik>
-  );
-};
-
-const DarkModeSwitch = () => {
-  const [isPressed, setIsPressed] = useState(false);
-  const dispatch = useContext(ThemeDispatch);
-
-  const handleChange = (newIsPressed: boolean) => {
-    setIsPressed(newIsPressed);
-    dispatch(setTheme(newIsPressed ? "DARK" : "LIGHT"));
-  };
-
-  return (
-    <Switch
-      handleChange={handleChange}
-      idPrefix="dark-mode"
-      isChecked={isPressed}
-      label="Dark Mode"
-    />
   );
 };
 

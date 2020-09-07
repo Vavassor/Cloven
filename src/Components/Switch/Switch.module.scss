@@ -45,6 +45,10 @@ $track-width: 8px;
   }
 }
 
+html[dir="rtl"] .thumbChecked {
+  transform: translateX(-$track-length + $track-width);
+}
+
 .button:disabled .thumb {
   background-color: $on-disabled;
 }

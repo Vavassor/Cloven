@@ -19,7 +19,6 @@ export const RegistrationForm = () => {
     <Formik
       initialValues={{ email: "", password: "", username: "" }}
       onSubmit={(values, actions) => {
-        console.log(`submitted form: ${JSON.stringify(values, null, 2)}`);
         actions.setSubmitting(false);
       }}
       validationSchema={Yup.object({

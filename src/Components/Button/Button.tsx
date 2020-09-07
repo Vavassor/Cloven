@@ -1,4 +1,8 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import React, {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  MouseEventHandler,
+} from "react";
 import { joinClassNames } from "../../Utilities/Style";
 import styles from "./Button.module.scss";
 
@@ -18,6 +22,7 @@ export interface ButtonProps {
     HTMLButtonElement
   >;
   className?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   variantClassNames?: ButtonVariantClassNames;
   type?: ButtonType;
 }
@@ -26,12 +31,14 @@ export const Button: React.FC<ButtonProps> = ({
   buttonProps,
   children,
   className,
+  onClick,
   type = "button",
   variantClassNames = primaryClassNames,
 }) => {
   return (
     <button
       className={joinClassNames(variantClassNames.button, className)}
+      onClick={onClick}
       type={type}
       {...buttonProps}
     >

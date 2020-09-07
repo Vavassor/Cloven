@@ -9,6 +9,11 @@
   "home": {
     "title": "Home"
   },
+  "loginForm": {
+    "loginButtonLabel": "Log In",
+    "passwordFieldLabel": "Password",
+    "usernameFieldLabel": "Username"
+  },
   "multiSearchSelect": {
     "addValueMessage": "Add “{{value}}”",
     "clearButtonLabel": "Clear",
@@ -29,6 +34,10 @@
     "hideSuggestionsButtonLabel": "Hide suggestions",
     "noSuggestionsMessage": "No options",
     "showSuggestionsButtonLabel": "Show suggestions"
+  },
+  "settings": {
+    "languageFieldLabel": "Language",
+    "title": "Settings"
   },
   "register": {
     "title": "Register"
