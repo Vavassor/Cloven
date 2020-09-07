@@ -3,7 +3,11 @@
     "snakeDance": "ecnad ekanS"
   },
   "generic": {
-    "ok": "KO"
+    "ok": "KO",
+    "submit": "timbuS"
+  },
+  "home": {
+    "title": "emoH"
   },
   "multiSearchSelect": {
     "addValueMessage": "”}}eulav{{“ ddA",
@@ -15,11 +19,35 @@
   "multiSelect": {
     "buttonLabelNoneSelected": "--detceles enoN--"
   },
+  "passwordField": {
+    "hideButtonLabel": "drowssap ediH",
+    "showButtonLabel": "drowssap wohS"
+  },
   "searchSelect": {
     "addValueMessage": "”}}eulav{{“ ddA",
     "clearButtonLabel": "raelC",
     "hideSuggestionsButtonLabel": "snoitseggus ediH",
     "noSuggestionsMessage": "snoitpo oN",
     "showSuggestionsButtonLabel": "snoitseggus wohS"
+  },
+  "register": {
+    "title": "retsigeR"
+  },
+  "registrationForm": {
+    "emailLabel": "liamE",
+    "emailRequiredError": ".sserdda liame na retne esaelP",
+    "emailValidationError": ".sserdda liame dilav a eb tsum liamE",
+    "passwordLabel": "drowssaP",
+    "passwordMaxLengthError": ".retcarahc }}tnuoc{{ naht rewef eb tsum drowssaP",
+    "passwordMaxLengthError_plural": ".sretcarahc }}tnuoc{{ naht rewef eb tsum drowssaP",
+    "passwordMinLengthError": ".retcarahc }}tnuoc{{ tsael ta eb tsum drowssaP",
+    "passwordMinLengthError_plural": ".sretcarahc }}tnuoc{{ tsael ta eb tsum drowssaP",
+    "passwordRequiredError": ".drowssap a retne esaelP",
+    "usernameLabel": "emanresU",
+    "usernameMaxLengthError": ".retcarahc }}tnuoc{{ naht rewef eb tsum emanresU",
+    "usernameMaxLengthError_plural": ".sretcarahc }}tnuoc{{ naht rewef eb tsum emanresU",
+    "usernameMinLengthError": ".retcarahc }}tnuoc{{ tsael ta eb tsum emanresU",
+    "usernameMinLengthError_plural": ".sretcarahc }}tnuoc{{ tsael ta eb tsum emanresU",
+    "usernameRequiredError": ".emanresu a retne esaelP"
   }
 }

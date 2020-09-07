@@ -12,7 +12,7 @@ import { joinClassNames, joinIds } from "../../Utilities/Style";
 import { FormControlContext } from "../FormControl";
 import styles from "./TextField.module.scss";
 
-type InputType = "password" | "search" | "text";
+type InputType = "email" | "password" | "search" | "text";
 
 export interface TextFieldProps {
   className?: string;
@@ -25,6 +25,7 @@ export interface TextFieldProps {
   >;
   isDisabled?: boolean;
   isRequired?: boolean;
+  maxLength?: number;
   name?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
@@ -43,6 +44,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
       inputProps = {},
       isDisabled: isDisabledProp,
       isRequired: isRequiredProp,
+      maxLength,
       name,
       onChange,
       placeholder,
@@ -92,6 +94,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
           className={joinClassNames(styles.input, className)}
           disabled={isDisabled}
           id={id}
+          maxLength={maxLength}
           name={name}
           onBlur={handleBlur}
           onChange={onChange}

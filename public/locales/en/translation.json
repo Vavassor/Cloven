@@ -3,7 +3,11 @@
     "snakeDance": "Snake dance"
   },
   "generic": {
-    "ok": "OK"
+    "ok": "OK",
+    "submit": "Submit"
+  },
+  "home": {
+    "title": "Home"
   },
   "multiSearchSelect": {
     "addValueMessage": "Add “{{value}}”",
@@ -25,5 +29,25 @@
     "hideSuggestionsButtonLabel": "Hide suggestions",
     "noSuggestionsMessage": "No options",
     "showSuggestionsButtonLabel": "Show suggestions"
+  },
+  "register": {
+    "title": "Register"
+  },
+  "registrationForm": {
+    "emailLabel": "Email",
+    "emailRequiredError": "Please enter an email address.",
+    "emailValidationError": "Email must be a valid email address.",
+    "passwordLabel": "Password",
+    "passwordMaxLengthError": "Password must be fewer than {{count}} character.",
+    "passwordMaxLengthError_plural": "Password must be fewer than {{count}} characters.",
+    "passwordMinLengthError": "Password must be at least {{count}} character.",
+    "passwordMinLengthError_plural": "Password must be at least {{count}} characters.",
+    "passwordRequiredError": "Please enter a password.",
+    "usernameLabel": "Username",
+    "usernameMaxLengthError": "Username must be fewer than {{count}} character.",
+    "usernameMaxLengthError_plural": "Username must be fewer than {{count}} characters.",
+    "usernameMinLengthError": "Username must be at least {{count}} character.",
+    "usernameMinLengthError_plural": "Username must be at least {{count}} characters.",
+    "usernameRequiredError": "Please enter a username."
   }
 }

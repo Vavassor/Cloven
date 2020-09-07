@@ -1,0 +1,21 @@
+@import "abstracts/mixins";
+
+.primary {
+  &Button {
+    @include focus-indicator-disappear;
+    @include font-body-regular;
+    @include reset-button;
+
+    background-color: $primary;
+    border-radius: $border-radius-4;
+    color: $on-primary;
+    min-width: 80px;
+    padding: $spacing-4 $spacing-16;
+
+    &:focus {
+      @include focus-indicator-appear;
+
+      outline: none;
+    }
+  }
+}
