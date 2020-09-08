@@ -7,9 +7,11 @@ import {
   Switch,
 } from "react-router-dom";
 import { MainNav } from "./Components/Navs/MainNav";
+import { BeginPasswordReset } from "./Containers/BeginPasswordReset";
 import { Home } from "./Containers/Home";
 import { Login } from "./Containers/Login";
 import { Register } from "./Containers/Register";
+import { SendPasswordReset } from "./Containers/SendPasswordReset";
 import { Settings } from "./Containers/Settings";
 import {
   AuthContext,
@@ -56,8 +58,18 @@ const MainRoutes = () => {
     <Router>
       <Switch>
         <Route exact path="/" render={() => <Redirect to="/home" />} />
+        <Route
+          exact
+          path={routes.beginPasswordReset}
+          component={BeginPasswordReset}
+        />
         <Route exact path={routes.login} component={Login} />
         <Route exact path={routes.register} component={Register} />
+        <Route
+          exact
+          path={routes.sendPasswordReset}
+          component={SendPasswordReset}
+        />
         <PrivateRoute>
           <MainNav />
           <Route exact path={routes.home} component={Home} />

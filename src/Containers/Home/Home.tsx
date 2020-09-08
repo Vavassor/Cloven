@@ -101,9 +101,6 @@ export const Home = () => {
 
   return (
     <div className={styles.app}>
-      <header>
-        <h1>Cloven</h1>
-      </header>
       <main className={styles.main} ref={main} id="yoyo">
         <MenuSample container={main.current} />
         <DialogSample />

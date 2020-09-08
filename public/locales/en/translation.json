@@ -1,4 +1,8 @@
 {
+  "beginPasswordResetForm": {
+    "emailOrUsernameFieldLabel": "Email or username",
+    "searchButtonLabel": "Search"
+  },
   "dashboard": {
     "snakeDance": "Snake dance"
   },
@@ -10,6 +14,7 @@
     "title": "Home"
   },
   "loginForm": {
+    "beginPasswordResetLink": "Forgot your password?",
     "loginButtonLabel": "Log In",
     "passwordFieldLabel": "Password",
     "usernameFieldLabel": "Username"
@@ -34,6 +39,10 @@
     "hideSuggestionsButtonLabel": "Hide suggestions",
     "noSuggestionsMessage": "No options",
     "showSuggestionsButtonLabel": "Show suggestions"
+  },
+  "sendPasswordResetForm": {
+    "emailFieldLabel": "Email",
+    "sendButtonLabel": "Send"
   },
   "settings": {
     "languageFieldLabel": "Language",

@@ -6,6 +6,7 @@ import { AuthDispatch, logIn } from "../../../Contexts/AuthDispatch";
 import { routes } from "../../../Routes";
 import { Button } from "../../Button";
 import { FormControl } from "../../FormControl";
+import { Link } from "../../Link";
 import { PasswordField } from "../../PasswordField";
 import { TextField } from "../../TextField";
 
@@ -49,6 +50,9 @@ export const LoginForm = () => {
               </FormControl>
             )}
           </Field>
+          <Link to={routes.beginPasswordReset}>
+            {t("loginForm.beginPasswordResetLink")}
+          </Link>
           <Button type="submit">{t("loginForm.loginButtonLabel")}</Button>
         </Form>
       )}
