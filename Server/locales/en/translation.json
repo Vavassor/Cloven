@@ -1,0 +1,23 @@
+{
+  "account": {
+    "id_not_found_error": "No account was found with the given ID."
+  },
+  "page_not_found": {
+    "api_error_details": "We could not find the page \"{{path}}\".",
+    "api_error_message": "Page not found",
+    "heading": "Page not found",
+    "message": "We could not find the above page.",
+    "title": "Page not found"
+  },
+  "post": {
+    "id_not_found_error": "No post was found with the given ID."
+  },
+  "validation": {
+    "invalid_parameter_error": "Parameter \"{{parameter}}\" in an unknown location is invalid.",
+    "invalid_parameter_error_body": "Parameter \"{{parameter}}\" in the request body is invalid.",
+    "invalid_parameter_error_cookies": "Parameter \"{{parameter}}\" in cookies is invalid.",
+    "invalid_parameter_error_headers": "Parameter \"{{parameter}}\" in the request header is invalid.",
+    "invalid_parameter_error_params": "Parameter \"{{parameter}}\" in the path is invalid.",
+    "invalid_parameter_error_query": "Parameter \"{{parameter}}\" in the query string is invalid."
+  }
+}

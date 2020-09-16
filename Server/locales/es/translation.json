@@ -1,0 +1,13 @@
+{
+  "account": {
+    "id_not_found_error": "No se encontró ninguna cuenta con el ID proporcionado."
+  },
+  "page_not_found": {
+    "heading": "Página no encontrada",
+    "message": "No pudimos encontrar la página anterior.",
+    "title": "Página no encontrada"
+  },
+  "post": {
+    "id_not_found_error": "No se encontró ninguna publicación con el ID proporcionado."
+  }
+}
