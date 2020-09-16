@@ -25,3 +25,4 @@ jobs:
           yarn deploy-storybook --ci --out=build/
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
+        working-directory: ./Client
