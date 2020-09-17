@@ -25,4 +25,5 @@ jobs:
           yarn deploy-storybook --ci --out=build/
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
+          REACT_APP_IS_STORYBOOK_BUILD: true
         working-directory: ./Client

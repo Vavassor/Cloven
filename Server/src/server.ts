@@ -1,5 +1,4 @@
 import express from "express";
-import exphbs from "express-handlebars";
 import i18next from "i18next";
 import FilesystemBackend from "i18next-fs-backend";
 import i18nextHttpMiddleware from "i18next-http-middleware";
@@ -32,24 +31,16 @@ i18next
 
 const app = express();
 
-app.engine("handlebars", exphbs());
-app.set("views", path.join(pathRoot, "views"));
-app.set("view engine", "handlebars");
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(i18nextHttpMiddleware.handle(i18next));
+app.use(express.static(path.join(pathRoot, "../../Client/build")));
 
 app.use(routes);
 app.use((request, response, next) => {
   if (request.accepts("html")) {
-    response.status(404).render("not_found", {
-      heading: request.t("page_not_found.heading"),
-      lang: request.language,
-      message: request.t("page_not_found.message"),
-      title: request.t("page_not_found.title"),
-      url: request.url,
-    });
+    response.status(404);
+    next();
   } else if (request.accepts("json")) {
     response.status(404).json(
       getErrorAdoFromErrorSingle({
@@ -60,6 +51,10 @@ app.use((request, response, next) => {
   } else {
     response.status(406).end();
   }
+});
+
+app.get("*", (request, response, next) => {
+  response.sendFile(path.join(pathRoot, "../../Client/build/index.html"));
 });
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });

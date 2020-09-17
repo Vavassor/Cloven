@@ -3,7 +3,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 import { initReactI18next } from "react-i18next";
 
-const pathPrefix = process.env.NODE_ENV === "production" ? "/Cloven" : "";
+const pathPrefix =
+  process.env.REACT_APP_IS_STORYBOOK_BUILD === "true" ? "/Cloven" : "";
 
 i18next
   .use(HttpApi)

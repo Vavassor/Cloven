@@ -4,6 +4,8 @@
   "description": "Server for Cloven",
   "main": "index.js",
   "scripts": {
+    "build": "cd ../Client && yarn build",
+    "install": "cd ../Client && yarn install",
     "start": "ts-node-dev --respawn --transpile-only src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

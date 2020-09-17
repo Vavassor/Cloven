@@ -1,5 +1,5 @@
 import { Field, FieldProps, Form, Formik, FormikProps } from "formik";
-import React, { MouseEventHandler, useRef, useState } from "react";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import countries from "../../Assets/countries.json";
@@ -14,6 +14,7 @@ import { MultiSearchSelect, SearchSelect } from "../../Components/SearchSelect";
 import { Select } from "../../Components/Select";
 import { Option } from "../../Components/SelectList";
 import { TextField } from "../../Components/TextField";
+import { Post, searchRecentPosts } from "../../Utilities/Api/Post";
 import { toKebabCase } from "../../Utilities/String";
 import styles from "./Home.module.scss";
 
@@ -178,6 +179,7 @@ export const Home = () => {
             ]}
           />
         </FormControl>
+        <PostSample />
         <LinkSample />
         {renderWows()}
       </main>
@@ -306,4 +308,20 @@ const renderWows = () => {
     wow.push(<p key={i}>Wow</p>);
   }
   return wow;
+};
+
+const PostSample: React.FC = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    searchRecentPosts().then(setPosts);
+  }, []);
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
 };
