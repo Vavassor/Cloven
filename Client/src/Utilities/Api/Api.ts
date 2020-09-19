@@ -4,6 +4,7 @@ import { isErrorAdo } from "./Error";
 export const apiRoot = process.env.REACT_APP_API_ROOT!;
 
 interface CallApiOptions {
+  body?: object;
   method: "DELETE" | "GET" | "PATCH" | "POST";
   urlSearchParams?: URLSearchParams;
 }
@@ -18,7 +19,13 @@ export const callApi = async (
     url = `${url}?${options.urlSearchParams.toString()}`;
   }
 
+  let body: string | undefined;
+  if (options.body) {
+    body = JSON.stringify(options.body);
+  }
+
   const response = await fetch(url, {
+    body,
     headers: {
       "Content-Type": "application/json",
     },

@@ -1,0 +1,11 @@
+@import "abstracts/mixins";
+
+.article {
+  @include focus-indicator-disappear;
+
+  &:focus {
+    @include focus-indicator-appear;
+
+    outline: none;
+  }
+}

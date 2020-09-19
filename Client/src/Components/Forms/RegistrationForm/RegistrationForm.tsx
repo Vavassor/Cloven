@@ -2,6 +2,7 @@ import { Field, FieldProps, Form, Formik, FormikProps } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
+import { createAccount } from "../../../Utilities/Api/Account";
 import { Button } from "../../Button/Button";
 import { FormControl } from "../../FormControl";
 import { PasswordField } from "../../PasswordField";
@@ -12,14 +13,27 @@ const MAX_CHARS_USERNAME = 16;
 const MIN_CHARS_PASSWORD = 4;
 const MIN_CHARS_USERNAME = 4;
 
-export const RegistrationForm = () => {
+interface RegistrationFormProps {
+  handleSubmitSuccess: () => void;
+}
+
+export const RegistrationForm: React.FC<RegistrationFormProps> = ({
+  handleSubmitSuccess,
+}) => {
   const { t } = useTranslation();
 
   return (
     <Formik
       initialValues={{ email: "", password: "", username: "" }}
       onSubmit={(values, actions) => {
-        actions.setSubmitting(false);
+        createAccount(values.username, values.password, values.email)
+          .then((account) => {
+            actions.setSubmitting(false);
+            handleSubmitSuccess();
+          })
+          .catch((error) => {
+            actions.setSubmitting(false);
+          });
       }}
       validationSchema={Yup.object({
         email: Yup.string()
