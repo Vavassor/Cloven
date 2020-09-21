@@ -83,8 +83,9 @@ export function Feed<T>({
   };
 
   useLayoutEffect(() => {
+    const currentArticlesByKey = articlesByKey.current;
     return () => {
-      articlesByKey.current.clear();
+      currentArticlesByKey.clear();
     };
   }, [articles]);
 

@@ -7,6 +7,7 @@ import { AccountAdo } from "../models/AccountAdo";
 import { AccountSpecAdo } from "../models/AccountSpecAdo";
 import { ErrorAdo } from "../models/ErrorAdo";
 import { ParamsDictionary, ParsedQs } from "../types/express";
+import { HttpStatus } from "../types/HttpStatus";
 
 export const createAccount: RequestHandler<
   ParamsDictionary,
@@ -31,7 +32,7 @@ export const deleteAccount: RequestHandler<
 > = async (request, response, next) => {
   try {
     await Account.deleteOne({ _id: request.params.id });
-    response.status(204).end();
+    response.status(HttpStatus.NO_CONTENT).end();
   } catch (error) {
     next(error);
   }
@@ -47,7 +48,7 @@ export const getAccountById: RequestHandler<
     const account = await Account.findById(request.params.id);
     if (!account) {
       response
-        .status(404)
+        .status(HttpStatus.NOT_FOUND)
         .json(getErrorAdoFromMessage(request.t("account.id_not_found_error")));
     } else {
       response.json(getAccountAdo(account));

@@ -8,7 +8,7 @@ import { router as postRoutes } from "./post";
 const router = express.Router();
 
 router.use("/account", enableCors, accountRoutes);
-router.use("/app", appRoutes);
+router.use("/app", enableCors, appRoutes);
 router.use("/auth", authRoutes);
 router.use("/post", enableCors, postRoutes);
 

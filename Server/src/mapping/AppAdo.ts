@@ -11,7 +11,7 @@ export const getAppAdo = (
     client_secret: clientSecret,
     name,
     redirect_uri: redirectUri,
-    id: _id,
+    id: _id.toString(),
     website,
   };
 };

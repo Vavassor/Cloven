@@ -6,7 +6,7 @@ export const getPostAdo = (post: MongooseDocument): PostAdo => {
   return {
     content,
     creation_time,
-    id: _id,
+    id: _id.toString(),
     title,
   };
 };

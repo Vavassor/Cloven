@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 
 export const compareHash = async (password: string, hash: string) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<boolean>((resolve, reject) => {
     bcrypt.compare(password, hash, (error, result) => {
       if (error) {
         reject(error);

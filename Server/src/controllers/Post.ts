@@ -11,6 +11,7 @@ import { PostAdo } from "../models/PostAdo";
 import { PostSpecAdo } from "../models/PostSpecAdo";
 import { urlRoot } from "../server";
 import { ParamsDictionary, ParsedQs } from "../types/express";
+import { HttpStatus } from "../types/HttpStatus";
 
 export const DEFAULT_SEARCH_RESULT_COUNT = 100;
 
@@ -131,7 +132,7 @@ export const deletePost: RequestHandler<
 > = async (request, response, next) => {
   try {
     await Post.deleteOne({ _id: request.params.id });
-    response.status(204).end();
+    response.status(HttpStatus.NO_CONTENT).end();
   } catch (error) {
     next(error);
   }
@@ -147,7 +148,7 @@ export const getPostById: RequestHandler<
     const post = await Post.findById(request.params.id);
     if (!post) {
       response
-        .status(404)
+        .status(HttpStatus.NOT_FOUND)
         .json(getErrorAdoFromMessage(request.t("post.id_not_found_error")));
     } else {
       response.json(getPostAdo(post));

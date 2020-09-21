@@ -12,6 +12,10 @@
   "post": {
     "id_not_found_error": "No post was found with the given ID."
   },
+  "token": {
+    "invalid_grant_error_message": "Invalid grant",
+    "unsupported_grant_type_error_message": "Unsupported grant type"
+  },
   "validation": {
     "invalid_parameter_error": "Parameter \"{{parameter}}\" in an unknown location is invalid.",
     "invalid_parameter_error_body": "Parameter \"{{parameter}}\" in the request body is invalid.",
