@@ -29,6 +29,8 @@ i18next
     preload: ["en"],
   });
 
+export const englishT = i18next.getFixedT("en");
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -37,6 +39,11 @@ app.use(i18nextHttpMiddleware.handle(i18next));
 app.use(express.static(path.join(pathRoot, "../../Client/build")));
 
 app.use(routes);
+
+app.get("*", (request, response, next) => {
+  response.sendFile(path.join(pathRoot, "../../Client/build/index.html"));
+});
+
 app.use((request, response, next) => {
   if (request.accepts("html")) {
     response.status(404);
@@ -51,10 +58,6 @@ app.use((request, response, next) => {
   } else {
     response.status(406).end();
   }
-});
-
-app.get("*", (request, response, next) => {
-  response.sendFile(path.join(pathRoot, "../../Client/build/index.html"));
 });
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });

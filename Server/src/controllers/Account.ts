@@ -32,7 +32,7 @@ export const deleteAccount: RequestHandler<
 > = async (request, response, next) => {
   try {
     await Account.deleteOne({ _id: request.params.id });
-    response.status(HttpStatus.NO_CONTENT).end();
+    response.status(HttpStatus.NoContent).end();
   } catch (error) {
     next(error);
   }
@@ -48,7 +48,7 @@ export const getAccountById: RequestHandler<
     const account = await Account.findById(request.params.id);
     if (!account) {
       response
-        .status(HttpStatus.NOT_FOUND)
+        .status(HttpStatus.NotFound)
         .json(getErrorAdoFromMessage(request.t("account.id_not_found_error")));
     } else {
       response.json(getAccountAdo(account));

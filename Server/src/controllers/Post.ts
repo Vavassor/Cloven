@@ -132,7 +132,7 @@ export const deletePost: RequestHandler<
 > = async (request, response, next) => {
   try {
     await Post.deleteOne({ _id: request.params.id });
-    response.status(HttpStatus.NO_CONTENT).end();
+    response.status(HttpStatus.NoContent).end();
   } catch (error) {
     next(error);
   }
@@ -148,7 +148,7 @@ export const getPostById: RequestHandler<
     const post = await Post.findById(request.params.id);
     if (!post) {
       response
-        .status(HttpStatus.NOT_FOUND)
+        .status(HttpStatus.NotFound)
         .json(getErrorAdoFromMessage(request.t("post.id_not_found_error")));
     } else {
       response.json(getPostAdo(post));

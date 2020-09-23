@@ -1,75 +1,97 @@
+import { randomBytes } from "crypto";
 import { RequestHandler } from "express";
+import { join } from "path";
 import { getAccountAdo } from "../mapping/AccountAdo";
-import { getErrorAdoFromMessage } from "../mapping/ErrorAdo";
+import { getOAuthErrorAdo } from "../mapping/OAuthErrorAdo";
 import { getTokenAdo } from "../mapping/TokenAdo";
 import { Account } from "../models/Account";
-import { ErrorAdo } from "../models/ErrorAdo";
+import { OAuthErrorAdo, OAuthErrorType } from "../models/OAuthErrorAdo";
 import { TokenAdo } from "../models/TokenAdo";
 import { TokenGrantAdo } from "../models/TokenGrantAdo";
-import { urlRoot } from "../server";
+import { englishT, pathRoot, urlRoot } from "../server";
 import { ParamsDictionary, ParsedQs } from "../types/express";
 import { HttpStatus } from "../types/HttpStatus";
+import { Scope } from "../types/Scope";
 import { readTextFile } from "../utilities/File";
-import { compareHash } from "../utilities/Password";
-import { generateToken } from "../utilities/Token";
+import { compareHash, hash } from "../utilities/Password";
+import { createAccessToken, createRefreshToken } from "../utilities/Token";
+
+const parseScopes = (scopes?: string) => {
+  const array = scopes?.split(" ");
+  return array && array.length > 0 ? array : undefined;
+};
 
 export const grantToken: RequestHandler<
   ParamsDictionary,
-  TokenAdo | ErrorAdo,
+  TokenAdo | OAuthErrorAdo,
   TokenGrantAdo,
   ParsedQs
 > = async (request, response, next) => {
+  response.header("Cache-Control", "no-store");
+  response.header("Pragma", "no-cache");
+
   switch (request.body.grant_type) {
     case "password": {
+      const scopes = parseScopes(request.body.scope);
+
       const account = await Account.findOne({
         username: request.body.username,
       });
       if (!account) {
         return response
-          .status(HttpStatus.BAD_REQUEST)
+          .status(HttpStatus.BadRequest)
           .json(
-            getErrorAdoFromMessage(
-              request.t("token.invalid_grant_error_message")
-            )
+            getOAuthErrorAdo(OAuthErrorType.InvalidGrant, englishT, request.t)
           );
       }
 
       const { password } = account.toObject();
-      if (!compareHash(request.body.password, password)) {
+      const isPasswordMatch = await compareHash(
+        request.body.password,
+        password
+      );
+      if (!isPasswordMatch) {
         return response
-          .status(HttpStatus.UNAUTHORIZED)
+          .status(HttpStatus.BadRequest)
           .json(
-            getErrorAdoFromMessage(
-              request.t("token.invalid_grant_error_message")
-            )
+            getOAuthErrorAdo(OAuthErrorType.InvalidGrant, englishT, request.t)
           );
       }
 
+      // @TODO Check that scopes are allowed.
+
       const expiresIn = 3600;
-      const privateKey = await readTextFile("jwtRS256.key");
-      const accessToken = await generateToken(
+      const privateKey = await readTextFile(join(pathRoot, "../jwtRS256.key"));
+      const jwtid = randomBytes(32).toString("base64");
+      const accessToken = await createAccessToken(
         getAccountAdo(account),
         expiresIn,
         privateKey,
-        urlRoot
+        urlRoot,
+        jwtid,
+        scopes
       );
 
-      response.header("Cache-Control", "no-store");
-      response.header("Pragma", "no-cache");
-      response.json(getTokenAdo(accessToken, expiresIn));
+      const refreshToken = scopes?.includes(Scope.OfflineAccess)
+        ? createRefreshToken()
+        : undefined;
+
+      response.json(getTokenAdo(accessToken, expiresIn, refreshToken));
       break;
     }
 
     default: {
-      response
-        .status(HttpStatus.BAD_REQUEST)
+      return response
+        .status(HttpStatus.BadRequest)
         .json(
-          getErrorAdoFromMessage(
-            request.t("token.unsupported_grant_type_error_message")
+          getOAuthErrorAdo(
+            OAuthErrorType.UnsupportedResponseType,
+            englishT,
+            request.t
           )
         );
-      break;
     }
   }
+
   next();
 };

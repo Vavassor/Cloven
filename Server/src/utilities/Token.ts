@@ -1,3 +1,4 @@
+import { randomBytes } from "crypto";
 import jwt, { SignOptions } from "jsonwebtoken";
 import { AccountAdo } from "../models/AccountAdo";
 
@@ -22,18 +23,26 @@ const signJwt = (
   });
 };
 
-export const generateToken = async (
+export const createAccessToken = async (
   accountAdo: AccountAdo,
   expiresIn: number,
   privateKey: string,
-  apiUrl: string
+  apiUrl: string,
+  jwtid: string,
+  scopes?: string[]
 ) => {
-  const { id, ...payload } = accountAdo;
+  const { id, ...accountPayload } = accountAdo;
+  const payload = { ...accountPayload, scopes };
   const jwt = await signJwt(payload, privateKey, {
     audience: apiUrl,
     expiresIn,
     issuer: apiUrl,
     subject: id,
+    jwtid,
   });
   return jwt;
+};
+
+export const createRefreshToken = () => {
+  return randomBytes(32).toString("base64");
 };

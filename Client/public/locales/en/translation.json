@@ -29,6 +29,11 @@
   "multiSelect": {
     "buttonLabelNoneSelected": "--None selected--"
   },
+  "page_not_found": {
+    "message": "We could not find the above page on our servers.",
+    "return_message": "Return to the <1>main page</1>.",
+    "title": "Page not found"
+  },
   "passwordField": {
     "hideButtonLabel": "Hide password",
     "showButtonLabel": "Show password"

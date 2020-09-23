@@ -13,8 +13,16 @@
     "id_not_found_error": "No post was found with the given ID."
   },
   "token": {
-    "invalid_grant_error_message": "Invalid grant",
-    "unsupported_grant_type_error_message": "Unsupported grant type"
+    "access_denied_error_description": "The resource owner or authorization server denied the request.",
+    "invalid_client_error_description": "Client authentication failed. The client may be unknown, or client authentication is missing or invalid.",
+    "invalid_grant_error_description": "The provided authorization grant (e.g., authorization code, resource owner credentials) or refresh token is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.",
+    "invalid_request_error_description": "The request is missing a required parameter, includes an unsupported parameter value (other than grant type), repeats a parameter, includes multiple credentials, utilizes more than one mechanism for authenticating the client, or is otherwise malformed.",
+    "invalid_scope_error_description": "The requested scope is invalid, unknown, malformed, or exceeds the scope granted by the resource owner.",
+    "server_error_error_description": "The authorization server encountered an unexpected condition that prevented it from fulfilling the request.",
+    "temporarily_unavailable_error_description": "The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.",
+    "unauthorized_client_error_description": "The authenticated client is not authorized to use this authorization grant type.",
+    "unsupported_authentication_method_error_description": "The authentication method is unsupported. If using the \"Authorization\" request header field, please check the \"WWW-Authenticate\" response header field for supported methods.",
+    "unsupported_grant_type_error_description": "The authorization grant type is not supported by the authorization server."
   },
   "validation": {
     "invalid_parameter_error": "Parameter \"{{parameter}}\" in an unknown location is invalid.",

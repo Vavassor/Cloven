@@ -10,6 +10,7 @@ import { MainNav } from "./Components/Navs/MainNav";
 import { BeginPasswordReset } from "./Containers/BeginPasswordReset";
 import { Home } from "./Containers/Home";
 import { Login } from "./Containers/Login";
+import { PageNotFound } from "./Containers/PageNotFound";
 import { Register } from "./Containers/Register";
 import { SendPasswordReset } from "./Containers/SendPasswordReset";
 import { Settings } from "./Containers/Settings";
@@ -70,11 +71,14 @@ const MainRoutes = () => {
           path={routes.sendPasswordReset}
           component={SendPasswordReset}
         />
-        <PrivateRoute>
+        <PrivateRoute exact path={[routes.home, routes.settings]}>
           <MainNav />
-          <Route exact path={routes.home} component={Home} />
-          <Route exact path={routes.settings} component={Settings} />
+          <Switch>
+            <Route exact path={routes.home} component={Home} />
+            <Route exact path={routes.settings} component={Settings} />
+          </Switch>
         </PrivateRoute>
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   );
