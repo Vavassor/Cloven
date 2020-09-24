@@ -1,5 +1,6 @@
 import { body, oneOf } from "express-validator";
 import { handleOAuthValidationError } from "../middleware/ValidationErrorHandler";
+import { isScopeList } from "./Scope";
 
 export const validateGrantToken = [
   body("client_id").optional().isString(),
@@ -9,7 +10,7 @@ export const validateGrantToken = [
       body("grant_type").equals("password"),
       body("username").exists(),
       body("password").exists(),
-      body("scope").optional().isArray(),
+      body("scope").optional().custom(isScopeList),
     ],
   ]),
   handleOAuthValidationError,

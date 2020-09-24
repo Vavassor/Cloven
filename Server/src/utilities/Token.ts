@@ -1,4 +1,3 @@
-import { randomBytes } from "crypto";
 import jwt, { SignOptions } from "jsonwebtoken";
 import { AccountAdo } from "../models/AccountAdo";
 
@@ -41,8 +40,4 @@ export const createAccessToken = async (
     jwtid,
   });
   return jwt;
-};
-
-export const createRefreshToken = () => {
-  return randomBytes(32).toString("base64");
 };

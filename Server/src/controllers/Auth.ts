@@ -1,4 +1,3 @@
-import { randomBytes } from "crypto";
 import { RequestHandler } from "express";
 import { join } from "path";
 import { getAccountAdo } from "../mapping/AccountAdo";
@@ -13,13 +12,10 @@ import { ParamsDictionary, ParsedQs } from "../types/express";
 import { HttpStatus } from "../types/HttpStatus";
 import { Scope } from "../types/Scope";
 import { readTextFile } from "../utilities/File";
-import { compareHash, hash } from "../utilities/Password";
-import { createAccessToken, createRefreshToken } from "../utilities/Token";
-
-const parseScopes = (scopes?: string) => {
-  const array = scopes?.split(" ");
-  return array && array.length > 0 ? array : undefined;
-};
+import { parseScopes } from "../utilities/Parse";
+import { compareHash } from "../utilities/Password";
+import { getRandomBase64 } from "../utilities/Random";
+import { createAccessToken } from "../utilities/Token";
 
 export const grantToken: RequestHandler<
   ParamsDictionary,
@@ -62,7 +58,7 @@ export const grantToken: RequestHandler<
 
       const expiresIn = 3600;
       const privateKey = await readTextFile(join(pathRoot, "../jwtRS256.key"));
-      const jwtid = randomBytes(32).toString("base64");
+      const jwtid = getRandomBase64(32);
       const accessToken = await createAccessToken(
         getAccountAdo(account),
         expiresIn,
@@ -73,7 +69,7 @@ export const grantToken: RequestHandler<
       );
 
       const refreshToken = scopes?.includes(Scope.OfflineAccess)
-        ? createRefreshToken()
+        ? getRandomBase64(32)
         : undefined;
 
       response.json(getTokenAdo(accessToken, expiresIn, refreshToken));
@@ -92,6 +88,4 @@ export const grantToken: RequestHandler<
         );
     }
   }
-
-  next();
 };

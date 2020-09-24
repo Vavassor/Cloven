@@ -2,6 +2,7 @@ import express from "express";
 import { grantToken } from "../../../controllers/Auth";
 import { authenticateClient } from "../../../middleware/AuthenticateClient";
 import { enableCors, forNonPasswordGrants } from "../../../middleware/Cors";
+import { asyncHandler } from "../../../utilities/AsyncHandler";
 import { validateGrantToken } from "../../../validation/Auth";
 
 const router = express.Router();
@@ -12,7 +13,7 @@ router
     validateGrantToken,
     forNonPasswordGrants(enableCors),
     authenticateClient,
-    grantToken
+    asyncHandler(grantToken)
   );
 
 export { router };
