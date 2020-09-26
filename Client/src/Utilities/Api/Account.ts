@@ -1,5 +1,11 @@
 import { callApi } from "./Api";
 
+interface Account {
+  email: string;
+  id: string;
+  username: string;
+}
+
 interface AccountAdo {
   email: string;
   id: string;
@@ -14,6 +20,15 @@ interface AccountSpecAdo {
 
 const isAccountAdo = (account: any): account is AccountAdo => {
   return typeof account === "object" && account.username !== undefined;
+};
+
+const getAccountFromAccountAdo = (accountAdo: AccountAdo): Account => {
+  const { email, id, username } = accountAdo;
+  return {
+    email,
+    id,
+    username,
+  };
 };
 
 export const createAccount = async (
@@ -33,5 +48,5 @@ export const createAccount = async (
     );
   }
 
-  return account;
+  return getAccountFromAccountAdo(account);
 };

@@ -1,4 +1,7 @@
 {
+  "app": {
+    "title": "Cloven"
+  },
   "beginPasswordResetForm": {
     "emailOrUsernameFieldLabel": "Email or username",
     "searchButtonLabel": "Search"
@@ -13,11 +16,15 @@
   "home": {
     "title": "Home"
   },
-  "loginForm": {
-    "beginPasswordResetLink": "Forgot your password?",
-    "loginButtonLabel": "Log In",
-    "passwordFieldLabel": "Password",
-    "usernameFieldLabel": "Username"
+  "login": {
+    "register_link": "Sign up",
+    "submission_failure_error": "Login failed."
+  },
+  "login_form": {
+    "begin_password_reset_link": "Forgot your password?",
+    "login_button_label": "Log In",
+    "password_field_label": "Password",
+    "username_field_label": "Username"
   },
   "multiSearchSelect": {
     "addValueMessage": "Add “{{value}}”",

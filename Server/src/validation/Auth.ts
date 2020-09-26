@@ -1,5 +1,6 @@
 import { body, oneOf } from "express-validator";
 import { handleOAuthValidationError } from "../middleware/ValidationErrorHandler";
+import { validateAuthorizationHeader } from "./AuthorizationHeader";
 import { isScopeList } from "./Scope";
 
 export const validateGrantToken = [
@@ -13,5 +14,10 @@ export const validateGrantToken = [
       body("scope").optional().custom(isScopeList),
     ],
   ]),
+  handleOAuthValidationError,
+];
+
+export const validateGetUserinfo = [
+  ...validateAuthorizationHeader,
   handleOAuthValidationError,
 ];

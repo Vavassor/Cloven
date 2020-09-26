@@ -1,5 +1,24 @@
-import jwt, { SignOptions } from "jsonwebtoken";
+import jwt, { SignOptions, VerifyOptions } from "jsonwebtoken";
 import { AccountAdo } from "../models/AccountAdo";
+
+export interface JwtPayload {
+  aud: string;
+  exp: number;
+  iss: string;
+  jti: string;
+  sub: string;
+}
+
+const isJwtPayload = (value: any): value is JwtPayload => {
+  return (
+    typeof value === "object" &&
+    typeof value.aud === "string" &&
+    typeof value.exp === "number" &&
+    typeof value.iss === "string" &&
+    typeof value.jti === "string" &&
+    typeof value.sub === "string"
+  );
+};
 
 const signJwt = (
   payload: object,
@@ -16,6 +35,27 @@ const signJwt = (
           reject(error);
         } else {
           resolve(encoded);
+        }
+      }
+    );
+  });
+};
+
+const verifyJwt = (
+  token: string,
+  privateKey: string,
+  verifyOptions?: VerifyOptions
+) => {
+  return new Promise<object | undefined>((resolve, reject) => {
+    jwt.verify(
+      token,
+      privateKey,
+      { algorithms: ["RS256"], ...verifyOptions },
+      (error, decoded) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(decoded);
         }
       }
     );
@@ -40,4 +80,15 @@ export const createAccessToken = async (
     jwtid,
   });
   return jwt;
+};
+
+export const verifyAccessToken = async (token: string, privateKey: string) => {
+  const verifiedToken = await verifyJwt(token, privateKey);
+  if (!verifiedToken) {
+    throw new Error("No token decoded when verifying a JWT.");
+  }
+  if (!isJwtPayload(verifiedToken)) {
+    throw new Error("JWT payload format is invalid.");
+  }
+  return verifiedToken;
 };

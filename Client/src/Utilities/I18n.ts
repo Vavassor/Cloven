@@ -1,3 +1,8 @@
+/**
+ * Internationalization is abbreviated to the numeronym "i18n", where 18 stands
+ * for the number of letters between the first i and the last n in the word
+ * internationalization.
+ */
 import i18next from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";

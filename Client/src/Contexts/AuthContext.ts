@@ -1,14 +1,28 @@
 import { createContext } from "react";
 
+export interface AccessToken {
+  accessToken: string;
+  expirationDate: Date;
+}
+
+export interface Account {
+  accessToken: AccessToken;
+  id: string;
+}
+
 export interface AuthState {
-  isAuthenticated: boolean;
+  accounts: Account[];
+  activeAccountIndex: number;
 }
 
 export const initialAuthState: AuthState = {
-  isAuthenticated: false,
+  accounts: [],
+  activeAccountIndex: -1,
 };
 
 export interface LogInAction {
+  accessToken: AccessToken;
+  accountId: string;
   type: "LOG_IN";
 }
 
@@ -28,13 +42,34 @@ export const authReducer = (
     case "LOG_IN":
       return {
         ...state,
-        isAuthenticated: true,
+        accounts: state.accounts.concat({
+          accessToken: action.accessToken,
+          id: action.accountId,
+        }),
+        activeAccountIndex: state.accounts.length,
       };
 
-    case "LOG_OUT":
+    case "LOG_OUT": {
+      if (state.activeAccountIndex === -1) {
+        return state;
+      }
       return {
         ...state,
-        isAuthenticated: false,
+        accounts: state.accounts.splice(state.activeAccountIndex, 1),
+        activeAccountIndex:
+          state.accounts.length > 1 ? state.accounts.length - 2 : -1,
       };
+    }
   }
+};
+
+export const getActiveAccount = (authState: AuthState): Account | null => {
+  const { activeAccountIndex } = authState;
+  return activeAccountIndex !== -1
+    ? authState.accounts[activeAccountIndex]
+    : null;
+};
+
+export const isLoggedIn = (authState: AuthState): boolean => {
+  return authState.activeAccountIndex !== -1;
 };

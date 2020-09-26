@@ -34,12 +34,8 @@ export const createPost: RequestHandler<
   PostSpecAdo,
   ParsedQs
 > = async (request, response, next) => {
-  try {
-    const post = await Post.create(getPostFromPostSpecAdo(request.body));
-    response.json(getPostAdo(post));
-  } catch (error) {
-    next(error);
-  }
+  const post = await Post.create(getPostFromPostSpecAdo(request.body));
+  response.json(getPostAdo(post));
 };
 
 export const deletePost: RequestHandler<
@@ -48,12 +44,8 @@ export const deletePost: RequestHandler<
   any,
   ParsedQs
 > = async (request, response, next) => {
-  try {
-    await Post.deleteOne({ _id: request.params.id });
-    response.status(HttpStatus.NoContent).end();
-  } catch (error) {
-    next(error);
-  }
+  await Post.deleteOne({ _id: request.params.id });
+  response.status(HttpStatus.NoContent).end();
 };
 
 export const getPostById: RequestHandler<
@@ -62,17 +54,13 @@ export const getPostById: RequestHandler<
   any,
   ParsedQs
 > = async (request, response, next) => {
-  try {
-    const post = await Post.findById(request.params.id);
-    if (!post) {
-      response
-        .status(HttpStatus.NotFound)
-        .json(getErrorAdoFromMessage(request.t("post.id_not_found_error")));
-    } else {
-      response.json(getPostAdo(post));
-    }
-  } catch (error) {
-    next(error);
+  const post = await Post.findById(request.params.id);
+  if (!post) {
+    response
+      .status(HttpStatus.NotFound)
+      .json(getErrorAdoFromMessage(request.t("post.id_not_found_error")));
+  } else {
+    response.json(getPostAdo(post));
   }
 };
 
@@ -84,15 +72,10 @@ export const getPosts: RequestHandler<
 > = async (request, response, next) => {
   const query = request.query as GetQuery;
   const ids = query.ids.split(",");
-
-  try {
-    const posts = await Post.find({
-      _id: ids,
-    });
-    response.json(posts.map(getPostAdo));
-  } catch (error) {
-    next(error);
-  }
+  const posts = await Post.find({
+    _id: ids,
+  });
+  response.json(posts.map(getPostAdo));
 };
 
 export const searchRecent: RequestHandler<
@@ -108,21 +91,17 @@ export const searchRecent: RequestHandler<
   );
   const conditions = idQuery ? { _id: idQuery } : {};
 
-  try {
-    const posts = await Post.find(conditions, undefined, {
-      sort: "-creation_time",
-    }).limit(limit);
+  const posts = await Post.find(conditions, undefined, {
+    sort: "-creation_time",
+  }).limit(limit);
 
-    const idLimits = getIdLimits(posts);
-    if (idLimits) {
-      const { sinceId, untilId } = idLimits;
-      response.links(
-        getLinkEntityHeader(request.originalUrl, urlRoot, sinceId, untilId)
-      );
-    }
-
-    response.json(posts.map(getPostAdo));
-  } catch (error) {
-    next(error);
+  const idLimits = getIdLimits(posts);
+  if (idLimits) {
+    const { sinceId, untilId } = idLimits;
+    response.links(
+      getLinkEntityHeader(request.originalUrl, urlRoot, sinceId, untilId)
+    );
   }
+
+  response.json(posts.map(getPostAdo));
 };

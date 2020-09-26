@@ -3,10 +3,12 @@ import { join } from "path";
 import { getAccountAdo } from "../mapping/AccountAdo";
 import { getOAuthErrorAdo } from "../mapping/OAuthErrorAdo";
 import { getTokenAdo } from "../mapping/TokenAdo";
+import { getUserinfoAdoFromJwtPayload } from "../mapping/UserinfoAdo";
 import { Account } from "../models/Account";
 import { OAuthErrorAdo, OAuthErrorType } from "../models/OAuthErrorAdo";
 import { TokenAdo } from "../models/TokenAdo";
 import { TokenGrantAdo } from "../models/TokenGrantAdo";
+import { UserinfoAdo } from "../models/UserinfoAdo";
 import { englishT, pathRoot, urlRoot } from "../server";
 import { ParamsDictionary, ParsedQs } from "../types/express";
 import { HttpStatus } from "../types/HttpStatus";
@@ -15,7 +17,7 @@ import { readTextFile } from "../utilities/File";
 import { parseScopes } from "../utilities/Parse";
 import { compareHash } from "../utilities/Password";
 import { getRandomBase64 } from "../utilities/Random";
-import { createAccessToken } from "../utilities/Token";
+import { createAccessToken, verifyAccessToken } from "../utilities/Token";
 
 export const grantToken: RequestHandler<
   ParamsDictionary,
@@ -88,4 +90,20 @@ export const grantToken: RequestHandler<
         );
     }
   }
+};
+
+export const getUserinfo: RequestHandler<
+  ParamsDictionary,
+  UserinfoAdo | OAuthErrorAdo,
+  any,
+  ParsedQs
+> = async (request, response, next) => {
+  const { authorization } = request.headers;
+  const credentials = authorization?.split(" ")[1];
+  if (!credentials) {
+    throw new Error("Expected authorization header field.");
+  }
+  const privateKey = await readTextFile(join(pathRoot, "../jwtRS256.key"));
+  const payload = await verifyAccessToken(credentials, privateKey);
+  response.json(getUserinfoAdoFromJwtPayload(payload));
 };

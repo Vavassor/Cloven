@@ -6,13 +6,14 @@
   "scripts": {
     "build": "cd ../Client && yarn build",
     "install": "cd ../Client && yarn install",
-    "start": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "start": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only src/server.ts",
     "test": "jest ../src --config config/jest.config.js"
   },
   "author": "Andrew Dawson <dawso.andrew@gmail.com>",
   "license": "CC0-1.0",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
     "i18next": "^19.7.0",

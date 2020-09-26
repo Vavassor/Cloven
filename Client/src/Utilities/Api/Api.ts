@@ -5,6 +5,7 @@ export const apiRoot = process.env.REACT_APP_API_ROOT!;
 
 interface CallApiOptions {
   body?: object;
+  headers?: Record<string, string>;
   method: "DELETE" | "GET" | "PATCH" | "POST";
   urlSearchParams?: URLSearchParams;
 }
@@ -28,6 +29,7 @@ export const callApi = async (
     body,
     headers: {
       "Content-Type": "application/json",
+      ...options.headers,
     },
     method: options.method,
   });

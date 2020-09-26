@@ -18,6 +18,7 @@ import {
   AuthContext,
   authReducer,
   initialAuthState,
+  isLoggedIn,
 } from "./Contexts/AuthContext";
 import { AuthDispatch } from "./Contexts/AuthDispatch";
 import {
@@ -27,11 +28,13 @@ import {
 } from "./Contexts/ThemeContext";
 import { ThemeDispatch } from "./Contexts/ThemeDispatch";
 import { routes } from "./Routes";
+import { useAuthSetup } from "./Utilities/Hooks/useAuthSetup";
 import { useLocaleSetup } from "./Utilities/Hooks/useLocaleSetup";
 import { useThemeSetup } from "./Utilities/Hooks/useThemeSetup";
 
 const App = () => {
-  const [authState, authDispatch] = useReducer(authReducer, initialAuthState);
+  const loadedAuthState = useAuthSetup(initialAuthState);
+  const [authState, authDispatch] = useReducer(authReducer, loadedAuthState);
   const [themeState, themeDispatch] = useReducer(
     themeReducer,
     initialThemeState
@@ -90,13 +93,13 @@ const PrivateRoute: React.FC<RouteProps> = ({
   render,
   ...rest
 }) => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const authState = useContext(AuthContext);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated ? (
+        isLoggedIn(authState) ? (
           children ||
           (Component ? <Component {...props} /> : render ? render(props) : null)
         ) : (

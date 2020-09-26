@@ -28,3 +28,7 @@ export const formatTimeAgo = (date: Date, format: Intl.RelativeTimeFormat) => {
   const division = divisions[divisions.length - 1];
   return format.format(Math.round(unitsAgo), division.unit);
 };
+
+export const getDateInSeconds = (seconds: number) => {
+  return new Date(Date.now() + 1000 * seconds);
+};

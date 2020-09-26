@@ -15,13 +15,9 @@ export const createAccount: RequestHandler<
   AccountSpecAdo,
   ParsedQs
 > = async (request, response, next) => {
-  try {
-    const accountQuery = await getAccountFromAccountSpecAdo(request.body);
-    const account = await Account.create(accountQuery);
-    response.json(getAccountAdo(account));
-  } catch (error) {
-    next(error);
-  }
+  const accountQuery = await getAccountFromAccountSpecAdo(request.body);
+  const account = await Account.create(accountQuery);
+  response.json(getAccountAdo(account));
 };
 
 export const deleteAccount: RequestHandler<
@@ -30,12 +26,8 @@ export const deleteAccount: RequestHandler<
   any,
   ParsedQs
 > = async (request, response, next) => {
-  try {
-    await Account.deleteOne({ _id: request.params.id });
-    response.status(HttpStatus.NoContent).end();
-  } catch (error) {
-    next(error);
-  }
+  await Account.deleteOne({ _id: request.params.id });
+  response.status(HttpStatus.NoContent).end();
 };
 
 export const getAccountById: RequestHandler<
@@ -44,16 +36,12 @@ export const getAccountById: RequestHandler<
   any,
   ParsedQs
 > = async (request, response, next) => {
-  try {
-    const account = await Account.findById(request.params.id);
-    if (!account) {
-      response
-        .status(HttpStatus.NotFound)
-        .json(getErrorAdoFromMessage(request.t("account.id_not_found_error")));
-    } else {
-      response.json(getAccountAdo(account));
-    }
-  } catch (error) {
-    next(error);
+  const account = await Account.findById(request.params.id);
+  if (!account) {
+    response
+      .status(HttpStatus.NotFound)
+      .json(getErrorAdoFromMessage(request.t("account.id_not_found_error")));
+  } else {
+    response.json(getAccountAdo(account));
   }
 };
