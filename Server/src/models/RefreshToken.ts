@@ -1,9 +1,8 @@
 import { model, Schema } from "mongoose";
-import { Account } from "./Account";
 
 const RefreshTokenSchema = new Schema({
   account_id: {
-    ref: Account,
+    ref: "Account",
     required: true,
     type: Schema.Types.ObjectId,
   },
