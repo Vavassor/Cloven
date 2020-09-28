@@ -1,14 +1,12 @@
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { model, Schema } from "mongoose";
 
 const AppSchema = new Schema({
-  clientId: {
+  client_id: {
     required: true,
     type: String,
     unique: true,
   },
-  clientSecret: {
+  client_secret: {
     required: true,
     type: String,
   },
@@ -16,7 +14,7 @@ const AppSchema = new Schema({
     required: true,
     type: String,
   },
-  redirectUri: {
+  redirect_uri: {
     required: true,
     type: String,
   },
@@ -26,4 +24,4 @@ const AppSchema = new Schema({
   },
 });
 
-export const App = mongoose.model("App", AppSchema);
+export const App = model("App", AppSchema);

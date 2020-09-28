@@ -1,19 +1,18 @@
 import { RequestHandler } from "express";
+import { getPostSpecFromPostSpecAdo } from "../mapping/domain/PostSpec";
 import { getErrorAdoFromMessage } from "../mapping/ErrorAdo";
-import { getPostAdo } from "../mapping/PostAdo";
-import { getPostFromPostSpecAdo } from "../mapping/PostSpecAdo";
-import { Post } from "../models";
-import { ErrorAdo } from "../models/ErrorAdo";
-import { PostAdo } from "../models/PostAdo";
-import { PostSpecAdo } from "../models/PostSpecAdo";
+import { getPostAdoFromPost } from "../mapping/PostAdo";
+import * as PostRepository from "../repositories/PostRepository";
 import { urlRoot } from "../server";
+import { ErrorAdo } from "../types/ado/ErrorAdo";
+import { PostAdo } from "../types/ado/PostAdo";
+import { PostSpecAdo } from "../types/ado/PostSpecAdo";
 import { ParamsDictionary, ParsedQs } from "../types/express";
 import { HttpStatus } from "../types/HttpStatus";
 import {
   getIdLimits,
   getLinkEntityHeader,
   getQueryInt,
-  getQuerySelector,
 } from "../utilities/Pagination";
 
 interface GetQuery extends ParsedQs {
@@ -34,8 +33,10 @@ export const createPost: RequestHandler<
   PostSpecAdo,
   ParsedQs
 > = async (request, response, next) => {
-  const post = await Post.create(getPostFromPostSpecAdo(request.body));
-  response.json(getPostAdo(post));
+  const post = await PostRepository.createPost(
+    getPostSpecFromPostSpecAdo(request.body)
+  );
+  response.json(getPostAdoFromPost(post));
 };
 
 export const deletePost: RequestHandler<
@@ -44,7 +45,7 @@ export const deletePost: RequestHandler<
   any,
   ParsedQs
 > = async (request, response, next) => {
-  await Post.deleteOne({ _id: request.params.id });
+  await PostRepository.deletePost(request.params.id);
   response.status(HttpStatus.NoContent).end();
 };
 
@@ -54,14 +55,13 @@ export const getPostById: RequestHandler<
   any,
   ParsedQs
 > = async (request, response, next) => {
-  const post = await Post.findById(request.params.id);
+  const post = await PostRepository.findPostById(request.params.id);
   if (!post) {
-    response
+    return response
       .status(HttpStatus.NotFound)
       .json(getErrorAdoFromMessage(request.t("post.id_not_found_error")));
-  } else {
-    response.json(getPostAdo(post));
   }
+  response.json(getPostAdoFromPost(post));
 };
 
 export const getPosts: RequestHandler<
@@ -72,10 +72,8 @@ export const getPosts: RequestHandler<
 > = async (request, response, next) => {
   const query = request.query as GetQuery;
   const ids = query.ids.split(",");
-  const posts = await Post.find({
-    _id: ids,
-  });
-  response.json(posts.map(getPostAdo));
+  const posts = await PostRepository.findPostsById(ids);
+  response.json(posts.map(getPostAdoFromPost));
 };
 
 export const searchRecent: RequestHandler<
@@ -85,15 +83,11 @@ export const searchRecent: RequestHandler<
   SearchRecentQuery
 > = async (request, response, next) => {
   const limit = getQueryInt(request.query.limit, DEFAULT_SEARCH_RESULT_COUNT);
-  const idQuery = getQuerySelector(
+  const posts = await PostRepository.findRecentPosts(
     request.query.since_id,
-    request.query.until_id
+    request.query.until_id,
+    limit
   );
-  const conditions = idQuery ? { _id: idQuery } : {};
-
-  const posts = await Post.find(conditions, undefined, {
-    sort: "-creation_time",
-  }).limit(limit);
 
   const idLimits = getIdLimits(posts);
   if (idLimits) {
@@ -103,5 +97,5 @@ export const searchRecent: RequestHandler<
     );
   }
 
-  response.json(posts.map(getPostAdo));
+  response.json(posts.map(getPostAdoFromPost));
 };

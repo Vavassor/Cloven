@@ -1,11 +1,11 @@
 import { RequestHandler } from "express";
-import { getAccountAdo } from "../mapping/AccountAdo";
-import { getAccountFromAccountSpecAdo } from "../mapping/AccountSpecAdo";
+import { getAccountAdoFromAccount } from "../mapping/AccountAdo";
+import { getAccountSpecFromAccountSpecAdo } from "../mapping/domain/AccountSpec";
 import { getErrorAdoFromMessage } from "../mapping/ErrorAdo";
-import { Account } from "../models/Account";
-import { AccountAdo } from "../models/AccountAdo";
-import { AccountSpecAdo } from "../models/AccountSpecAdo";
-import { ErrorAdo } from "../models/ErrorAdo";
+import * as AccountRepository from "../repositories/AccountRepository";
+import { AccountAdo } from "../types/ado/AccountAdo";
+import { AccountSpecAdo } from "../types/ado/AccountSpecAdo";
+import { ErrorAdo } from "../types/ado/ErrorAdo";
 import { ParamsDictionary, ParsedQs } from "../types/express";
 import { HttpStatus } from "../types/HttpStatus";
 
@@ -15,9 +15,9 @@ export const createAccount: RequestHandler<
   AccountSpecAdo,
   ParsedQs
 > = async (request, response, next) => {
-  const accountQuery = await getAccountFromAccountSpecAdo(request.body);
-  const account = await Account.create(accountQuery);
-  response.json(getAccountAdo(account));
+  const accountSpec = getAccountSpecFromAccountSpecAdo(request.body);
+  const account = await AccountRepository.createAccount(accountSpec);
+  response.json(getAccountAdoFromAccount(account));
 };
 
 export const deleteAccount: RequestHandler<
@@ -26,7 +26,7 @@ export const deleteAccount: RequestHandler<
   any,
   ParsedQs
 > = async (request, response, next) => {
-  await Account.deleteOne({ _id: request.params.id });
+  await AccountRepository.deleteAccount(request.params.id);
   response.status(HttpStatus.NoContent).end();
 };
 
@@ -36,12 +36,12 @@ export const getAccountById: RequestHandler<
   any,
   ParsedQs
 > = async (request, response, next) => {
-  const account = await Account.findById(request.params.id);
+  const account = await AccountRepository.findAccountById(request.params.id);
   if (!account) {
     response
       .status(HttpStatus.NotFound)
       .json(getErrorAdoFromMessage(request.t("account.id_not_found_error")));
   } else {
-    response.json(getAccountAdo(account));
+    response.json(getAccountAdoFromAccount(account));
   }
 };

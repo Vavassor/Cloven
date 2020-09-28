@@ -1,4 +1,4 @@
-import { TokenAdo } from "../models/TokenAdo";
+import { TokenAdo } from "../types/ado/TokenAdo";
 
 export const getTokenAdo = (
   accessToken: string,

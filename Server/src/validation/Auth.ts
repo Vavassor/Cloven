@@ -9,8 +9,13 @@ export const validateGrantToken = [
   oneOf([
     [
       body("grant_type").equals("password"),
-      body("username").exists(),
-      body("password").exists(),
+      body("username").exists().isString(),
+      body("password").exists().isString(),
+      body("scope").optional().custom(isScopeList),
+    ],
+    [
+      body("grant_type").equals("refresh_token"),
+      body("refresh_token").exists().isString(),
       body("scope").optional().custom(isScopeList),
     ],
   ]),

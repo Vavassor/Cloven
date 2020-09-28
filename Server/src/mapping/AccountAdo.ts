@@ -1,10 +1,10 @@
-import type { Document as MongooseDocument } from "mongoose";
+import { Account } from "../types/domain/Account";
 
-export const getAccountAdo = (account: MongooseDocument) => {
-  const { email, _id, username } = account.toObject();
+export const getAccountAdoFromAccount = (account: Account) => {
+  const { email, id, username } = account;
   return {
     email,
-    id: _id.toString(),
+    id,
     username,
   };
 };

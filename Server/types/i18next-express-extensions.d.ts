@@ -104,5 +104,8 @@ declare namespace Express {
 
     // Properties added by 'i18next-http-middleware'
     t: TFunction;
+
+    // Properties added 'authenticateClient' middleware.
+    clientId?: string;
   }
 }

@@ -1,21 +1,14 @@
 import { RequestHandler } from "express";
 import { getOAuthErrorAdo } from "../mapping/OAuthErrorAdo";
-import { App } from "../models/App";
-import { OAuthErrorAdo, OAuthErrorType } from "../models/OAuthErrorAdo";
-import { TokenAdo } from "../models/TokenAdo";
-import { TokenGrantAdo } from "../models/TokenGrantAdo";
+import { findAppByClientId } from "../repositories/AppRepository";
 import { englishT } from "../server";
+import { OAuthErrorAdo, OAuthErrorType } from "../types/ado/OAuthErrorAdo";
+import { TokenAdo } from "../types/ado/TokenAdo";
+import { TokenGrantAdo } from "../types/ado/TokenGrantAdo";
 import { ParamsDictionary, ParsedQs } from "../types/express";
 import { HttpStatus } from "../types/HttpStatus";
+import { getAuthorizationField } from "../utilities/Header";
 import { compareHash } from "../utilities/Password";
-
-const getCredentialsBasic = (base64Credentials: string) => {
-  const asciiCredentials = Buffer.from(base64Credentials, "base64").toString(
-    "ascii"
-  );
-  const [username, password] = asciiCredentials.split(":");
-  return { username, password };
-};
 
 export const authenticateClient: RequestHandler<
   ParamsDictionary,
@@ -28,23 +21,27 @@ export const authenticateClient: RequestHandler<
 
   const authorization = request.header("Authorization");
   if (authorization) {
-    const [type, credentials] = authorization.split(" ");
-    if (type === "Basic") {
-      const { username, password } = getCredentialsBasic(credentials);
-      clientId = username;
-      clientSecret = password;
-    } else {
-      return response
-        .status(HttpStatus.Unauthorized)
-        .header("WWW-Authenticate", "Basic")
-        .json(
-          getOAuthErrorAdo(
-            OAuthErrorType.InvalidClient,
-            englishT,
-            request.t,
-            "token.unsupported_authentication_method_error_description"
-          )
-        );
+    const authorizationField = getAuthorizationField(authorization);
+    switch (authorizationField?.type) {
+      case "Basic": {
+        const { username, password } = authorizationField;
+        clientId = username;
+        clientSecret = password;
+        break;
+      }
+
+      default:
+        return response
+          .status(HttpStatus.Unauthorized)
+          .header("WWW-Authenticate", "Basic")
+          .json(
+            getOAuthErrorAdo(
+              OAuthErrorType.InvalidClient,
+              englishT,
+              request.t,
+              "token.unsupported_authentication_method_error_description"
+            )
+          );
     }
   }
 
@@ -52,7 +49,7 @@ export const authenticateClient: RequestHandler<
   clientSecret = clientSecret || request.body.client_secret;
 
   if (clientId && clientSecret) {
-    const app = await App.findOne({ client_id: clientId });
+    const app = await findAppByClientId(clientId);
     if (!app) {
       return response
         .status(HttpStatus.Unauthorized)
@@ -75,6 +72,8 @@ export const authenticateClient: RequestHandler<
   // @TODO Check if the grant type is allowed for the given client. In
   // particular, if a third-party client attempts to use the resource owner
   // password grant type.
+
+  request.clientId = clientId;
 
   next();
 };

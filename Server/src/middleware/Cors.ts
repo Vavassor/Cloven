@@ -4,7 +4,7 @@
  */
 import { RequestHandler, Response as ExpressResponse } from "express";
 import { IncomingHttpHeaders } from "http";
-import { TokenGrantAdo } from "../models/TokenGrantAdo";
+import { TokenGrantAdo } from "../types/ado/TokenGrantAdo";
 import { ParamsDictionary, ParsedQs } from "../types/express";
 import { HttpStatus } from "../types/HttpStatus";
 import { conditionalMiddleWare } from "../utilities/ConditionalMiddleware";

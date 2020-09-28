@@ -1,6 +1,6 @@
 import { ValidationError } from "express-validator";
 import { TFunction } from "i18next";
-import { ErrorAdo, ErrorSingle } from "../models/ErrorAdo";
+import { ErrorAdo, ErrorSingle } from "../types/ado/ErrorAdo";
 
 export const getErrorAdoFromValidationErrorArray = (
   errors: ValidationError[],

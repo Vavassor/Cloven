@@ -1,12 +1,12 @@
-import type { Document as MongooseDocument } from "mongoose";
-import { PostAdo } from "../models/PostAdo";
+import { PostAdo } from "../types/ado/PostAdo";
+import { Post } from "../types/domain/Post";
 
-export const getPostAdo = (post: MongooseDocument): PostAdo => {
-  const { content, creation_time, _id, title } = post.toObject();
+export const getPostAdoFromPost = (post: Post): PostAdo => {
+  const { content, creationDate, id, title } = post;
   return {
     content,
-    creation_time,
-    id: _id.toString(),
+    creation_date: creationDate,
+    id,
     title,
   };
 };

@@ -1,13 +1,11 @@
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { model, Schema } from "mongoose";
 
 const PostSchema = new Schema({
   content: {
     type: String,
     required: true,
   },
-  creation_time: {
+  creation_date: {
     type: Date,
     required: true,
   },
@@ -17,4 +15,4 @@ const PostSchema = new Schema({
   },
 });
 
-export const Post = mongoose.model("Post", PostSchema);
+export const Post = model("Post", PostSchema);

@@ -1,6 +1,6 @@
 import { ValidationError } from "express-validator";
 import { TFunction } from "i18next";
-import { OAuthErrorAdo, OAuthErrorType } from "../models/OAuthErrorAdo";
+import { OAuthErrorAdo, OAuthErrorType } from "../types/ado/OAuthErrorAdo";
 
 interface InfoByErrorType {
   [key: string]: {

@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { model, Schema } from "mongoose";
+import { RefreshToken } from "./RefreshToken";
 
 const AccountSchema = new Schema({
   email: {
@@ -19,4 +18,8 @@ const AccountSchema = new Schema({
   },
 });
 
-export const Account = mongoose.model("Account", AccountSchema);
+export const Account = model("Account", AccountSchema);
+
+AccountSchema.post("deleteOne", async (account) => {
+  await RefreshToken.deleteMany({ account_id: account._id });
+});

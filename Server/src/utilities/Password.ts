@@ -13,7 +13,7 @@ export const compareHash = async (password: string, hash: string) => {
 };
 
 export const hash = async (password: string) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     bcrypt.genSalt(10, (error, salt) => {
       if (error) {
         reject(error);

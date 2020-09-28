@@ -1,6 +1,6 @@
 import { QuerySelector } from "mongodb";
-import { Document as MongooseDocument } from "mongoose";
 import { join } from "path";
+import { Post } from "../types/domain/Post";
 
 interface LinkEntityHeader {
   first?: string;
@@ -28,11 +28,11 @@ const getPreviousLink = (url: string, untilId: string) => {
   return parsedUrl.toString();
 };
 
-export const getIdLimits = (posts: MongooseDocument[]) => {
+export const getIdLimits = (posts: Post[]) => {
   if (posts.length > 0) {
     return {
-      sinceId: posts[0]._id,
-      untilId: posts[posts.length - 1]._id,
+      sinceId: posts[0].id,
+      untilId: posts[posts.length - 1].id,
     };
   }
   return null;

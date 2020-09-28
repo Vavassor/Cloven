@@ -1,11 +1,12 @@
 import jwt, { SignOptions, VerifyOptions } from "jsonwebtoken";
-import { AccountAdo } from "../models/AccountAdo";
+import { Account } from "../types/domain/Account";
 
 export interface JwtPayload {
   aud: string;
   exp: number;
   iss: string;
   jti: string;
+  scope?: string;
   sub: string;
 }
 
@@ -16,6 +17,7 @@ const isJwtPayload = (value: any): value is JwtPayload => {
     typeof value.exp === "number" &&
     typeof value.iss === "string" &&
     typeof value.jti === "string" &&
+    (!value.scope || typeof value.scope === "string") &&
     typeof value.sub === "string"
   );
 };
@@ -63,21 +65,21 @@ const verifyJwt = (
 };
 
 export const createAccessToken = async (
-  accountAdo: AccountAdo,
+  account: Account,
   expiresIn: number,
   privateKey: string,
   apiUrl: string,
   jwtid: string,
   scopes?: string[]
 ) => {
-  const { id, ...accountPayload } = accountAdo;
-  const payload = { ...accountPayload, scopes };
+  const { id, ...accountPayload } = account;
+  const payload = { ...accountPayload, scope: scopes?.join(" ") };
   const jwt = await signJwt(payload, privateKey, {
     audience: apiUrl,
     expiresIn,
     issuer: apiUrl,
-    subject: id,
     jwtid,
+    subject: id,
   });
   return jwt;
 };

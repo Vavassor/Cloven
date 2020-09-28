@@ -1,11 +1,13 @@
 import { RequestHandler } from "express";
-import { getAppAdo } from "../mapping/AppAdo";
-import { getCreateQueryFromAppSpecAdo } from "../mapping/AppSpecAdo";
-import { App } from "../models/App";
-import { AppAdo } from "../models/AppAdo";
-import { AppSpecAdo } from "../models/AppSpecAdo";
-import { ErrorAdo } from "../models/ErrorAdo";
+import { v5 as uuidv5 } from "uuid";
+import { getAppAdoFromApp } from "../mapping/AppAdo";
+import { getAppSpecFromAppSpecAdo } from "../mapping/domain/AppSpec";
+import * as AppRepository from "../repositories/AppRepository";
+import { AppAdo } from "../types/ado/AppAdo";
+import { AppSpecAdo } from "../types/ado/AppSpecAdo";
+import { ErrorAdo } from "../types/ado/ErrorAdo";
 import { ParamsDictionary, ParsedQs } from "../types/express";
+import { hash } from "../utilities/Password";
 import { getRandomBase64 } from "../utilities/Random";
 
 export const createApp: RequestHandler<
@@ -14,11 +16,14 @@ export const createApp: RequestHandler<
   AppSpecAdo,
   ParsedQs
 > = async (request, response, next) => {
+  const appSpec = getAppSpecFromAppSpecAdo(request.body);
+  const clientId = uuidv5(appSpec.website, uuidv5.URL);
   const clientSecret = getRandomBase64(32);
-  const createQuery = await getCreateQueryFromAppSpecAdo(
-    request.body,
-    clientSecret
+  const hashedClientSecret = await hash(clientSecret);
+  const app = await AppRepository.createApp(
+    appSpec,
+    clientId,
+    hashedClientSecret
   );
-  const app = await App.create(createQuery);
-  response.json(getAppAdo(app, clientSecret));
+  response.json(getAppAdoFromApp(app, clientSecret));
 };
