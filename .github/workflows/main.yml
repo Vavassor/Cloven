@@ -3,12 +3,12 @@ name: deploy_storybook
 on:
   push:
     branches: [ master ]
-    paths-ignore:
-      - Server
+    paths:
+      - 'Client/**'
   pull_request:
     branches: [ master ]
-    paths-ignore:
-      - Server
+    paths:
+      - 'Client/**'
 
 jobs:
   deploy:
