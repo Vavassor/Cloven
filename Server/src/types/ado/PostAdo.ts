@@ -1,7 +1,7 @@
-import { AccountAdo } from "./AccountAdo";
+import { AccountPublicAdo } from "./AccountPublicAdo";
 
 export interface PostAdo {
-  account: AccountAdo;
+  account: AccountPublicAdo;
   content: string;
   creation_date: string;
   id: string;

@@ -12,14 +12,14 @@ import {
   validateGetPostById,
   validateGetPosts,
 } from "../../../validation/Post";
-import { router as searchRoutes } from "./search";
+import { router as userTimelineRoutes } from "./user_timeline";
 
 const router = express.Router();
 
+router.use("/user_timeline", userTimelineRoutes);
 router.route("/").delete(validateDeletePost, asyncHandler(deletePost));
 router.route("/").get(validateGetPosts, asyncHandler(getPosts));
 router.route("/").post(validateCreatePost, asyncHandler(createPost));
 router.route("/:id").get(validateGetPostById, asyncHandler(getPostById));
-router.use("/search", searchRoutes);
 
 export { router };

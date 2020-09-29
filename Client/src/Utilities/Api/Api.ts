@@ -5,6 +5,7 @@ export const apiRoot = process.env.REACT_APP_API_ROOT!;
 
 interface CallApiOptions {
   body?: object;
+  bearerToken?: string;
   headers?: Record<string, string>;
   method: "DELETE" | "GET" | "PATCH" | "POST";
   urlSearchParams?: URLSearchParams;
@@ -25,10 +26,15 @@ export const callApi = async (
     body = JSON.stringify(options.body);
   }
 
+  const authorizationHeader: Record<string, string> = options.bearerToken
+    ? { Authorization: `Bearer ${options.bearerToken}` }
+    : {};
+
   const response = await fetch(url, {
     body,
     headers: {
       "Content-Type": "application/json",
+      ...authorizationHeader,
       ...options.headers,
     },
     method: options.method,

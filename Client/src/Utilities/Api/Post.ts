@@ -1,8 +1,12 @@
-import { Account, AccountAdo, getAccountFromAccountAdo } from "./Account";
+import {
+  AccountPublic,
+  AccountPublicAdo,
+  getAccountPublicFromAccountPublicAdo,
+} from "./Account";
 import { callApi } from "./Api";
 
 interface PostAdo {
-  account: AccountAdo;
+  account: AccountPublicAdo;
   content: string;
   creation_date: string;
   id: string;
@@ -10,7 +14,7 @@ interface PostAdo {
 }
 
 export interface Post {
-  account: Account;
+  account: AccountPublic;
   content: string;
   creationDate: Date;
   id: string;
@@ -20,7 +24,7 @@ export interface Post {
 const getPostFromPostAdo = (postAdo: PostAdo): Post => {
   const { account, content, creation_date, id, title } = postAdo;
   return {
-    account: getAccountFromAccountAdo(account),
+    account: getAccountPublicFromAccountPublicAdo(account),
     content,
     creationDate: new Date(creation_date),
     id,
@@ -32,14 +36,15 @@ const isPostAdoArray = (postAdos: any): postAdos is PostAdo[] => {
   return Array.isArray(postAdos);
 };
 
-export const searchRecentPosts = async (): Promise<Post[]> => {
-  const postAdos = await callApi("post/search/recent", {
+export const getUserTimelinePosts = async (accessToken: string): Promise<Post[]> => {
+  const postAdos = await callApi("post/user_timeline", {
+    bearerToken: accessToken,
     method: "GET",
   });
 
   if (!isPostAdoArray(postAdos)) {
     throw new Error("The response body was not the expected type 'PostAdo[]'.");
   }
-
+  
   return postAdos.map(getPostFromPostAdo);
 };

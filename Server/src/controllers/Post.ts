@@ -76,14 +76,15 @@ export const getPosts: RequestHandler<
   response.json(posts.map(getPostAdoFromPost));
 };
 
-export const searchRecent: RequestHandler<
+export const getAccountTimelinePosts: RequestHandler<
   ParamsDictionary,
   PostAdo[] | ErrorAdo,
   any,
   SearchRecentQuery
 > = async (request, response, next) => {
   const limit = getQueryInt(request.query.limit, DEFAULT_SEARCH_RESULT_COUNT);
-  const posts = await PostRepository.findRecentPosts(
+  const posts = await PostRepository.findAccountTimelinePosts(
+    request.accountId,
     request.query.since_id,
     request.query.until_id,
     limit

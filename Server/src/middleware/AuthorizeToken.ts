@@ -1,13 +1,14 @@
 import { RequestHandler, Response as ExpressResponse } from "express";
 import { TFunction } from "i18next";
 import { join } from "path";
+import { escapeQuotes } from "../utilities/Ascii";
 import { getErrorAdoFromMessage } from "../mapping/ErrorAdo";
 import { englishT, pathRoot } from "../server";
 import { HttpStatus } from "../types/HttpStatus";
 import { isPastTimestamp } from "../utilities/Date";
 import { readTextFile } from "../utilities/File";
 import { getAuthorizationField } from "../utilities/Header";
-import { verifyAccessToken } from "../utilities/Token";
+import { JwtPayload, verifyAccessToken } from "../utilities/Token";
 
 const respondWithFailure = (
   response: ExpressResponse,
@@ -19,8 +20,8 @@ const respondWithFailure = (
 ) => {
   const wwwAuthenticate = [
     "Bearer",
-    `error=${error}`,
-    `error_description=${englishT(errorKey)}`,
+    `error="${error}"`,
+    `error_description="${escapeQuotes(englishT(errorKey))}"`,
   ].join(", ");
 
   response
@@ -79,9 +80,11 @@ export const authorizeToken: RequestHandler = async (
 
   const { token } = authorizationField;
   const privateKey = await readTextFile(join(pathRoot, "../jwtRS256.key"));
-  const jwtPayload = await verifyAccessToken(token, privateKey);
 
-  if (isPastTimestamp(jwtPayload.exp)) {
+  let jwtPayload: JwtPayload;
+  try {
+    jwtPayload = await verifyAccessToken(token, privateKey);
+  } catch (error) {
     return respondWithInvalidToken(response, englishT, request.t);
   }
 

@@ -25,7 +25,7 @@ export const validateGetPostById = [
   handleValidationError,
 ];
 
-export const validateSearchRecent = [
+export const validateGetAccountTimelinePosts = [
   query("limit")
     .optional()
     .isInt({ allow_leading_zeroes: false, max: MAX_SEARCH_RESULTS, min: 0 }),
