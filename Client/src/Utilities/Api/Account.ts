@@ -1,12 +1,12 @@
 import { callApi } from "./Api";
 
-interface Account {
+export interface Account {
   email: string;
   id: string;
   username: string;
 }
 
-interface AccountAdo {
+export interface AccountAdo {
   email: string;
   id: string;
   username: string;
@@ -22,7 +22,7 @@ const isAccountAdo = (account: any): account is AccountAdo => {
   return typeof account === "object" && account.username !== undefined;
 };
 
-const getAccountFromAccountAdo = (accountAdo: AccountAdo): Account => {
+export const getAccountFromAccountAdo = (accountAdo: AccountAdo): Account => {
   const { email, id, username } = accountAdo;
   return {
     email,

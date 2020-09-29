@@ -4,16 +4,16 @@ import { RefreshToken } from "./RefreshToken";
 const AccountSchema = new Schema({
   email: {
     required: true,
-    type: String,
+    type: Schema.Types.String,
     unique: true,
   },
   password: {
     required: true,
-    type: String,
+    type: Schema.Types.String,
   },
   username: {
     required: true,
-    type: String,
+    type: Schema.Types.String,
     unique: true,
   },
 });

@@ -1,17 +1,22 @@
 import { model, Schema } from "mongoose";
 
 const PostSchema = new Schema({
-  content: {
-    type: String,
+  account: {
+    ref: "Account",
     required: true,
+    type: Schema.Types.ObjectId,
+  },
+  content: {
+    required: true,
+    type: Schema.Types.String,
   },
   creation_date: {
-    type: Date,
     required: true,
+    type: Schema.Types.Date,
   },
   title: {
-    type: String,
     required: true,
+    type: Schema.Types.String,
   },
 });
 

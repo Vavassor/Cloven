@@ -1,0 +1,8 @@
+[
+  {
+    "email": "dawso.andrew@gmail.com",
+    "_id": { "$oid": "5f7295d69bbbe80e3ca48bf0" },
+    "password": "$2b$10$0tM6faRBUYrN8DHY2Ty6DuXOqMVFwjlEgpEo3ffTyZY3.vQYC2oDy",
+    "username": "vavassor"
+  }
+]

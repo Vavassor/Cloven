@@ -1,24 +1,28 @@
+import { Account, AccountAdo, getAccountFromAccountAdo } from "./Account";
 import { callApi } from "./Api";
 
 interface PostAdo {
+  account: AccountAdo;
   content: string;
-  creation_time: string;
+  creation_date: string;
   id: string;
   title: string;
 }
 
 export interface Post {
+  account: Account;
   content: string;
-  creationTime: Date;
+  creationDate: Date;
   id: string;
   title: string;
 }
 
 const getPostFromPostAdo = (postAdo: PostAdo): Post => {
-  const { content, creation_time, id, title } = postAdo;
+  const { account, content, creation_date, id, title } = postAdo;
   return {
+    account: getAccountFromAccountAdo(account),
     content,
-    creationTime: new Date(creation_time),
+    creationDate: new Date(creation_date),
     id,
     title,
   };

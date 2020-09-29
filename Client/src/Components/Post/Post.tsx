@@ -31,11 +31,12 @@ export const Post: React.FC<PostProps> = ({ article }) => {
   return (
     <>
       <p>{article.title}</p>
+      <p>{`@${article.account.username}`}</p>
       <time
-        dateTime={article.creationTime.toISOString()}
-        title={formatDate(article.creationTime, locale)}
+        dateTime={article.creationDate.toISOString()}
+        title={formatDate(article.creationDate, locale)}
       >
-        {getTime(article.creationTime, locale)}
+        {getTime(article.creationDate, locale)}
       </time>
     </>
   );

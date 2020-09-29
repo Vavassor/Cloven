@@ -36,6 +36,8 @@ export const findRecentPosts = async (
   const conditions = idQuery ? { _id: idQuery } : {};
   const posts = await PostModel.find(conditions, undefined, {
     sort: "-creation_date",
-  }).limit(limit);
+  })
+    .limit(limit)
+    .populate({ path: "account" });
   return posts.map((post) => post.toObject()).map(getPostFromDocument);
 };
