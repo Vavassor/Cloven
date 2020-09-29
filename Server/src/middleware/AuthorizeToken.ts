@@ -5,7 +5,6 @@ import { escapeQuotes } from "../utilities/Ascii";
 import { getErrorAdoFromMessage } from "../mapping/ErrorAdo";
 import { englishT, pathRoot } from "../server";
 import { HttpStatus } from "../types/HttpStatus";
-import { isPastTimestamp } from "../utilities/Date";
 import { readTextFile } from "../utilities/File";
 import { getAuthorizationField } from "../utilities/Header";
 import { JwtPayload, verifyAccessToken } from "../utilities/Token";
