@@ -29,6 +29,8 @@ export const getRefreshedAccessToken = async (
     storedAccount.access_token = createStoredAccessToken(newAccessToken);
     storeAccount(storedAccount);
     dispatch(refreshAccessToken(newAccessToken, activeAccount.id));
+
+    return newAccessToken;
   }
 
   return accessToken;
