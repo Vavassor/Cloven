@@ -15,12 +15,19 @@ interface TokenAdo {
   token_type: string;
 }
 
-interface TokenGrantAdo {
+export interface TokenGrantPasswordAdo {
   client_id: string;
   grant_type: "password";
   password: string;
   scope?: string;
   username: string;
+}
+
+export interface TokenGrantRefreshTokenAdo {
+  client_id: string;
+  grant_type: "refresh_token";
+  refresh_token: string;
+  scope?: string;
 }
 
 export interface Userinfo {
@@ -58,12 +65,33 @@ const isUserinfoAdo = (userinfoAdo: any): userinfoAdo is UserinfoAdo => {
 };
 
 export const exchangePassword = async (username: string, password: string) => {
-  const tokenGrantAdo: TokenGrantAdo = {
+  const tokenGrantAdo: TokenGrantPasswordAdo = {
     client_id: clientId,
     grant_type: "password",
     password,
     scope: "offline_access",
     username,
+  };
+
+  const tokenAdo = await callApi("auth/token", {
+    method: "POST",
+    body: tokenGrantAdo,
+  });
+
+  if (!isTokenAdo(tokenAdo)) {
+    throw new Error(
+      "The response body was not the expected type 'AccessTokenAdo'."
+    );
+  }
+
+  return getAccessTokenFromTokenAdo(tokenAdo);
+};
+
+export const exchangeRefreshToken = async (refreshToken: string) => {
+  const tokenGrantAdo: TokenGrantRefreshTokenAdo = {
+    client_id: clientId,
+    grant_type: "refresh_token",
+    refresh_token: refreshToken,
   };
 
   const tokenAdo = await callApi("auth/token", {

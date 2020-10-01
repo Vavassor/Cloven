@@ -1,11 +1,13 @@
 import { AccessToken, Userinfo } from "./Api/Auth";
 import { findById, findIndexById } from "./Array";
 
+export interface StoredAccessToken {
+  access_token: string;
+  expiration_date: string;
+}
+
 export interface StoredAccount {
-  access_token: {
-    access_token: string;
-    expiration_date: string;
-  };
+  access_token: StoredAccessToken;
   id: string;
   refresh_token: string;
 }
@@ -37,7 +39,7 @@ export const createStoredAccount = (
   token: AccessToken,
   userinfo: Userinfo
 ): StoredAccount => {
-  const { accessToken, expirationDate, refreshToken } = token;
+  const { refreshToken } = token;
   const { accountId } = userinfo;
 
   if (!refreshToken) {
@@ -45,12 +47,20 @@ export const createStoredAccount = (
   }
 
   return {
-    access_token: {
-      access_token: accessToken,
-      expiration_date: expirationDate.toISOString(),
-    },
+    access_token: createStoredAccessToken(token),
     id: accountId,
     refresh_token: refreshToken,
+  };
+};
+
+export const createStoredAccessToken = (
+  token: AccessToken
+): StoredAccessToken => {
+  const { accessToken, expirationDate } = token;
+
+  return {
+    access_token: accessToken,
+    expiration_date: expirationDate.toISOString(),
   };
 };
 

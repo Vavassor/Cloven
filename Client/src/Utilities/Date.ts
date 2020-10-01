@@ -32,3 +32,7 @@ export const formatTimeAgo = (date: Date, format: Intl.RelativeTimeFormat) => {
 export const getDateInSeconds = (seconds: number) => {
   return new Date(Date.now() + 1000 * seconds);
 };
+
+export const isAfterDate = (date?: Date | null) => {
+  return date ? Date.now() - date.getTime() > 0 : false;
+};

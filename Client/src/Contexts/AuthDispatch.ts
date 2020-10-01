@@ -21,3 +21,14 @@ export const logOut = (): AuthAction => {
     type: "LOG_OUT",
   };
 };
+
+export const refreshAccessToken = (
+  accessToken: AccessToken,
+  accountId: string
+): AuthAction => {
+  return {
+    accessToken,
+    accountId,
+    type: "REFRESH_ACCESS_TOKEN",
+  };
+};

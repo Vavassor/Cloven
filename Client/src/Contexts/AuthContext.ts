@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { findById } from "../Utilities/Array";
 
 export interface AccessToken {
   accessToken: string;
@@ -30,7 +31,13 @@ export interface LogOutAction {
   type: "LOG_OUT";
 }
 
-export type AuthAction = LogInAction | LogOutAction;
+export interface RefreshAccessTokenAction {
+  accessToken: AccessToken;
+  accountId: string;
+  type: "REFRESH_ACCESS_TOKEN";
+}
+
+export type AuthAction = LogInAction | LogOutAction | RefreshAccessTokenAction;
 
 export const AuthContext = createContext(initialAuthState);
 
@@ -59,6 +66,14 @@ export const authReducer = (
         activeAccountIndex:
           state.accounts.length > 1 ? state.accounts.length - 2 : -1,
       };
+    }
+
+    case "REFRESH_ACCESS_TOKEN": {
+      const account = findById(state.accounts, action.accountId);
+      if (account) {
+        account.accessToken = action.accessToken;
+      }
+      return { ...state };
     }
   }
 };

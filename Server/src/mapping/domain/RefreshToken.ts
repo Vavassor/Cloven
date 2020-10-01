@@ -3,10 +3,10 @@ import { RefreshToken } from "../../types/domain/RefreshToken";
 export const getRefreshTokenFromDocument = (
   refreshTokenDocument: any
 ): RefreshToken => {
-  const { accountId, clientId, _id } = refreshTokenDocument;
+  const { account_id, client_id, _id } = refreshTokenDocument;
   return {
-    accountId,
-    clientId,
+    accountId: account_id,
+    clientId: client_id,
     id: _id.toString(),
   };
 };

@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Feed } from "../../Components/Feed/Feed";
 import { Post } from "../../Components/Post";
 import { AuthContext, getActiveAccount } from "../../Contexts/AuthContext";
+import { AuthDispatch } from "../../Contexts/AuthDispatch";
+import { getRefreshedAccessToken } from "../../Contexts/AuthManagement";
 import {
   getUserTimelinePosts,
   Post as PostContent,
@@ -28,10 +30,12 @@ const FeedSample = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState<PostContent[]>([]);
   const authState = useContext(AuthContext);
+  const dispatch = useContext(AuthDispatch);
   const activeAccount = getActiveAccount(authState);
 
   useEffect(() => {
-    getUserTimelinePosts(activeAccount!.accessToken.accessToken)
+    getRefreshedAccessToken(activeAccount!, dispatch)
+      .then((accessToken) => getUserTimelinePosts(accessToken.accessToken))
       .then((posts) => {
         setPosts(posts);
         setIsLoading(false);
@@ -39,7 +43,7 @@ const FeedSample = () => {
       .catch((error) => {
         setIsLoading(false);
       });
-  }, [activeAccount!.accessToken]);
+  }, [activeAccount]);
 
   return (
     <Feed
