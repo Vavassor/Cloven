@@ -13,12 +13,16 @@ const divisions: TimeDivision[] = [
   { amount: Number.POSITIVE_INFINITY, unit: "year" },
 ];
 
-const getSecondsAgo = (date: Date) => {
-  return Math.floor((date.getTime() - Date.now()) / 1000);
+const getSecondsAgo = (startDate: Date, endDate: Date) => {
+  return Math.floor((startDate.getTime() - endDate.getTime()) / 1000);
 };
 
-export const formatTimeAgo = (date: Date, format: Intl.RelativeTimeFormat) => {
-  let unitsAgo = getSecondsAgo(date);
+export const formatTimeAgo = (
+  startDate: Date,
+  endDate: Date,
+  format: Intl.RelativeTimeFormat
+) => {
+  let unitsAgo = getSecondsAgo(startDate, endDate);
   for (const division of divisions) {
     if (Math.abs(unitsAgo) < division.amount) {
       return format.format(Math.round(unitsAgo), division.unit);
@@ -29,10 +33,12 @@ export const formatTimeAgo = (date: Date, format: Intl.RelativeTimeFormat) => {
   return format.format(Math.round(unitsAgo), division.unit);
 };
 
-export const getDateInSeconds = (seconds: number) => {
-  return new Date(Date.now() + 1000 * seconds);
+export const getDateInSeconds = (date: Date, seconds: number) => {
+  return new Date(date.getTime() + 1000 * seconds);
 };
 
-export const isAfterDate = (date?: Date | null) => {
-  return date ? Date.now() - date.getTime() > 0 : false;
+export const isAfterDate = (startDate?: Date | null, endDate?: Date | null) => {
+  return !!startDate && !!endDate
+    ? startDate.getTime() - endDate.getTime() > 0
+    : false;
 };

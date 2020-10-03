@@ -36,8 +36,8 @@ const isPostAdoArray = (postAdos: any): postAdos is PostAdo[] => {
   return Array.isArray(postAdos);
 };
 
-export const getUserTimelinePosts = async (accessToken: string): Promise<Post[]> => {
-  const postAdos = await callApi("post/user_timeline", {
+export const getAccountTimelinePosts = async (accessToken: string): Promise<Post[]> => {
+  const postAdos = await callApi("post/account_timeline", {
     bearerToken: accessToken,
     method: "GET",
   });

@@ -10,7 +10,7 @@ const getTime = (date: Date, locale: string) => {
   const relativeTimeFormat = new Intl.RelativeTimeFormat(locale, {
     style: "long",
   });
-  return formatTimeAgo(date, relativeTimeFormat);
+  return formatTimeAgo(new Date(), date, relativeTimeFormat);
 };
 
 const formatDate = (date: Date, locale: string) => {

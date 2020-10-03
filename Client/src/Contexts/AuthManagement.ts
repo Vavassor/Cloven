@@ -15,7 +15,7 @@ export const getRefreshedAccessToken = async (
 ): Promise<AccessToken> => {
   const { accessToken } = activeAccount;
 
-  if (isAfterDate(accessToken.expirationDate)) {
+  if (isAfterDate(new Date(), accessToken.expirationDate)) {
     const storedAccount = loadAccount(activeAccount.id);
     if (!storedAccount) {
       throw new Error(

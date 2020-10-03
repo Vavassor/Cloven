@@ -29,6 +29,7 @@ import {
 import { ThemeDispatch } from "./Contexts/ThemeDispatch";
 import { routes } from "./Routes";
 import { useAuthSetup } from "./Utilities/Hooks/useAuthSetup";
+import { useErrorHandler } from "./Utilities/Hooks/useErrorHandler";
 import { useLocaleSetup } from "./Utilities/Hooks/useLocaleSetup";
 import { useThemeSetup } from "./Utilities/Hooks/useThemeSetup";
 
@@ -40,6 +41,7 @@ const App = () => {
     initialThemeState
   );
 
+  useErrorHandler();
   useLocaleSetup(themeDispatch);
 
   return (

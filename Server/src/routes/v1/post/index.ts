@@ -3,20 +3,20 @@ import {
   createPost,
   deletePost,
   getPostById,
-  getPosts,
+  getPosts
 } from "../../../controllers/Post";
 import { asyncHandler } from "../../../utilities/AsyncHandler";
 import {
   validateCreatePost,
   validateDeletePost,
   validateGetPostById,
-  validateGetPosts,
+  validateGetPosts
 } from "../../../validation/Post";
-import { router as userTimelineRoutes } from "./user_timeline";
+import { router as accountTimelineRoutes } from "./account_timeline";
 
 const router = express.Router();
 
-router.use("/user_timeline", userTimelineRoutes);
+router.use("/account_timeline", accountTimelineRoutes);
 router.route("/").delete(validateDeletePost, asyncHandler(deletePost));
 router.route("/").get(validateGetPosts, asyncHandler(getPosts));
 router.route("/").post(validateCreatePost, asyncHandler(createPost));

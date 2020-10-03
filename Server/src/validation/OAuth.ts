@@ -1,5 +1,10 @@
 import { validateCharCodes } from "./String";
 
+export const MAX_CHARS_PASSWORD = 64;
+export const MAX_CHARS_USERNAME = 16;
+export const MIN_CHARS_PASSWORD = 4;
+export const MIN_CHARS_USERNAME = 4;
+
 /**
  * Determine whether a codepoint is a valid XML character, excluding
  * line feed U+000A and carriage return U+000D.
@@ -49,18 +54,34 @@ const hasSpacesAtEitherEnd = (value: string): boolean => {
   return value.charAt(0) === " " || value.charAt(value.length - 1) === " ";
 };
 
-export const isScopeList = (value: any): boolean => {
-  if (typeof value === "undefined") {
-    throw new Error("The value is required, but missing.");
-  }
-
+const expectString = (value: any): string => {
   if (typeof value !== "string") {
     throw new Error("The type is invalid.");
   }
+  return value;
+};
+
+export const isPassword = (value: any): boolean => {
+  const password = expectString(value);
+  return validateCharCodes(password, isXmlCharacter);
+};
+
+export const isScopeList = (value: any): boolean => {
+  const scopes = expectString(value);
 
   return (
-    !hasConsecutiveSpaces(value) &&
-    !hasSpacesAtEitherEnd(value) &&
-    validateCharCodes(value, isNQSChar)
+    !hasConsecutiveSpaces(scopes) &&
+    !hasSpacesAtEitherEnd(scopes) &&
+    validateCharCodes(scopes, isNQSChar)
   );
+};
+
+export const isUsername = (value: any): boolean => {
+  const username = expectString(value);
+  return validateCharCodes(username, isXmlCharacter);
+};
+
+export const isVisibleString = (value: any): boolean => {
+  const refreshToken = expectString(value);
+  return validateCharCodes(refreshToken, isVSChar);
 };

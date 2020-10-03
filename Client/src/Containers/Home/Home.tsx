@@ -5,8 +5,8 @@ import { AuthContext, getActiveAccount } from "../../Contexts/AuthContext";
 import { AuthDispatch } from "../../Contexts/AuthDispatch";
 import { getRefreshedAccessToken } from "../../Contexts/AuthManagement";
 import {
-  getUserTimelinePosts,
-  Post as PostContent,
+  getAccountTimelinePosts,
+  Post as PostContent
 } from "../../Utilities/Api/Post";
 import styles from "./Home.module.scss";
 
@@ -35,7 +35,7 @@ const FeedSample = () => {
 
   useEffect(() => {
     getRefreshedAccessToken(activeAccount!, dispatch)
-      .then((accessToken) => getUserTimelinePosts(accessToken.accessToken))
+      .then((accessToken) => getAccountTimelinePosts(accessToken.accessToken))
       .then((posts) => {
         setPosts(posts);
         setIsLoading(false);
