@@ -4,8 +4,13 @@ import FilesystemBackend from "i18next-fs-backend";
 import i18nextHttpMiddleware from "i18next-http-middleware";
 import mongoose from "mongoose";
 import path from "path";
+import dotenv from "dotenv";
 import { getErrorAdoFromErrorSingle } from "./mapping/ErrorAdo";
 import { router as routes } from "./routes";
+import { createTransporter } from "./utilities/Email";
+import DeviceDetector from "device-detector-js";
+
+dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/cloven";
 const PORT = process.env.PORT || 3001;
@@ -30,6 +35,8 @@ i18next
   });
 
 export const englishT = i18next.getFixedT("en");
+export const emailTransporter = createTransporter();
+export const deviceDetector = new DeviceDetector();
 
 const app = express();
 
@@ -60,6 +67,9 @@ app.use((request, response, next) => {
   }
 });
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.listen(PORT);

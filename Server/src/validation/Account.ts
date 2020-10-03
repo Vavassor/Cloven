@@ -32,3 +32,8 @@ export const validateGetAccountById = [
   param("id").custom(isObjectId),
   handleValidationError,
 ];
+
+export const validateBeginPasswordReset = [
+  body("email").exists().isEmail(),
+  handleValidationError,
+];
