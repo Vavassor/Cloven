@@ -6,7 +6,6 @@
   "scripts": {
     "build": "tsc -p .",
     "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only src/server.ts",
-    "install": "cd ../Client && yarn install",
     "start": "ts-node dist/server.js",
     "test": "jest ../src --config config/jest.config.js"
   },

@@ -1,8 +1,8 @@
 FROM node:12
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-EXPOSE 8080
-CMD [ "npm", "start" ]
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY . /app
+RUN yarn install --frozen-lockfile
+RUN yarn build
+EXPOSE 80
+CMD [ "yarn", "start" ]
