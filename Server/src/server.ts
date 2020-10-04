@@ -12,7 +12,7 @@ import DeviceDetector from "device-detector-js";
 
 dotenv.config();
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/cloven";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://mongo:27017/cloven";
 const PORT = process.env.PORT || 3001;
 
 export const urlRoot = `http://localhost:${PORT}`;

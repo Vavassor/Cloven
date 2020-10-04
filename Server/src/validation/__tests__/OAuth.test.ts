@@ -1,8 +1,8 @@
 /// <reference types="jest" />
 
-import { isScopeList } from "../Scope";
+import { isScopeList } from "../OAuth";
 
-describe("Scope", () => {
+describe("OAuth", () => {
   describe("isScopeList", () => {
     test("an undefined value should throw an exception", () => {
       expect(() => isScopeList(undefined)).toThrow();

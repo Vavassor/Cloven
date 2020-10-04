@@ -10,7 +10,7 @@ import {
   MAX_CHARS_USERNAME,
   MIN_CHARS_PASSWORD,
   MIN_CHARS_USERNAME,
-} from "./Oauth";
+} from "./OAuth";
 
 export const validateGrantToken = [
   body("client_id").optional().custom(isVisibleString),

@@ -4,9 +4,10 @@
   "description": "Server for Cloven",
   "main": "index.js",
   "scripts": {
-    "build": "cd ../Client && yarn build",
+    "build": "tsc -p .",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only src/server.ts",
     "install": "cd ../Client && yarn install",
-    "start": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only src/server.ts",
+    "start": "ts-node dist/server.js",
     "test": "jest ../src --config config/jest.config.js"
   },
   "author": "Andrew Dawson <dawso.andrew@gmail.com>",
