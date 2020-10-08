@@ -137,7 +137,7 @@ export const sendPasswordReset: RequestHandler<
   const doubleHashedPassword = await hash(account.password);
   const key = doubleHashedPassword.slice(0, 10);
   const privateKey = await getPrivateKey(config);
-  const passwordResetToken = createPasswordResetToken(
+  const passwordResetToken = await createPasswordResetToken(
     key,
     account.id,
     PASSWORD_RESET_TOKEN_LIFETIME_SECONDS,
@@ -152,17 +152,26 @@ export const sendPasswordReset: RequestHandler<
     join(config.fileRoot, "assets/password_reset_email.template")
   );
 
+  const urlSearchParams = new URLSearchParams();
+  urlSearchParams.set("token", passwordResetToken);
+  const path = join(config.urlRoot, "reset_password");
+  const passwordResetLink = `${path}?${urlSearchParams.toString()}`;
+
   const emailBody = fillTemplate(emailTemplate, {
     browser_name: client.name,
     operating_system: os.name,
-    password_reset_link: `http://localhost:3001/reset_password?token=${passwordResetToken}`,
+    password_reset_link: passwordResetLink,
     product_name: "Cloven",
     recipient_name: account.username,
   });
 
+  const senderName = "Support";
+  const senderEmail = `support@${config.urlRoot}`;
+  const sender = `${senderName} <${senderEmail}>`;
+
   await sendMail(emailTransporter, {
     body: emailBody,
-    sender: "Homie <homie@100.7.10.64>",
+    sender,
     subject: "Password Reset Requested",
     recipients: [account.email],
   });

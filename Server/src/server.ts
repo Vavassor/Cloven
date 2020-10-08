@@ -1,5 +1,4 @@
 import DeviceDetector from "device-detector-js";
-import dotenv from "dotenv";
 import express from "express";
 import i18next from "i18next";
 import FilesystemBackend from "i18next-fs-backend";
@@ -8,18 +7,15 @@ import mongoose from "mongoose";
 import { join } from "path";
 import { getErrorAdoFromErrorSingle } from "./mapping/ErrorAdo";
 import { router as routes } from "./routes";
-import { Config } from "./utilities/Config";
+import { loadConfig } from "./utilities/Config";
 import { createTransporter } from "./utilities/Email";
+import { logError } from "./utilities/Logging";
 
-dotenv.config();
+process.on("uncaughtException", (error) => {
+  logError("An uncaught exception occurred.", error);
+});
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://mongo:27017/cloven";
-const PORT = process.env.PORT || 3001;
-
-export const config: Config = {
-  fileRoot: __dirname,
-  urlRoot: `http://localhost:${PORT}`,
-};
+export const config = loadConfig();
 
 i18next
   .use(FilesystemBackend)
@@ -70,9 +66,14 @@ app.use((request, response, next) => {
   }
 });
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose
+  .connect(config.mongodbUri, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .catch((error) => {
+    logError("Failed to connect to MongoDB.", error);
+  });
 
-app.listen(PORT);
+app.listen(config.port);

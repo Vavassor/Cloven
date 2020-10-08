@@ -25,6 +25,7 @@
     "mongo-seeding": "^3.4.1",
     "mongoose": "^5.10.4",
     "nodemailer": "^6.4.13",
+    "serialize-error": "^7.0.1",
     "uri-js": "^4.4.0",
     "uuid": "^8.3.0",
     "validator": "^13.1.17"
