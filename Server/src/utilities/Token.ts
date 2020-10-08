@@ -84,6 +84,23 @@ export const createAccessToken = async (
   return jwt;
 };
 
+export const createPasswordResetToken = async (
+  token: string,
+  accountId: string,
+  expiresIn: number,
+  privateKey: string,
+  apiUrl: string
+) => {
+  const payload = { token };
+  const jwt = await signJwt(payload, privateKey, {
+    audience: apiUrl,
+    expiresIn,
+    issuer: apiUrl,
+    subject: accountId,
+  });
+  return jwt;
+};
+
 export const verifyAccessToken = async (token: string, privateKey: string) => {
   const verifiedToken = await verifyJwt(token, privateKey);
   if (!verifiedToken) {

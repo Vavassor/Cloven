@@ -1,5 +1,6 @@
-import { body, param } from "express-validator";
+import { body, oneOf, param } from "express-validator";
 import { handleValidationError } from "../middleware/ValidationErrorHandler";
+import { IdType } from "../types/IdType";
 import {
   isPassword,
   isUsername,
@@ -9,6 +10,14 @@ import {
   MIN_CHARS_USERNAME,
 } from "./OAuth";
 import { isObjectId } from "./ObjectId";
+
+export const validateBeginPasswordReset = [
+  oneOf([
+    body("query").exists().isEmail(),
+    body("query").exists().custom(isUsername),
+  ]),
+  handleValidationError,
+];
 
 export const validateCreateAccount = [
   body("email").exists().isEmail(),
@@ -33,7 +42,7 @@ export const validateGetAccountById = [
   handleValidationError,
 ];
 
-export const validateBeginPasswordReset = [
-  body("email").exists().isEmail(),
-  handleValidationError,
+export const validateSendPasswordReset = [
+  body("id").exists().custom(isObjectId),
+  body("id_type").exists().isIn(Object.values(IdType)),
 ];

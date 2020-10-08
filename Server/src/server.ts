@@ -1,29 +1,32 @@
+import DeviceDetector from "device-detector-js";
+import dotenv from "dotenv";
 import express from "express";
 import i18next from "i18next";
 import FilesystemBackend from "i18next-fs-backend";
 import i18nextHttpMiddleware from "i18next-http-middleware";
 import mongoose from "mongoose";
-import path from "path";
-import dotenv from "dotenv";
+import { join } from "path";
 import { getErrorAdoFromErrorSingle } from "./mapping/ErrorAdo";
 import { router as routes } from "./routes";
+import { Config } from "./utilities/Config";
 import { createTransporter } from "./utilities/Email";
-import DeviceDetector from "device-detector-js";
 
 dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://mongo:27017/cloven";
 const PORT = process.env.PORT || 3001;
 
-export const urlRoot = `http://localhost:${PORT}`;
-export const pathRoot = __dirname;
+export const config: Config = {
+  fileRoot: __dirname,
+  urlRoot: `http://localhost:${PORT}`,
+};
 
 i18next
   .use(FilesystemBackend)
   .use(i18nextHttpMiddleware.LanguageDetector)
   .init({
     backend: {
-      loadPath: path.join(pathRoot, "../locales/{{lng}}/{{ns}}.json"),
+      loadPath: join(config.fileRoot, "../locales/{{lng}}/{{ns}}.json"),
     },
     detection: {
       caches: false,
@@ -43,12 +46,12 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(i18nextHttpMiddleware.handle(i18next));
-app.use(express.static(path.join(pathRoot, "../../Client/build")));
+app.use(express.static(join(config.fileRoot, "../../Client/build")));
 
 app.use(routes);
 
 app.get("*", (request, response, next) => {
-  response.sendFile(path.join(pathRoot, "../../Client/build/index.html"));
+  response.sendFile(join(config.fileRoot, "../../Client/build/index.html"));
 });
 
 app.use((request, response, next) => {

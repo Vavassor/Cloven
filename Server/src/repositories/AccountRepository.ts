@@ -19,6 +19,16 @@ export const deleteAccount = async (id: string) => {
   AccountModel.deleteOne({ _id: id });
 };
 
+export const findAccountByEmail = async (
+  email: string
+): Promise<Account | null> => {
+  const accountDocument = await AccountModel.findOne({ email });
+  if (!accountDocument) {
+    return null;
+  }
+  return getAccountFromDocument(accountDocument.toObject());
+};
+
 export const findAccountById = async (id: string) => {
   const accountDocument = await AccountModel.findById(id);
   if (!accountDocument) {

@@ -1,6 +1,5 @@
 import { RequestHandler, Response as ExpressResponse } from "express";
 import { TFunction } from "i18next";
-import { join } from "path";
 import { getOAuthErrorAdo } from "../mapping/OAuthErrorAdo";
 import { getTokenAdo } from "../mapping/TokenAdo";
 import { getUserinfoAdoFromJwtPayload } from "../mapping/UserinfoAdo";
@@ -12,7 +11,7 @@ import {
   createRefreshToken,
   findRefreshTokenById,
 } from "../repositories/RefreshTokenRepository";
-import { englishT, pathRoot, urlRoot } from "../server";
+import { config, englishT } from "../server";
 import { OAuthErrorAdo, OAuthErrorType } from "../types/ado/OAuthErrorAdo";
 import { TokenAdo } from "../types/ado/TokenAdo";
 import {
@@ -25,7 +24,7 @@ import { Account } from "../types/domain/Account";
 import { ParamsDictionary, ParsedQs } from "../types/express";
 import { HttpStatus } from "../types/HttpStatus";
 import { Scope } from "../types/Scope";
-import { readTextFile } from "../utilities/File";
+import { getPrivateKey } from "../utilities/Config";
 import { parseScopes } from "../utilities/Parse";
 import { compareHash } from "../utilities/Password";
 import { getRandomBase64 } from "../utilities/Random";
@@ -33,13 +32,13 @@ import { createAccessToken, verifyAccessToken } from "../utilities/Token";
 
 const getAccessToken = async (account: Account, scopes?: string[]) => {
   const expiresIn = 3600;
-  const privateKey = await readTextFile(join(pathRoot, "../jwtRS256.key"));
+  const privateKey = await getPrivateKey(config);
   const jwtid = getRandomBase64(32);
   const accessToken = await createAccessToken(
     account,
     expiresIn,
     privateKey,
-    urlRoot,
+    config.urlRoot,
     jwtid,
     scopes
   );
@@ -157,7 +156,7 @@ export const getUserinfo: RequestHandler<
   if (!credentials) {
     throw new Error("Expected authorization header field.");
   }
-  const privateKey = await readTextFile(join(pathRoot, "../jwtRS256.key"));
+  const privateKey = await getPrivateKey(config);
   const payload = await verifyAccessToken(credentials, privateKey);
   response.json(getUserinfoAdoFromJwtPayload(payload));
 };

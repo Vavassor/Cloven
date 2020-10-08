@@ -3,7 +3,7 @@ import { getPostSpecFromPostSpecAdo } from "../mapping/domain/PostSpec";
 import { getErrorAdoFromMessage } from "../mapping/ErrorAdo";
 import { getPostAdoFromPost } from "../mapping/PostAdo";
 import * as PostRepository from "../repositories/PostRepository";
-import { urlRoot } from "../server";
+import { config } from "../server";
 import { ErrorAdo } from "../types/ado/ErrorAdo";
 import { PostAdo } from "../types/ado/PostAdo";
 import { PostSpecAdo } from "../types/ado/PostSpecAdo";
@@ -94,7 +94,7 @@ export const getAccountTimelinePosts: RequestHandler<
   if (idLimits) {
     const { sinceId, untilId } = idLimits;
     response.links(
-      getLinkEntityHeader(request.originalUrl, urlRoot, sinceId, untilId)
+      getLinkEntityHeader(request.originalUrl, config.urlRoot, sinceId, untilId)
     );
   }
 

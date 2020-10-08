@@ -1,11 +1,10 @@
 import { RequestHandler, Response as ExpressResponse } from "express";
 import { TFunction } from "i18next";
-import { join } from "path";
-import { escapeQuotes } from "../utilities/Ascii";
 import { getErrorAdoFromMessage } from "../mapping/ErrorAdo";
-import { englishT, pathRoot } from "../server";
+import { config, englishT } from "../server";
 import { HttpStatus } from "../types/HttpStatus";
-import { readTextFile } from "../utilities/File";
+import { escapeQuotes } from "../utilities/Ascii";
+import { getPrivateKey } from "../utilities/Config";
 import { getAuthorizationField } from "../utilities/Header";
 import { JwtPayload, verifyAccessToken } from "../utilities/Token";
 
@@ -78,7 +77,7 @@ export const authorizeToken: RequestHandler = async (
   }
 
   const { token } = authorizationField;
-  const privateKey = await readTextFile(join(pathRoot, "../jwtRS256.key"));
+  const privateKey = await getPrivateKey(config);
 
   let jwtPayload: JwtPayload;
   try {

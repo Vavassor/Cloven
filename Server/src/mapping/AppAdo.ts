@@ -1,4 +1,3 @@
-import { Document as MongooseDocument } from "mongoose";
 import { App } from "../types/domain/App";
 import { AppAdo } from "../types/ado/AppAdo";
 
