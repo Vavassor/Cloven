@@ -1,55 +1,19 @@
+import { getBeginPasswordResetAdo } from "../Mapping/AdoMapping";
+import {
+  getAccountFromAccountAdo,
+  getPasswordResetResult,
+} from "../Mapping/DomainMapping";
+import {
+  isAccountAdo,
+  isPasswordResetResultAdo,
+} from "../Typeguards/AdoTypeguards";
 import { callApi } from "./Api";
-
-export interface Account {
-  email: string;
-  id: string;
-  username: string;
-}
-
-export interface AccountPublic {
-  id: string;
-  username: string;
-}
-
-export interface AccountPublicAdo {
-  id: string;
-  username: string;
-}
-
-export interface AccountAdo {
-  email: string;
-  id: string;
-  username: string;
-}
 
 interface AccountSpecAdo {
   email: string;
   password: string;
   username: string;
 }
-
-const isAccountAdo = (account: any): account is AccountAdo => {
-  return typeof account === "object" && account.username !== undefined;
-};
-
-const getAccountFromAccountAdo = (accountAdo: AccountAdo): Account => {
-  const { email, id, username } = accountAdo;
-  return {
-    email,
-    id,
-    username,
-  };
-};
-
-export const getAccountPublicFromAccountPublicAdo = (
-  accountPublicAdo: AccountPublicAdo
-): AccountPublic => {
-  const { id, username } = accountPublicAdo;
-  return {
-    id,
-    username,
-  };
-};
 
 export const createAccount = async (
   username: string,
@@ -69,4 +33,20 @@ export const createAccount = async (
   }
 
   return getAccountFromAccountAdo(account);
+};
+
+export const beginPasswordReset = async (query: string) => {
+  const beginPasswordResetAdo = getBeginPasswordResetAdo(query);
+  const passwordResetResult = await callApi("account/begin_password_reset", {
+    body: beginPasswordResetAdo,
+    method: "POST",
+  });
+
+  if (!isPasswordResetResultAdo(passwordResetResult)) {
+    throw new Error(
+      "The response body was not the expected type 'PasswordResetResultAdo'."
+    );
+  }
+
+  return getPasswordResetResult(passwordResetResult);
 };

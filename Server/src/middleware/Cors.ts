@@ -4,10 +4,12 @@
  */
 import { RequestHandler, Response as ExpressResponse } from "express";
 import { IncomingHttpHeaders } from "http";
+import { config } from "../server";
 import { TokenGrantAdo } from "../types/ado/TokenGrantAdo";
 import { ParamsDictionary, ParsedQs } from "../types/express";
 import { HttpStatus } from "../types/HttpStatus";
 import { conditionalMiddleWare } from "../utilities/ConditionalMiddleware";
+import { Environment } from "../utilities/Config";
 
 interface CorsOptions {
   headers?: string[];
@@ -57,13 +59,17 @@ export const enableCors: RequestHandler = (request, response, next) => {
   next();
 };
 
+export const forDevelopmentEnvironment = conditionalMiddleWare(() => {
+  return config.environment === Environment.Development;
+});
+
 export const forNonPasswordGrants = conditionalMiddleWare<
   ParamsDictionary,
   any,
   TokenGrantAdo,
   ParsedQs
 >((request) => {
-  if (process.env.NODE_ENV === "development") {
+  if (config.environment === Environment.Development) {
     // Allow CORS for password grants only when in development.
     return true;
   }

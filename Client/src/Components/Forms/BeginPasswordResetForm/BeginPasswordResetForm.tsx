@@ -1,23 +1,41 @@
 import { Field, FieldProps, Form, Formik, FormikProps } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
-import { routes } from "../../../Routes";
 import { Button } from "../../Button";
 import { FormControl } from "../../FormControl";
 import { TextField } from "../../TextField";
 
-export const BeginPasswordResetForm = () => {
+export interface Submission {
+  emailOrUsername: string;
+}
+
+interface BeginPasswordResetFormProps {
+  handleSubmit: (submission: Submission) => Promise<void>;
+  handleSubmitFailure: (error: any) => void;
+  handleSubmitSuccess: () => void;
+}
+
+export const BeginPasswordResetForm: React.FC<BeginPasswordResetFormProps> = ({
+  handleSubmit,
+  handleSubmitFailure,
+  handleSubmitSuccess,
+}) => {
   const { t } = useTranslation();
-  const history = useHistory();
 
   return (
     <Formik
       initialValues={{ emailOrUsername: "" }}
       onSubmit={(values, actions) => {
-        actions.setSubmitting(false);
-        history.push(routes.sendPasswordReset);
+        handleSubmit(values)
+          .then(() => {
+            actions.setSubmitting(false);
+            handleSubmitSuccess();
+          })
+          .catch((error) => {
+            actions.setSubmitting(false);
+            handleSubmitFailure(error);
+          });
       }}
       validationSchema={Yup.object({
         emailOrUsername: Yup.string().trim().required(),

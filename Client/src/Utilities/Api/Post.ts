@@ -1,8 +1,6 @@
-import {
-  AccountPublic,
-  AccountPublicAdo,
-  getAccountPublicFromAccountPublicAdo,
-} from "./Account";
+import { AccountPublicAdo } from "../../Types/Ado/AccountAdo";
+import { AccountPublic } from "../../Types/Domain/Account";
+import { getAccountPublicFromAccountPublicAdo } from "../Mapping/DomainMapping";
 import { callApi } from "./Api";
 
 interface PostAdo {
@@ -36,7 +34,9 @@ const isPostAdoArray = (postAdos: any): postAdos is PostAdo[] => {
   return Array.isArray(postAdos);
 };
 
-export const getAccountTimelinePosts = async (accessToken: string): Promise<Post[]> => {
+export const getAccountTimelinePosts = async (
+  accessToken: string
+): Promise<Post[]> => {
   const postAdos = await callApi("post/account_timeline", {
     bearerToken: accessToken,
     method: "GET",
@@ -45,6 +45,6 @@ export const getAccountTimelinePosts = async (accessToken: string): Promise<Post
   if (!isPostAdoArray(postAdos)) {
     throw new Error("The response body was not the expected type 'PostAdo[]'.");
   }
-  
+
   return postAdos.map(getPostFromPostAdo);
 };
