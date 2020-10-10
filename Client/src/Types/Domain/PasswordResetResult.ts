@@ -1,11 +1,13 @@
 import { IdType } from "../IdType";
+import { SideChannelType } from "../SideChannelType";
 
-interface ResultEmail {
+interface SideChannelEmail {
   email: string;
-  type: IdType.Email;
+  id: string;
+  type: SideChannelType.Email;
 }
 
-type Result = ResultEmail;
+export type SideChannel = SideChannelEmail;
 
 interface EmailId {
   email: string;
@@ -17,9 +19,9 @@ interface UsernameId {
   type: IdType.Username;
 }
 
-type Id = EmailId | UsernameId;
+export type Id = EmailId | UsernameId;
 
 export interface PasswordResetResult {
   id: Id;
-  results: Result[];
+  results: SideChannel[];
 }

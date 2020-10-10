@@ -1,3 +1,4 @@
+import { HttpStatus } from "../../Types/HttpStatus";
 import { joinPath } from "../String";
 import { isErrorAdo } from "./Error";
 
@@ -50,6 +51,10 @@ export const callApi = async (
     throw new Error(
       `API call failed with HTTP status code ${response.status}.`
     );
+  }
+
+  if (response.status === HttpStatus.NoContent) {
+    return;
   }
 
   return response.json();

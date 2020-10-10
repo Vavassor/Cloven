@@ -4,23 +4,39 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../../Button";
 import { FormControl } from "../../FormControl";
 import { RadioGroup, RadioOption } from "../../RadioGroup";
-import { obscureEmail } from "../../../Utilities/Obscure";
 
-export const SendPasswordResetForm = () => {
+export interface Submission {
+  email: RadioOption;
+}
+
+interface SendPasswordResetFormProps {
+  handleSubmit: (submission: Submission) => Promise<void>;
+  handleSubmitFailure: (error: any) => void;
+  handleSubmitSuccess: () => void;
+  options: RadioOption[];
+}
+
+export const SendPasswordResetForm: React.FC<SendPasswordResetFormProps> = ({
+  handleSubmit,
+  handleSubmitFailure,
+  handleSubmitSuccess,
+  options,
+}) => {
   const { t } = useTranslation();
-  const options: RadioOption[] = [
-    {
-      id: "copernicus-@hotmail.com",
-      label: obscureEmail("copernicus-@hotmail.com"),
-      value: "copernicus-@hotmail.com",
-    },
-  ];
 
   return (
     <Formik
-      initialValues={{ emailOrUsername: "" }}
+      initialValues={{ email: options[0] }}
       onSubmit={(values, actions) => {
-        actions.setSubmitting(false);
+        handleSubmit(values)
+          .then(() => {
+            actions.setSubmitting(false);
+            handleSubmitSuccess();
+          })
+          .catch((error) => {
+            actions.setSubmitting(false);
+            handleSubmitFailure(error);
+          });
       }}
     >
       {(props: FormikProps<any>) => (
@@ -29,7 +45,7 @@ export const SendPasswordResetForm = () => {
             {({ field, form, meta }: FieldProps<any>) => (
               <FormControl
                 inputId="email"
-                label={t("sendPasswordResetForm.emailFieldLabel")}
+                label={t("send_password_reset_form.email_field_label")}
                 labelProps={{
                   Component: "span",
                 }}
@@ -39,7 +55,7 @@ export const SendPasswordResetForm = () => {
             )}
           </Field>
           <Button type="submit">
-            {t("sendPasswordResetForm.sendButtonLabel")}
+            {t("send_password_reset_form.send_button_label")}
           </Button>
         </Form>
       )}

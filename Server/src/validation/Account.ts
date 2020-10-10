@@ -1,6 +1,7 @@
 import { body, oneOf, param } from "express-validator";
 import { handleValidationError } from "../middleware/ValidationErrorHandler";
 import { IdType } from "../types/IdType";
+import { SideChannelType } from "../types/SideChannelType";
 import {
   isPassword,
   isUsername,
@@ -43,6 +44,18 @@ export const validateGetAccountById = [
 ];
 
 export const validateSendPasswordReset = [
-  body("id").exists().custom(isObjectId),
-  body("id_type").exists().isIn(Object.values(IdType)),
+  oneOf([
+    [body("id.email").isEmail(), body("id.type").equals(IdType.Email)],
+    [
+      body("id.type").equals(IdType.Username),
+      body("id.username").custom(isUsername),
+    ],
+  ]),
+  oneOf([
+    [
+      body("side_channel.id").isString(),
+      body("side_channel.type").equals(SideChannelType.Email),
+    ],
+  ]),
+  handleValidationError,
 ];

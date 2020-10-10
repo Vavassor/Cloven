@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import {
   BeginPasswordResetForm,
   Submission,
 } from "../../Components/Forms/BeginPasswordResetForm";
+import {
+  AccountRecoveryDispatch,
+  setPasswordResetResult,
+} from "../../Contexts/AccountRecoveryDispatch";
 import { routes } from "../../Routes";
 import { beginPasswordReset } from "../../Utilities/Api/Account";
 import { logError } from "../../Utilities/Logging";
 
 export const BeginPasswordReset = () => {
+  const dispatch = useContext(AccountRecoveryDispatch);
   const history = useHistory();
 
   const handleSubmit = async (submission: Submission) => {
     const passwordResetResult = await beginPasswordReset(
       submission.emailOrUsername
     );
-    console.log(passwordResetResult);
+    dispatch(setPasswordResetResult(passwordResetResult));
   };
 
   const handleSubmitFailure = (error: any) => {

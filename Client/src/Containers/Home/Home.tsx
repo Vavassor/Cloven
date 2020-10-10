@@ -43,7 +43,7 @@ const FeedSample = () => {
       .catch((error) => {
         setIsLoading(false);
       });
-  }, [activeAccount]);
+  }, [activeAccount, dispatch]);
 
   return (
     <Feed

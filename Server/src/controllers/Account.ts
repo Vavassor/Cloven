@@ -56,16 +56,21 @@ export const beginPasswordReset: RequestHandler<
 
   const obscuredEmail = obscureEmail(account.email);
 
+  // @TODO Load a side channel ID.
+  const sideChannelId = "0";
+
   let passwordResetResult: PasswordResetResultAdo;
   if (isQueryEmail) {
     passwordResetResult = getPasswordResetResultAdoFromEmail(
       account.email,
-      obscuredEmail
+      obscuredEmail,
+      sideChannelId
     );
   } else {
     passwordResetResult = getPasswordResetResultAdoFromUsername(
       account.username,
-      obscuredEmail
+      obscuredEmail,
+      sideChannelId
     );
   }
   response.json(passwordResetResult);
@@ -115,15 +120,15 @@ export const sendPasswordReset: RequestHandler<
   ParsedQs
 > = async (request, response, next) => {
   let account: Account | null;
-  switch (request.body.type) {
+
+  const { id } = request.body;
+  switch (id.type) {
     case IdType.Email:
-      account = await AccountRepository.findAccountByEmail(request.body.email);
+      account = await AccountRepository.findAccountByEmail(id.email);
       break;
 
     case IdType.Username:
-      account = await AccountRepository.findAccountByUsername(
-        request.body.username
-      );
+      account = await AccountRepository.findAccountByUsername(id.username);
       break;
   }
 
@@ -133,6 +138,9 @@ export const sendPasswordReset: RequestHandler<
       .json(getErrorAdoFromMessage(request.t("account.id_not_found_error")));
     return;
   }
+
+  // @TODO Use the side channel info in 'request.body' to determine where to
+  // send the reset token, instead of defaulting to the email.
 
   const doubleHashedPassword = await hash(account.password);
   const key = doubleHashedPassword.slice(0, 10);

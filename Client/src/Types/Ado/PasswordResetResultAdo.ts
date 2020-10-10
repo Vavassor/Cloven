@@ -1,25 +1,15 @@
-import { IdType } from "../IdType";
+import { SideChannelType } from "../SideChannelType";
+import { IdAdo } from "./IdAdo";
 
-interface ResultEmail {
+interface SideChannelEmail {
   email: string;
-  type: IdType.Email;
+  id: string;
+  type: SideChannelType.Email;
 }
 
-type PasswordResetResult = ResultEmail;
-
-interface EmailId {
-  email: string;
-  type: IdType.Email;
-}
-
-interface UsernameId {
-  username: string;
-  type: IdType.Username;
-}
-
-type Id = EmailId | UsernameId;
+type SideChannel = SideChannelEmail;
 
 export interface PasswordResetResultAdo {
-  id: Id;
-  results: PasswordResetResult[];
+  id: IdAdo;
+  results: SideChannel[];
 }

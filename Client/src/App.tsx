@@ -15,6 +15,12 @@ import { Register } from "./Containers/Register";
 import { SendPasswordReset } from "./Containers/SendPasswordReset";
 import { Settings } from "./Containers/Settings";
 import {
+  AccountRecoveryContext,
+  accountRecoveryReducer,
+  initialAccountRecoveryState,
+} from "./Contexts/AccountRecoverContext";
+import { AccountRecoveryDispatch } from "./Contexts/AccountRecoveryDispatch";
+import {
   AuthContext,
   authReducer,
   initialAuthState,
@@ -64,18 +70,9 @@ const MainRoutes = () => {
     <Router>
       <Switch>
         <Route exact path="/" render={() => <Redirect to="/home" />} />
-        <Route
-          exact
-          path={routes.beginPasswordReset}
-          component={BeginPasswordReset}
-        />
         <Route exact path={routes.login} component={Login} />
         <Route exact path={routes.register} component={Register} />
-        <Route
-          exact
-          path={routes.sendPasswordReset}
-          component={SendPasswordReset}
-        />
+        <AccountRecoveryRoutes />
         <PrivateRoute exact path={[routes.home, routes.settings]}>
           <MainNav />
           <Switch>
@@ -86,6 +83,32 @@ const MainRoutes = () => {
         <Route component={PageNotFound} />
       </Switch>
     </Router>
+  );
+};
+
+const AccountRecoveryRoutes = () => {
+  const [accountRecoveryState, accountRecoveryDispatch] = useReducer(
+    accountRecoveryReducer,
+    initialAccountRecoveryState
+  );
+
+  return (
+    <AccountRecoveryContext.Provider value={accountRecoveryState}>
+      <AccountRecoveryDispatch.Provider value={accountRecoveryDispatch}>
+        <Switch>
+          <Route
+            exact
+            path={routes.beginPasswordReset}
+            component={BeginPasswordReset}
+          />
+          <Route
+            exact
+            path={routes.sendPasswordReset}
+            component={SendPasswordReset}
+          />
+        </Switch>
+      </AccountRecoveryDispatch.Provider>
+    </AccountRecoveryContext.Provider>
   );
 };
 
