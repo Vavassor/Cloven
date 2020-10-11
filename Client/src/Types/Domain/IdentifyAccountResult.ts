@@ -1,13 +1,13 @@
 import { IdType } from "../IdType";
-import { SideChannelType } from "../SideChannelType";
+import { RecoveryMethodType } from "../RecoveryMethodType";
 
-interface SideChannelEmail {
+interface RecoveryMethodEmail {
   email: string;
   id: string;
-  type: SideChannelType.Email;
+  type: RecoveryMethodType.Email;
 }
 
-export type SideChannel = SideChannelEmail;
+export type RecoveryMethod = RecoveryMethodEmail;
 
 interface EmailId {
   email: string;
@@ -21,7 +21,7 @@ interface UsernameId {
 
 export type Id = EmailId | UsernameId;
 
-export interface PasswordResetResult {
+export interface IdentifyAccountResult {
   id: Id;
-  results: SideChannel[];
+  recoveryMethods: RecoveryMethod[];
 }

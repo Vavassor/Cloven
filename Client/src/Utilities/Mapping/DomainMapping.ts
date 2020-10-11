@@ -1,7 +1,7 @@
 import { AccountAdo, AccountPublicAdo } from "../../Types/Ado/AccountAdo";
-import { PasswordResetResultAdo } from "../../Types/Ado/PasswordResetResultAdo";
+import { IdentifyAccountResultAdo } from "../../Types/Ado/IdentifyAccountResultAdo";
 import { Account, AccountPublic } from "../../Types/Domain/Account";
-import { PasswordResetResult } from "../../Types/Domain/PasswordResetResult";
+import { IdentifyAccountResult } from "../../Types/Domain/IdentifyAccountResult";
 
 export const getAccountFromAccountAdo = (accountAdo: AccountAdo): Account => {
   const { email, id, username } = accountAdo;
@@ -22,12 +22,12 @@ export const getAccountPublicFromAccountPublicAdo = (
   };
 };
 
-export const getPasswordResetResult = (
-  passwordResetResultAdo: PasswordResetResultAdo
-): PasswordResetResult => {
-  const { id, results } = passwordResetResultAdo;
+export const getIdentifyAccountResult = (
+  identifyAccountResult: IdentifyAccountResultAdo
+): IdentifyAccountResult => {
+  const { id, recovery_methods } = identifyAccountResult;
   return {
     id,
-    results,
+    recoveryMethods: recovery_methods,
   };
 };

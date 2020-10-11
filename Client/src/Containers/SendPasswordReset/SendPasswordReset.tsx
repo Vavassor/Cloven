@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { Alert } from "../../Components/Alert";
 import {
   SendPasswordResetForm,
@@ -9,15 +9,15 @@ import {
 import { RadioOption } from "../../Components/RadioGroup";
 import { AccountRecoveryContext } from "../../Contexts/AccountRecoverContext";
 import { routes } from "../../Routes";
-import { SideChannel } from "../../Types/Domain/PasswordResetResult";
-import { SideChannelType } from "../../Types/SideChannelType";
+import { RecoveryMethod } from "../../Types/Domain/IdentifyAccountResult";
+import { RecoveryMethodType } from "../../Types/RecoveryMethodType";
 import { sendPasswordReset } from "../../Utilities/Api/Account";
 import { logError } from "../../Utilities/Logging";
 
-const getRadioOption = (sideChannel: SideChannel): RadioOption => {
-  switch (sideChannel.type) {
-    case SideChannelType.Email: {
-      const { email, id } = sideChannel;
+const getRadioOption = (recoveryMethod: RecoveryMethod): RadioOption => {
+  switch (recoveryMethod.type) {
+    case RecoveryMethodType.Email: {
+      const { email, id } = recoveryMethod;
       return {
         id,
         label: email,
@@ -27,19 +27,35 @@ const getRadioOption = (sideChannel: SideChannel): RadioOption => {
   }
 };
 
+const findRecoveryMethod = (
+  recoveryMethods: RecoveryMethod[],
+  radioOption: RadioOption
+) => {
+  return recoveryMethods.find((recoveryMethod) => {
+    switch (recoveryMethod.type) {
+      case RecoveryMethodType.Email:
+        return recoveryMethod.email === radioOption.value;
+      default:
+        return false;
+    }
+  });
+};
+
 export const SendPasswordReset = () => {
-  const { passwordResetResult } = useContext(AccountRecoveryContext);
+  const { identifyAccountResult } = useContext(AccountRecoveryContext);
   const { t } = useTranslation();
+  const history = useHistory();
   const [hasSubmissionError, setHasSubmissionError] = useState(false);
-  const { results, id } = passwordResetResult!;
-  const options = results.map(getRadioOption);
+  const { recoveryMethods, id } = identifyAccountResult!;
+  const options = recoveryMethods.map(getRadioOption);
 
   const handleSubmit = async (submission: Submission) => {
     setHasSubmissionError(false);
-    const result = results.find(
-      (result) => result.email === submission.email.value
+    const recoveryMethod = findRecoveryMethod(
+      recoveryMethods,
+      submission.recoveryMethod
     );
-    await sendPasswordReset(result!.id, SideChannelType.Email, id);
+    await sendPasswordReset(recoveryMethod!.id, recoveryMethod!.type, id);
   };
 
   const handleSubmitFailure = (error: any) => {
@@ -47,7 +63,9 @@ export const SendPasswordReset = () => {
     setHasSubmissionError(true);
   };
 
-  const handleSubmitSuccess = () => {};
+  const handleSubmitSuccess = () => {
+    history.push(routes.recoveryConfirmation);
+  };
 
   return (
     <>

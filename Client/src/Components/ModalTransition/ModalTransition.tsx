@@ -17,7 +17,10 @@ import {
 } from "react-transition-group/CSSTransition";
 import { EndHandler, EnterHandler } from "react-transition-group/Transition";
 import { useMergeRef } from "../../Utilities/Hooks/useMergeRef";
-import { hasRef, isReactElement } from "../../Utilities/TypeGuards";
+import {
+  hasRef,
+  isReactElement,
+} from "../../Utilities/Typeguards/ReactTypeGuards";
 
 export interface ModalTransitionProps {
   classNames: CSSTransitionClassNames;

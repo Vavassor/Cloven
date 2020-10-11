@@ -14,7 +14,7 @@ import React, {
   useEffect,
   useLayoutEffect,
   useRef,
-  useState,
+  useState
 } from "react";
 import { createPortal } from "react-dom";
 import { EnterHandler, ExitHandler } from "react-transition-group/Transition";
@@ -22,7 +22,7 @@ import { useEventCallback } from "../../Utilities/Hooks/useEventCallback";
 import { useMergeRef } from "../../Utilities/Hooks/useMergeRef";
 import { getOwnerDocument } from "../../Utilities/Owner";
 import { joinClassNames } from "../../Utilities/Style";
-import { hasTransition } from "../../Utilities/TypeGuards";
+import { hasTransition } from "../../Utilities/Typeguards/ReactTypeGuards";
 import { Backdrop, BackdropProps } from "./Backdrop";
 import { FocusTrap } from "./FocusTrap";
 import styles from "./Modal.module.scss";

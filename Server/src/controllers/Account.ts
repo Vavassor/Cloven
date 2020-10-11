@@ -5,16 +5,16 @@ import { getAccountAdoFromAccount } from "../mapping/AccountAdo";
 import { getAccountSpecFromAccountSpecAdo } from "../mapping/domain/AccountSpec";
 import { getErrorAdoFromMessage } from "../mapping/ErrorAdo";
 import {
-  getPasswordResetResultAdoFromEmail,
-  getPasswordResetResultAdoFromUsername,
-} from "../mapping/PasswordResetResultAdo";
+  getIdentifyAccountResultAdoFromEmail,
+  getIdentifyAccountResultAdoFromUsername
+} from "../mapping/IdentifyAccountResultAdo";
 import * as AccountRepository from "../repositories/AccountRepository";
 import { config, deviceDetector, emailTransporter } from "../server";
 import { AccountAdo } from "../types/ado/AccountAdo";
 import { AccountSpecAdo } from "../types/ado/AccountSpecAdo";
-import { BeginPasswordResetAdo } from "../types/ado/BeginPasswordResetAdo";
 import { ErrorAdo } from "../types/ado/ErrorAdo";
-import { PasswordResetResultAdo } from "../types/ado/PasswordResetResultAdo";
+import { IdentifyAccountAdo } from "../types/ado/IdentifyAccountAdo";
+import { IdentifyAccountResultAdo } from "../types/ado/IdentifyAccountResultAdo";
 import { SendPasswordResetAdo } from "../types/ado/SendPasswordResetAdo";
 import { Account } from "../types/domain/Account";
 import { ParamsDictionary, ParsedQs } from "../types/express";
@@ -30,51 +30,6 @@ import { createPasswordResetToken } from "../utilities/Token";
 import { parseUserAgent } from "../utilities/UserAgent";
 
 const PASSWORD_RESET_TOKEN_LIFETIME_SECONDS = 3600;
-
-export const beginPasswordReset: RequestHandler<
-  ParamsDictionary,
-  PasswordResetResultAdo | ErrorAdo,
-  BeginPasswordResetAdo,
-  ParsedQs
-> = async (request, response, next) => {
-  const { query } = request.body;
-  const isQueryEmail = isEmail(query);
-
-  let account: Account | null;
-  if (isQueryEmail) {
-    account = await AccountRepository.findAccountByEmail(query);
-  } else {
-    account = await AccountRepository.findAccountByUsername(query);
-  }
-
-  if (!account) {
-    response
-      .status(HttpStatus.UnprocessableEntity)
-      .json(getErrorAdoFromMessage(request.t("account.id_not_found_error")));
-    return;
-  }
-
-  const obscuredEmail = obscureEmail(account.email);
-
-  // @TODO Load a side channel ID.
-  const sideChannelId = "0";
-
-  let passwordResetResult: PasswordResetResultAdo;
-  if (isQueryEmail) {
-    passwordResetResult = getPasswordResetResultAdoFromEmail(
-      account.email,
-      obscuredEmail,
-      sideChannelId
-    );
-  } else {
-    passwordResetResult = getPasswordResetResultAdoFromUsername(
-      account.username,
-      obscuredEmail,
-      sideChannelId
-    );
-  }
-  response.json(passwordResetResult);
-};
 
 export const createAccount: RequestHandler<
   ParamsDictionary,
@@ -111,6 +66,51 @@ export const getAccountById: RequestHandler<
   } else {
     response.json(getAccountAdoFromAccount(account));
   }
+};
+
+export const identifyAccount: RequestHandler<
+  ParamsDictionary,
+  IdentifyAccountResultAdo | ErrorAdo,
+  IdentifyAccountAdo,
+  ParsedQs
+> = async (request, response, next) => {
+  const { query } = request.body;
+  const isQueryEmail = isEmail(query);
+
+  let account: Account | null;
+  if (isQueryEmail) {
+    account = await AccountRepository.findAccountByEmail(query);
+  } else {
+    account = await AccountRepository.findAccountByUsername(query);
+  }
+
+  if (!account) {
+    response
+      .status(HttpStatus.UnprocessableEntity)
+      .json(getErrorAdoFromMessage(request.t("account.id_not_found_error")));
+    return;
+  }
+
+  const obscuredEmail = obscureEmail(account.email);
+
+  // @TODO Load a side channel ID.
+  const sideChannelId = "0";
+
+  let resultAdo: IdentifyAccountResultAdo;
+  if (isQueryEmail) {
+    resultAdo = getIdentifyAccountResultAdoFromEmail(
+      account.email,
+      obscuredEmail,
+      sideChannelId
+    );
+  } else {
+    resultAdo = getIdentifyAccountResultAdoFromUsername(
+      account.username,
+      obscuredEmail,
+      sideChannelId
+    );
+  }
+  response.json(resultAdo);
 };
 
 export const sendPasswordReset: RequestHandler<

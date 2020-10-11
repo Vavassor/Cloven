@@ -1,8 +1,8 @@
 import { createContext, Dispatch } from "react";
-import { PasswordResetResult } from "../Types/Domain/PasswordResetResult";
+import { IdentifyAccountResult } from "../Types/Domain/IdentifyAccountResult";
 import {
   AccountRecoveryAction,
-  PasswordResetResultAction,
+  IdentifyAccountResultAction,
 } from "./AccountRecoverContext";
 
 const noop = () => {};
@@ -11,11 +11,11 @@ export const AccountRecoveryDispatch = createContext<
   Dispatch<AccountRecoveryAction>
 >(noop);
 
-export const setPasswordResetResult = (
-  passwordResetResult: PasswordResetResult
-): PasswordResetResultAction => {
+export const setIdentifyAccountResult = (
+  identifyAccountResult: IdentifyAccountResult
+): IdentifyAccountResultAction => {
   return {
-    passwordResetResult,
-    type: "PASSWORD_RESET_RESULT",
+    identifyAccountResult,
+    type: "IDENTIFY_ACCOUNT_RESULT",
   };
 };

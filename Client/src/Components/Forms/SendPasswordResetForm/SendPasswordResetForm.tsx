@@ -6,7 +6,7 @@ import { FormControl } from "../../FormControl";
 import { RadioGroup, RadioOption } from "../../RadioGroup";
 
 export interface Submission {
-  email: RadioOption;
+  recoveryMethod: RadioOption;
 }
 
 interface SendPasswordResetFormProps {
@@ -26,7 +26,7 @@ export const SendPasswordResetForm: React.FC<SendPasswordResetFormProps> = ({
 
   return (
     <Formik
-      initialValues={{ email: options[0] }}
+      initialValues={{ recoveryMethod: options[0] }}
       onSubmit={(values, actions) => {
         handleSubmit(values)
           .then(() => {
@@ -41,16 +41,18 @@ export const SendPasswordResetForm: React.FC<SendPasswordResetFormProps> = ({
     >
       {(props: FormikProps<any>) => (
         <Form noValidate>
-          <Field name="email">
+          <Field name="recoveryMethod">
             {({ field, form, meta }: FieldProps<any>) => (
               <FormControl
-                inputId="email"
-                label={t("send_password_reset_form.email_field_label")}
+                inputId="recoveryMethod"
+                label={t(
+                  "send_password_reset_form.recovery_method_field_label"
+                )}
                 labelProps={{
                   Component: "span",
                 }}
               >
-                <RadioGroup name="email" options={options} />
+                <RadioGroup name="recoveryMethod" options={options} />
               </FormControl>
             )}
           </Field>

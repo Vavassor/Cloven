@@ -1,7 +1,7 @@
 import { body, oneOf, param } from "express-validator";
 import { handleValidationError } from "../middleware/ValidationErrorHandler";
 import { IdType } from "../types/IdType";
-import { SideChannelType } from "../types/SideChannelType";
+import { RecoveryMethodType } from "../types/RecoveryMethodType";
 import {
   isPassword,
   isUsername,
@@ -11,14 +11,6 @@ import {
   MIN_CHARS_USERNAME,
 } from "./OAuth";
 import { isObjectId } from "./ObjectId";
-
-export const validateBeginPasswordReset = [
-  oneOf([
-    body("query").exists().isEmail(),
-    body("query").exists().custom(isUsername),
-  ]),
-  handleValidationError,
-];
 
 export const validateCreateAccount = [
   body("email").exists().isEmail(),
@@ -43,6 +35,14 @@ export const validateGetAccountById = [
   handleValidationError,
 ];
 
+export const validateIdentifyAccount = [
+  oneOf([
+    body("query").exists().isEmail(),
+    body("query").exists().custom(isUsername),
+  ]),
+  handleValidationError,
+];
+
 export const validateSendPasswordReset = [
   oneOf([
     [body("id.email").isEmail(), body("id.type").equals(IdType.Email)],
@@ -53,8 +53,8 @@ export const validateSendPasswordReset = [
   ]),
   oneOf([
     [
-      body("side_channel.id").isString(),
-      body("side_channel.type").equals(SideChannelType.Email),
+      body("recovery_method.id").isString(),
+      body("recovery_method.type").equals(RecoveryMethodType.Email),
     ],
   ]),
   handleValidationError,

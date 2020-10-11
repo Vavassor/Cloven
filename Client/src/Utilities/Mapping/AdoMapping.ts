@@ -1,11 +1,9 @@
-import { BeginPasswordResetAdo } from "../../Types/Ado/BeginPasswordResetAdo";
 import { IdAdo } from "../../Types/Ado/IdAdo";
-import { Id } from "../../Types/Domain/PasswordResetResult";
+import { IdentifyAccountAdo } from "../../Types/Ado/IdentifyAccountAdo";
+import { Id } from "../../Types/Domain/IdentifyAccountResult";
 import { IdType } from "../../Types/IdType";
 
-export const getBeginPasswordResetAdo = (
-  query: string
-): BeginPasswordResetAdo => {
+export const getIdentifyAccountAdo = (query: string): IdentifyAccountAdo => {
   return {
     query,
   };

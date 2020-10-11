@@ -6,10 +6,10 @@ import {
 } from "../../Components/Forms/BeginPasswordResetForm";
 import {
   AccountRecoveryDispatch,
-  setPasswordResetResult,
+  setIdentifyAccountResult,
 } from "../../Contexts/AccountRecoveryDispatch";
 import { routes } from "../../Routes";
-import { beginPasswordReset } from "../../Utilities/Api/Account";
+import { identifyAccount } from "../../Utilities/Api/Account";
 import { logError } from "../../Utilities/Logging";
 
 export const BeginPasswordReset = () => {
@@ -17,10 +17,10 @@ export const BeginPasswordReset = () => {
   const history = useHistory();
 
   const handleSubmit = async (submission: Submission) => {
-    const passwordResetResult = await beginPasswordReset(
+    const identifyAccountResult = await identifyAccount(
       submission.emailOrUsername
     );
-    dispatch(setPasswordResetResult(passwordResetResult));
+    dispatch(setIdentifyAccountResult(identifyAccountResult));
   };
 
   const handleSubmitFailure = (error: any) => {

@@ -1,7 +1,7 @@
 import React, { Children, useEffect, useRef } from "react";
 import { useMergeRef } from "../../Utilities/Hooks/useMergeRef";
 import { getOwnerDocument } from "../../Utilities/Owner";
-import { hasRef, isReactElement } from "../../Utilities/TypeGuards";
+import { hasRef, isReactElement } from "../../Utilities/Typeguards/ReactTypeGuards";
 
 export interface FocusTrapProps {
   elementToFocusOnClose?: HTMLElement;

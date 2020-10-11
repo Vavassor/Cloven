@@ -1,19 +1,19 @@
 import { createContext } from "react";
-import { PasswordResetResult } from "../Types/Domain/PasswordResetResult";
+import { IdentifyAccountResult } from "../Types/Domain/IdentifyAccountResult";
 
 export interface AccountRecoveryState {
-  passwordResetResult: PasswordResetResult | null;
+  identifyAccountResult: IdentifyAccountResult | null;
 }
 
-export interface PasswordResetResultAction {
-  passwordResetResult: PasswordResetResult;
-  type: "PASSWORD_RESET_RESULT";
+export interface IdentifyAccountResultAction {
+  identifyAccountResult: IdentifyAccountResult;
+  type: "IDENTIFY_ACCOUNT_RESULT";
 }
 
-export type AccountRecoveryAction = PasswordResetResultAction;
+export type AccountRecoveryAction = IdentifyAccountResultAction;
 
 export const initialAccountRecoveryState: AccountRecoveryState = {
-  passwordResetResult: null,
+  identifyAccountResult: null,
 };
 
 export const AccountRecoveryContext = createContext(
@@ -25,10 +25,10 @@ export const accountRecoveryReducer = (
   action: AccountRecoveryAction
 ): AccountRecoveryState => {
   switch (action.type) {
-    case "PASSWORD_RESET_RESULT":
+    case "IDENTIFY_ACCOUNT_RESULT":
       return {
         ...state,
-        passwordResetResult: action.passwordResetResult,
+        identifyAccountResult: action.identifyAccountResult,
       };
 
     default:

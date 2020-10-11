@@ -1,14 +1,14 @@
-import { SideChannelType } from "../SideChannelType";
+import { RecoveryMethodType } from "../RecoveryMethodType";
 import { IdAdo } from "./IdAdo";
 
 interface TokenByEmail {
   id: string;
-  type: SideChannelType.Email;
+  type: RecoveryMethodType.Email;
 }
 
-type SideChannel = TokenByEmail;
+type RecoveryMethod = TokenByEmail;
 
 export interface SendPasswordResetAdo {
   id: IdAdo;
-  side_channel: SideChannel;
+  recovery_method: RecoveryMethod;
 }

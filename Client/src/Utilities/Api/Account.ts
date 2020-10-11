@@ -1,14 +1,14 @@
 import { SendPasswordResetAdo } from "../../Types/Ado/SendPasswordResetAdo";
-import { Id } from "../../Types/Domain/PasswordResetResult";
-import { SideChannelType } from "../../Types/SideChannelType";
-import { getBeginPasswordResetAdo, getIdAdo } from "../Mapping/AdoMapping";
+import { Id } from "../../Types/Domain/IdentifyAccountResult";
+import { RecoveryMethodType } from "../../Types/RecoveryMethodType";
+import { getIdAdo, getIdentifyAccountAdo } from "../Mapping/AdoMapping";
 import {
   getAccountFromAccountAdo,
-  getPasswordResetResult,
+  getIdentifyAccountResult,
 } from "../Mapping/DomainMapping";
 import {
   isAccountAdo,
-  isPasswordResetResultAdo,
+  isIdentifyAccountResultAdo,
 } from "../Typeguards/AdoTypeguards";
 import { callApi } from "./Api";
 
@@ -17,22 +17,6 @@ interface AccountSpecAdo {
   password: string;
   username: string;
 }
-
-export const beginPasswordReset = async (query: string) => {
-  const beginPasswordResetAdo = getBeginPasswordResetAdo(query);
-  const passwordResetResult = await callApi("account/begin_password_reset", {
-    body: beginPasswordResetAdo,
-    method: "POST",
-  });
-
-  if (!isPasswordResetResultAdo(passwordResetResult)) {
-    throw new Error(
-      "The response body was not the expected type 'PasswordResetResultAdo'."
-    );
-  }
-
-  return getPasswordResetResult(passwordResetResult);
-};
 
 export const createAccount = async (
   username: string,
@@ -54,15 +38,31 @@ export const createAccount = async (
   return getAccountFromAccountAdo(account);
 };
 
+export const identifyAccount = async (query: string) => {
+  const identifyAccountAdo = getIdentifyAccountAdo(query);
+  const identifyAccountResultAdo = await callApi("account/identify_account", {
+    body: identifyAccountAdo,
+    method: "POST",
+  });
+
+  if (!isIdentifyAccountResultAdo(identifyAccountResultAdo)) {
+    throw new Error(
+      "The response body was not the expected type 'IdentifyAccountResultAdo'."
+    );
+  }
+
+  return getIdentifyAccountResult(identifyAccountResultAdo);
+};
+
 export const sendPasswordReset = async (
-  sideChannelId: string,
-  sideChannelType: SideChannelType,
+  recoveryMethodId: string,
+  recoveryMethodType: RecoveryMethodType,
   id: Id
 ) => {
   const sendPasswordResetAdo: SendPasswordResetAdo = {
-    side_channel: {
-      id: sideChannelId,
-      type: sideChannelType,
+    recovery_method: {
+      id: recoveryMethodId,
+      type: recoveryMethodType,
     },
     id: getIdAdo(id),
   };
