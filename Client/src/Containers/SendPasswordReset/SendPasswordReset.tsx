@@ -13,6 +13,7 @@ import { RecoveryMethod } from "../../Types/Domain/IdentifyAccountResult";
 import { RecoveryMethodType } from "../../Types/RecoveryMethodType";
 import { sendPasswordReset } from "../../Utilities/Api/Account";
 import { logError } from "../../Utilities/Logging";
+import { addQueryParameters } from "../../Utilities/Url";
 
 const getRadioOption = (recoveryMethod: RecoveryMethod): RadioOption => {
   switch (recoveryMethod.type) {
@@ -46,6 +47,9 @@ export const SendPasswordReset = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const [hasSubmissionError, setHasSubmissionError] = useState(false);
+  const [recoveryMethod, setRecoveryMethod] = useState<RecoveryMethod | null>(
+    null
+  );
   const { recoveryMethods, id } = identifyAccountResult!;
   const options = recoveryMethods.map(getRadioOption);
 
@@ -56,6 +60,7 @@ export const SendPasswordReset = () => {
       submission.recoveryMethod
     );
     await sendPasswordReset(recoveryMethod!.id, recoveryMethod!.type, id);
+    setRecoveryMethod(recoveryMethod!);
   };
 
   const handleSubmitFailure = (error: any) => {
@@ -64,13 +69,16 @@ export const SendPasswordReset = () => {
   };
 
   const handleSubmitSuccess = () => {
-    history.push(routes.recoveryConfirmation);
+    const url = addQueryParameters(routes.recoveryConfirmation, {
+      email: recoveryMethod!.email,
+    });
+    history.push(url);
   };
 
   return (
     <>
       <NavLink to={routes.login}>
-        <h1>Cloven</h1>
+        <h1>{t("app.title")}</h1>
       </NavLink>
       {hasSubmissionError && (
         <Alert>{t("send_password_reset.submission_failure_error")}</Alert>

@@ -45,6 +45,39 @@
     "hideButtonLabel": "Hide password",
     "showButtonLabel": "Show password"
   },
+  "password_reset": {
+    "title": "Password reset",
+    "submission_failure_error": "Submission failed."
+  },
+  "password_reset_form": {
+    "change_password_button_label": "Change password",
+    "password_field_label": "Password"
+  },
+  "recovery_confirmation": {
+    "message": "An email was sent to {{email}} with a link to reset your password.",
+    "return_link": "Return to login",
+    "title": "Email sent"
+  },
+  "register": {
+    "title": "Register"
+  },
+  "registration_form": {
+    "email_label": "Email",
+    "email_required_error": "Please enter an email address.",
+    "email_validation_error": "Email must be a valid email address.",
+    "password_label": "Password",
+    "password_max_length_error": "Password must be fewer than {{count}} character.",
+    "password_max_length_error_plural": "Password must be fewer than {{count}} characters.",
+    "password_min_length_error": "Password must be at least {{count}} character.",
+    "password_min_length_error_plural": "Password must be at least {{count}} characters.",
+    "password_required_error": "Please enter a password.",
+    "username_label": "Username",
+    "username_max_length_error": "Username must be fewer than {{count}} character.",
+    "username_max_length_error_plural": "Username must be fewer than {{count}} characters.",
+    "username_min_length_error": "Username must be at least {{count}} character.",
+    "username_min_length_error_plural": "Username must be at least {{count}} characters.",
+    "username_required_error": "Please enter a username."
+  },
   "searchSelect": {
     "addValueMessage": "Add “{{value}}”",
     "clearButtonLabel": "Clear",
@@ -62,30 +95,5 @@
   "settings": {
     "languageFieldLabel": "Language",
     "title": "Settings"
-  },
-  "recovery_confirmation": {
-    "message": "An email was sent to the requested email address with a link to reset your password.",
-    "return_link": "Return to login",
-    "title": "Email sent"
-  },
-  "register": {
-    "title": "Register"
-  },
-  "registrationForm": {
-    "emailLabel": "Email",
-    "emailRequiredError": "Please enter an email address.",
-    "emailValidationError": "Email must be a valid email address.",
-    "passwordLabel": "Password",
-    "passwordMaxLengthError": "Password must be fewer than {{count}} character.",
-    "passwordMaxLengthError_plural": "Password must be fewer than {{count}} characters.",
-    "passwordMinLengthError": "Password must be at least {{count}} character.",
-    "passwordMinLengthError_plural": "Password must be at least {{count}} characters.",
-    "passwordRequiredError": "Please enter a password.",
-    "usernameLabel": "Username",
-    "usernameMaxLengthError": "Username must be fewer than {{count}} character.",
-    "usernameMaxLengthError_plural": "Username must be fewer than {{count}} characters.",
-    "usernameMinLengthError": "Username must be at least {{count}} character.",
-    "usernameMinLengthError_plural": "Username must be at least {{count}} characters.",
-    "usernameRequiredError": "Please enter a username."
   }
 }

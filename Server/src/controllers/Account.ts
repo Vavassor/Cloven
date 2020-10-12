@@ -6,7 +6,7 @@ import { getAccountSpecFromAccountSpecAdo } from "../mapping/domain/AccountSpec"
 import { getErrorAdoFromMessage } from "../mapping/ErrorAdo";
 import {
   getIdentifyAccountResultAdoFromEmail,
-  getIdentifyAccountResultAdoFromUsername
+  getIdentifyAccountResultAdoFromUsername,
 } from "../mapping/IdentifyAccountResultAdo";
 import * as AccountRepository from "../repositories/AccountRepository";
 import { config, deviceDetector, emailTransporter } from "../server";
@@ -27,6 +27,7 @@ import { obscureEmail } from "../utilities/Obscure";
 import { hash } from "../utilities/Password";
 import { fillTemplate } from "../utilities/Template";
 import { createPasswordResetToken } from "../utilities/Token";
+import { addQueryParameters } from "../utilities/Url";
 import { parseUserAgent } from "../utilities/UserAgent";
 
 const PASSWORD_RESET_TOKEN_LIFETIME_SECONDS = 3600;
@@ -160,10 +161,10 @@ export const sendPasswordReset: RequestHandler<
     join(config.fileRoot, "assets/password_reset_email.template")
   );
 
-  const urlSearchParams = new URLSearchParams();
-  urlSearchParams.set("token", passwordResetToken);
-  const path = join(config.urlRoot, "reset_password");
-  const passwordResetLink = `${path}?${urlSearchParams.toString()}`;
+  const path = join(config.urlRoot, "password-reset");
+  const passwordResetLink = addQueryParameters(path, {
+    token: passwordResetToken,
+  });
 
   const emailBody = fillTemplate(emailTemplate, {
     browser_name: client.name,

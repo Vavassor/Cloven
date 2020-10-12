@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink, useHistory } from "react-router-dom";
 import {
   BeginPasswordResetForm,
@@ -15,6 +16,7 @@ import { logError } from "../../Utilities/Logging";
 export const BeginPasswordReset = () => {
   const dispatch = useContext(AccountRecoveryDispatch);
   const history = useHistory();
+  const { t } = useTranslation();
 
   const handleSubmit = async (submission: Submission) => {
     const identifyAccountResult = await identifyAccount(
@@ -34,7 +36,7 @@ export const BeginPasswordReset = () => {
   return (
     <>
       <NavLink to={routes.login}>
-        <h1>Cloven</h1>
+        <h1>{t("app.title")}</h1>
       </NavLink>
       <BeginPasswordResetForm
         handleSubmit={handleSubmit}

@@ -11,6 +11,7 @@ import { BeginPasswordReset } from "./Containers/BeginPasswordReset";
 import { Home } from "./Containers/Home";
 import { Login } from "./Containers/Login";
 import { PageNotFound } from "./Containers/PageNotFound";
+import { PasswordReset } from "./Containers/PasswordReset";
 import { RecoveryConfirmation } from "./Containers/RecoveryConfirmation";
 import { Register } from "./Containers/Register";
 import { SendPasswordReset } from "./Containers/SendPasswordReset";
@@ -86,24 +87,25 @@ const MainRoutes = () => {
       </Switch>
       <Switch>
         <Route exact path="/" render={() => <Redirect to="/home" />} />
-        <Route exact path={routes.login} component={Login} />
-        <Route exact path={routes.register} component={Register} />
         <Route
           exact
           path={routes.beginPasswordReset}
           component={BeginPasswordReset}
         />
+        <PrivateRoute exact path={routes.home} component={Home} />
+        <Route exact path={routes.login} component={Login} />
+        <Route exact path={routes.passwordReset} component={PasswordReset} />
         <Route
           exact
           path={routes.recoveryConfirmation}
           component={RecoveryConfirmation}
         />
+        <Route exact path={routes.register} component={Register} />
         <Route
           exact
           path={routes.sendPasswordReset}
           component={SendPasswordReset}
         />
-        <PrivateRoute exact path={routes.home} component={Home} />
         <PrivateRoute exact path={routes.settings} component={Settings} />
         <Route component={PageNotFound} />
       </Switch>

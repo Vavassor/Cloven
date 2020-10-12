@@ -3,15 +3,16 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import { createAccount } from "../../../Utilities/Api/Account";
+import {
+  getPasswordValidator,
+  getUsernameValidator,
+  MAX_CHARS_PASSWORD,
+  MAX_CHARS_USERNAME,
+} from "../../../Utilities/Validation";
 import { Button } from "../../Button/Button";
 import { FormControl } from "../../FormControl";
 import { PasswordField } from "../../PasswordField";
 import { TextField } from "../../TextField";
-
-const MAX_CHARS_PASSWORD = 64;
-const MAX_CHARS_USERNAME = 16;
-const MIN_CHARS_PASSWORD = 4;
-const MIN_CHARS_USERNAME = 4;
 
 interface RegistrationFormProps {
   handleSubmitSuccess: () => void;
@@ -38,37 +39,18 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
       validationSchema={Yup.object({
         email: Yup.string()
           .trim()
-          .email(t("registrationForm.emailValidationError"))
-          .required(t("registrationForm.emailRequiredError")),
-        password: Yup.string()
-          .max(
-            MAX_CHARS_PASSWORD,
-            t("registrationForm.passwordMaxLengthError", {
-              count: MAX_CHARS_PASSWORD,
-            })
-          )
-          .min(
-            MIN_CHARS_PASSWORD,
-            t("registrationForm.passwordMinLengthError", {
-              count: MIN_CHARS_PASSWORD,
-            })
-          )
-          .required(t("registrationForm.passwordRequiredError")),
-        username: Yup.string()
-          .trim()
-          .max(
-            MAX_CHARS_USERNAME,
-            t("registrationForm.usernameMaxLengthError", {
-              count: MAX_CHARS_USERNAME,
-            })
-          )
-          .min(
-            MIN_CHARS_USERNAME,
-            t("registrationForm.usernameMinLengthError", {
-              count: MIN_CHARS_USERNAME,
-            })
-          )
-          .required(t("registrationForm.usernameRequiredError")),
+          .email(t("registration_form.email_validation_error"))
+          .required(t("registration_form.email_required_error")),
+        password: getPasswordValidator(t, {
+          maxLengthError: "registration_form.password_max_length_error",
+          minLengthError: "registration_form.password_min_length_error",
+          requiredError: "registration_form.password_required_error",
+        }),
+        username: getUsernameValidator(t, {
+          maxLengthError: "registration_form.username_max_length_error",
+          minLengthError: "registration_form.username_min_length_error",
+          requiredError: "registration_form.username_required_error",
+        }),
       })}
     >
       {(props: FormikProps<any>) => (
@@ -79,7 +61,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 error={meta.touched ? meta.error : undefined}
                 inputId="username"
                 isRequired={true}
-                label={t("registrationForm.usernameLabel")}
+                label={t("registration_form.username_label")}
               >
                 <TextField inputProps={field} maxLength={MAX_CHARS_USERNAME} />
               </FormControl>
@@ -91,7 +73,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 error={meta.touched ? meta.error : undefined}
                 inputId="email"
                 isRequired={true}
-                label={t("registrationForm.emailLabel")}
+                label={t("registration_form.email_label")}
               >
                 <TextField inputProps={field} type="email" />
               </FormControl>
@@ -103,7 +85,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 error={meta.touched ? meta.error : undefined}
                 inputId="password"
                 isRequired={true}
-                label={t("registrationForm.passwordLabel")}
+                label={t("registration_form.password_label")}
               >
                 <PasswordField
                   inputProps={field}

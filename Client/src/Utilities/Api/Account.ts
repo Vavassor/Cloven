@@ -1,3 +1,5 @@
+import { AccountSpecAdo } from "../../Types/Ado/AccountSpecAdo";
+import { PasswordUpdateAdo } from "../../Types/Ado/PasswordUpdateAdo";
 import { SendPasswordResetAdo } from "../../Types/Ado/SendPasswordResetAdo";
 import { Id } from "../../Types/Domain/IdentifyAccountResult";
 import { RecoveryMethodType } from "../../Types/RecoveryMethodType";
@@ -11,12 +13,6 @@ import {
   isIdentifyAccountResultAdo,
 } from "../Typeguards/AdoTypeguards";
 import { callApi } from "./Api";
-
-interface AccountSpecAdo {
-  email: string;
-  password: string;
-  username: string;
-}
 
 export const createAccount = async (
   username: string,
@@ -68,6 +64,15 @@ export const sendPasswordReset = async (
   };
   await callApi("account/send_password_reset", {
     body: sendPasswordResetAdo,
+    method: "POST",
+  });
+};
+
+export const updatePassword = async (password: string, token: string) => {
+  const passwordAdo: PasswordUpdateAdo = { password };
+  await callApi("account/password", {
+    bearerToken: token,
+    body: passwordAdo,
     method: "POST",
   });
 };
