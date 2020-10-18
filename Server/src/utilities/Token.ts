@@ -10,6 +10,14 @@ export interface JwtPayload {
   sub: string;
 }
 
+export interface PasswordResetTokenPayload {
+  aud: string;
+  exp: number;
+  iss: string;
+  sub: string;
+  token: string;
+}
+
 const isJwtPayload = (value: any): value is JwtPayload => {
   return (
     typeof value === "object" &&
@@ -19,6 +27,19 @@ const isJwtPayload = (value: any): value is JwtPayload => {
     typeof value.jti === "string" &&
     (!value.scope || typeof value.scope === "string") &&
     typeof value.sub === "string"
+  );
+};
+
+const isPasswordResetTokenPayload = (
+  value: any
+): value is PasswordResetTokenPayload => {
+  return (
+    typeof value === "object" &&
+    typeof value.aud === "string" &&
+    typeof value.exp === "number" &&
+    typeof value.iss === "string" &&
+    typeof value.sub === "string" &&
+    typeof value.token === "string"
   );
 };
 
@@ -107,6 +128,20 @@ export const verifyAccessToken = async (token: string, privateKey: string) => {
     throw new Error("No token decoded when verifying a JWT.");
   }
   if (!isJwtPayload(verifiedToken)) {
+    throw new Error("JWT payload format is invalid.");
+  }
+  return verifiedToken;
+};
+
+export const verifyPasswordResetToken = async (
+  token: string,
+  privateKey: string
+): Promise<PasswordResetTokenPayload> => {
+  const verifiedToken = await verifyJwt(token, privateKey);
+  if (!verifiedToken) {
+    throw new Error("No token decoded when verifying a JWT.");
+  }
+  if (!isPasswordResetTokenPayload(verifiedToken)) {
     throw new Error("JWT payload format is invalid.");
   }
   return verifiedToken;

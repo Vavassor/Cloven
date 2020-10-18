@@ -46,3 +46,14 @@ export const findAccountByUsername = async (
   }
   return getAccountFromDocument(accountDocument.toObject());
 };
+
+export const updatePasswordForAccount = async (
+  password: string,
+  accountId: string
+) => {
+  await AccountModel.findByIdAndUpdate(
+    accountId,
+    { password },
+    { useFindAndModify: false }
+  );
+};

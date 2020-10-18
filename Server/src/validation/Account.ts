@@ -43,6 +43,11 @@ export const validateIdentifyAccount = [
   handleValidationError,
 ];
 
+export const validateUpdatePassword = [
+  body("password").exists().custom(isPassword),
+  handleValidationError,
+];
+
 export const validateSendPasswordReset = [
   oneOf([
     [body("id.email").isEmail(), body("id.type").equals(IdType.Email)],

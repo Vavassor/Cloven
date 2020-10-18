@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { join } from "path";
+import { PasswordUpdateAdo } from "../types/ado/PasswordUpdateAdo";
 import isEmail from "validator/lib/isEmail";
 import { getAccountAdoFromAccount } from "../mapping/AccountAdo";
 import { getAccountSpecFromAccountSpecAdo } from "../mapping/domain/AccountSpec";
@@ -24,7 +25,7 @@ import { getPrivateKey } from "../utilities/Config";
 import { sendMail } from "../utilities/Email";
 import { readTextFile } from "../utilities/File";
 import { obscureEmail } from "../utilities/Obscure";
-import { hash } from "../utilities/Password";
+import { getPartialDoubleHash, hash } from "../utilities/Password";
 import { fillTemplate } from "../utilities/Template";
 import { createPasswordResetToken } from "../utilities/Token";
 import { addQueryParameters } from "../utilities/Url";
@@ -143,8 +144,7 @@ export const sendPasswordReset: RequestHandler<
   // @TODO Use the side channel info in 'request.body' to determine where to
   // send the reset token, instead of defaulting to the email.
 
-  const doubleHashedPassword = await hash(account.password);
-  const key = doubleHashedPassword.slice(0, 10);
+  const key = await getPartialDoubleHash(account.password);
   const privateKey = await getPrivateKey(config);
   const passwordResetToken = await createPasswordResetToken(
     key,
@@ -185,5 +185,18 @@ export const sendPasswordReset: RequestHandler<
     recipients: [account.email],
   });
 
+  response.status(HttpStatus.NoContent).header("Content-Length", "0").end();
+};
+
+export const updatePassword: RequestHandler<
+  ParamsDictionary,
+  ErrorAdo,
+  PasswordUpdateAdo,
+  ParsedQs
+> = async (request, response, next) => {
+  const { accountId } = request;
+  const { password } = request.body;
+  const hashedPassword = await hash(password);
+  await AccountRepository.updatePasswordForAccount(hashedPassword, accountId);
   response.status(HttpStatus.NoContent).header("Content-Length", "0").end();
 };
