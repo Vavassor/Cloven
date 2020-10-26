@@ -5,6 +5,7 @@ import { readTextFile } from "./File";
 const defaults = {
   mongodbUri: "mongodb://localhost:27017/cloven",
   port: "3001",
+  urlRoot: "http://localhost"
 };
 
 export enum Environment {
@@ -67,7 +68,8 @@ export const loadConfig = (): Config => {
     defaults.mongodbUri
   );
   const port = parseInt(loadEnvironmentVariable("PORT", defaults.port));
-  const urlRoot = `http://localhost:${port}`;
+  const urlRootWithoutPort = loadEnvironmentVariable("URL_ROOT", defaults.urlRoot);
+  const urlRoot = `${urlRootWithoutPort}:${port}`;
 
   const config: Config = {
     environment,
