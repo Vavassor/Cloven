@@ -15,13 +15,14 @@ services:
       - ./certbot/data:/var/www/certbot
   mongo:
     command: [--auth]
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
     image: mongo
     networks:
       - sub-etha
     ports:
       - 27017:27017
-    secrets:
-      - mongo_secrets
   reverse_proxy:
     depends_on:
       - ui
@@ -44,6 +45,3 @@ services:
       - sub-etha
 networks:
   sub-etha:
-secrets:
-  mongo_secrets:
-    file: ./mongo_secrets.txt
