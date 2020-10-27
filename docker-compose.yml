@@ -14,7 +14,7 @@ services:
       - ./certbot/logs:/var/log/letsencrypt
       - ./certbot/data:/var/www/certbot
   mongo:
-    command: --config /etc/mongo/mongod.conf
+    command: [--auth]
     image: mongo
     networks:
       - sub-etha
@@ -22,8 +22,6 @@ services:
       - 27017:27017
     secrets:
       - mongo_secrets
-    volumes:
-      - ./Mongo/mongod.conf:/etc/mongo/mongod.conf
   reverse_proxy:
     depends_on:
       - ui
