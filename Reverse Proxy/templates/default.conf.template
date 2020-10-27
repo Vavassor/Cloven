@@ -2,7 +2,7 @@ server {
     listen [::]:80;
     listen 80;
 
-    server_name glance.social www.glance.social;
+    server_name ${NGINX_DOMAIN} www.${NGINX_DOMAIN};
 
     location ~ /.well-known/acme-challenge {
         allow all;
@@ -10,31 +10,31 @@ server {
     }
 
     # redirect http to https non-www
-    return 301 https://glance.social$request_uri;
+    return 301 https://${NGINX_DOMAIN}$request_uri;
 }
 
 server {
     listen [::]:443 ssl http2;
     listen 443 ssl http2;
 
-    server_name www.glance.social;
+    server_name www.${NGINX_DOMAIN};
 
     # SSL code
-    ssl_certificate /etc/nginx/ssl/live/glance.social/fullchain.pem;
-    ssl_certificate_key /etc/nginx/ssl/live/glance.social/privkey.pem;
+    ssl_certificate /etc/nginx/ssl/live/${NGINX_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/${NGINX_DOMAIN}/privkey.pem;
 
-    return 301 https://glance.social$request_uri;
+    return 301 https://${NGINX_DOMAIN}$request_uri;
 }
 
 server {
     listen [::]:443 ssl http2;
     listen 443 ssl http2;
 
-    server_name glance.social;
+    server_name ${NGINX_DOMAIN};
 
     # SSL code
-    ssl_certificate /etc/nginx/ssl/live/glance.social/fullchain.pem;
-    ssl_certificate_key /etc/nginx/ssl/live/glance.social/privkey.pem;
+    ssl_certificate /etc/nginx/ssl/live/${NGINX_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/${NGINX_DOMAIN}/privkey.pem;
 
     location /api {
         proxy_pass         http://api/;

@@ -14,12 +14,21 @@ services:
       - ./certbot/logs:/var/log/letsencrypt
       - ./certbot/data:/var/www/certbot
   mongo:
+    command: --config /etc/mongo/mongod.conf
     image: mongo
     networks:
       - sub-etha
+    ports:
+      - 27017:27017
+    secrets:
+      - mongo_secrets
+    volumes:
+      - ./Mongo/mongod.conf:/etc/mongo/mongod.conf
   reverse_proxy:
     depends_on:
       - ui
+    environment:
+      - NGINX_DOMAIN=glance.social
     image: nginx:latest
     networks:
       - sub-etha
@@ -28,7 +37,7 @@ services:
       - 443:443
     restart: always
     volumes:
-      - ./Reverse Proxy/conf.d:/etc/nginx/conf.d
+      - ./Reverse Proxy/templates:/etc/nginx/templates
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/data:/var/www/certbot
   ui:
@@ -37,3 +46,6 @@ services:
       - sub-etha
 networks:
   sub-etha:
+secrets:
+  mongo_secrets:
+    file: ./mongo_secrets.txt
