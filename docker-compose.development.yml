@@ -1,0 +1,15 @@
+version: "2"
+services:
+  reverse_proxy:
+    depends_on:
+      - ui
+    image: nginx:latest
+    networks:
+      - sub-etha
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - ./Reverse Proxy/development_templates:/etc/nginx/templates
+networks:
+  sub-etha:

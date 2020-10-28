@@ -1,0 +1,25 @@
+version: '2'
+services:
+  certbot:
+    image: certbot/certbot:latest
+    command: certonly --webroot --webroot-path=/var/www/certbot --email dawso.andrew@gmail.com --agree-tos --no-eff-email -d glance.social -d www.glance.social
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/logs:/var/log/letsencrypt
+      - ./certbot/data:/var/www/certbot
+  reverse_proxy:
+    depends_on:
+      - ui
+    environment:
+      - NGINX_DOMAIN=glance.social
+    image: nginx:latest
+    networks:
+      - sub-etha
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./Reverse Proxy/templates:/etc/nginx/templates
+      - ./certbot/conf:/etc/nginx/ssl
+      - ./certbot/data:/var/www/certbot
