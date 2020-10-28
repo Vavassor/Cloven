@@ -42,13 +42,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(i18nextHttpMiddleware.handle(i18next));
-app.use(express.static(join(config.fileRoot, "../../Client/build")));
 
 app.use(routes);
-
-app.get("*", (request, response, next) => {
-  response.sendFile(join(config.fileRoot, "../../Client/build/index.html"));
-});
 
 app.use((request, response, next) => {
   if (request.accepts("html")) {
