@@ -1,7 +1,7 @@
 version: '2'
 services:
   api:
-    build: ./Server
+    build: ./API Service
     depends_on:
       - mongo
     networks:
@@ -40,7 +40,7 @@ services:
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/data:/var/www/certbot
   ui:
-    build: ./Client
+    build: ./UI Service
     networks:
       - sub-etha
 networks:

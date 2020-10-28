@@ -4,11 +4,11 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'Client/**'
+      - 'UI Service/**'
   pull_request:
     branches: [ master ]
     paths:
-      - 'Client/**'
+      - 'UI Service/**'
 
 jobs:
   deploy:
@@ -30,4 +30,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
           REACT_APP_IS_STORYBOOK_BUILD: true
-        working-directory: ./Client
+        working-directory: './UI Service'
