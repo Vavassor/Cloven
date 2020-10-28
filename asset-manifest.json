@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "./static/css/main.366cb3e1.chunk.css",
+    "main.js": "./main.893edc129ab82894f2cc.bundle.js",
+    "main.css.map": "./static/css/main.366cb3e1.chunk.css.map",
+    "main.js.map": "./main.893edc129ab82894f2cc.bundle.js.map",
+    "runtime~main.js": "./runtime~main.893edc129ab82894f2cc.bundle.js",
+    "runtime~main.js.map": "./runtime~main.893edc129ab82894f2cc.bundle.js.map",
+    "vendors~main.js": "./vendors~main.893edc129ab82894f2cc.bundle.js",
+    "vendors~main.js.map": "./vendors~main.893edc129ab82894f2cc.bundle.js.map",
+    "iframe.html": "./iframe.html",
+    "precache-manifest.83f105fece65b404df51c91a44f1792b.js": "./precache-manifest.83f105fece65b404df51c91a44f1792b.js",
+    "service-worker.js": "./service-worker.js",
+    "static/media/checkmark.svg": "./static/media/checkmark.9510f9a3.svg",
+    "static/media/cross.b9f4af22.svg": "./static/media/cross.b9f4af22.svg",
+    "static/media/dropdown_arrow_downward.svg": "./static/media/dropdown_arrow_downward.be32a0a1.svg",
+    "static/media/dropdown_arrow_upward.svg": "./static/media/dropdown_arrow_upward.6b459493.svg",
+    "static/media/getFetch.cjs": "./static/media/getFetch.013f0b90.cjs",
+    "static/media/visibility.e5b7cb1c.svg": "./static/media/visibility.e5b7cb1c.svg",
+    "static/media/visibility_off.3a9ed45d.svg": "./static/media/visibility_off.3a9ed45d.svg",
+    "vendors~main.893edc129ab82894f2cc.bundle.js.LICENSE.txt": "./vendors~main.893edc129ab82894f2cc.bundle.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "runtime~main.893edc129ab82894f2cc.bundle.js",
+    "vendors~main.893edc129ab82894f2cc.bundle.js",
+    "static/css/main.366cb3e1.chunk.css",
+    "main.893edc129ab82894f2cc.bundle.js"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "dashboard": {
+    "snakeDance": "رقصة الثعبان"
+  },
+  "generic": {
+    "ok": "حسنا"
+  },
+  "multiSelect": {
+    "buttonLabelNoneSelected": "--لم يتم تحديد أي شيء--"
+  },
+  "searchSelect": {
+    "clearButtonLabel": "أزال",
+    "hideSuggestionsButtonLabel": "إخفاء الاقتراحات",
+    "noSuggestionsMessage": "لا يوجد خيارات",
+    "showSuggestionsButtonLabel": "إظهار اقتراحات"
+  }
+}

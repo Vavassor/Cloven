@@ -1,0 +1,53 @@
+{
+  "dashboard": {
+    "snakeDance": "[!!! §ñáƙè δáñçè !!!]"
+  },
+  "generic": {
+    "ok": "[!!! ÓK !!!]",
+    "submit": "[!!! §úβ₥ïƭ !!!]"
+  },
+  "home": {
+    "title": "[!!! Hô₥è !!!]"
+  },
+  "multiSearchSelect": {
+    "addValueMessage": "[!!! Âδδ “{{value}}” !!!]",
+    "clearButtonLabel": "[!!! Çℓèář !!!]",
+    "hideSuggestionsButtonLabel": "[!!! Hïδè ƨúϱϱèƨƭïôñƨ !!!]",
+    "noSuggestionsMessage": "[!!! Nô ôƥƭïôñƨ !!!]",
+    "showSuggestionsButtonLabel": "[!!! §λôω ƨúϱϱèƨƭïôñƨ !!!]"
+  },
+  "multiSelect": {
+    "buttonLabelNoneSelected": "[!!! --Nôñè ƨèℓèçƭèδ-- !!!]"
+  },
+  "passwordField": {
+    "hideButtonLabel": "[!!! Hïδè ƥáƨƨωôřδ !!!]",
+    "showButtonLabel": "[!!! §λôω ƥáƨƨωôřδ !!!]"
+  },
+  "searchSelect": {
+    "addValueMessage": "[!!! Âδδ “{{value}}” !!!]",
+    "clearButtonLabel": "[!!! Çℓèář !!!]",
+    "hideSuggestionsButtonLabel": "[!!! Hïδè ƨúϱϱèƨƭïôñƨ !!!]",
+    "noSuggestionsMessage": "[!!! Nô ôƥƭïôñƨ !!!]",
+    "showSuggestionsButtonLabel": "[!!! §λôω ƨúϱϱèƨƭïôñƨ !!!]"
+  },
+  "register": {
+    "title": "[!!! Rèϱïƨƭèř !!!]"
+  },
+  "registrationForm": {
+    "emailLabel": "[!!! É₥áïℓ !!!]",
+    "emailRequiredError": "[!!! Þℓèáƨè èñƭèř áñ è₥áïℓ áδδřèƨƨ. !!!]",
+    "emailValidationError": "[!!! É₥áïℓ ₥úƨƭ βè á Ʋáℓïδ è₥áïℓ áδδřèƨƨ. !!!]",
+    "passwordLabel": "[!!! Þáƨƨωôřδ !!!]",
+    "passwordMaxLengthError": "[!!! Þáƨƨωôřδ ₥úƨƭ βè ƒèωèř ƭλáñ {{count}} çλářáçƭèř. !!!]",
+    "passwordMaxLengthError_plural": "[!!! Þáƨƨωôřδ ₥úƨƭ βè ƒèωèř ƭλáñ {{count}} çλářáçƭèřƨ. !!!]",
+    "passwordMinLengthError": "[!!! Þáƨƨωôřδ ₥úƨƭ βè áƭ ℓèáƨƭ {{count}} çλářáçƭèř. !!!]",
+    "passwordMinLengthError_plural": "[!!! Þáƨƨωôřδ ₥úƨƭ βè áƭ ℓèáƨƭ {{count}} çλářáçƭèřƨ. !!!]",
+    "passwordRequiredError": "[!!! Þℓèáƨè èñƭèř á ƥáƨƨωôřδ. !!!]",
+    "usernameLabel": "[!!! Ûƨèřñá₥è !!!]",
+    "usernameMaxLengthError": "[!!! Ûƨèřñá₥è ₥úƨƭ βè ƒèωèř ƭλáñ {{count}} çλářáçƭèř. !!!]",
+    "usernameMaxLengthError_plural": "[!!! Ûƨèřñá₥è ₥úƨƭ βè ƒèωèř ƭλáñ {{count}} çλářáçƭèřƨ. !!!]",
+    "usernameMinLengthError": "[!!! Ûƨèřñá₥è ₥úƨƭ βè áƭ ℓèáƨƭ {{count}} çλářáçƭèř. !!!]",
+    "usernameMinLengthError_plural": "[!!! Ûƨèřñá₥è ₥úƨƭ βè áƭ ℓèáƨƭ {{count}} çλářáçƭèřƨ. !!!]",
+    "usernameRequiredError": "[!!! Þℓèáƨè èñƭèř á úƨèřñá₥è. !!!]"
+  }
+}
