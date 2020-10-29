@@ -16,9 +16,15 @@ services:
       - sub-etha
     ports:
       - 27017:27017
+    volumes:
+      - mongo_config_volume:/data/configdb
+      - mongo_data_volume:/data/db
   ui:
     build: ./UI Service
     networks:
       - sub-etha
 networks:
   sub-etha:
+volumes:
+  mongo_config_volume:
+  mongo_data_volume:

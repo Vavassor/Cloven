@@ -1,4 +1,5 @@
-version: "2"
+# 'docker-compose.yml' override configuration for the development environment.
+version: '2'
 services:
   reverse_proxy:
     depends_on:
@@ -11,5 +12,3 @@ services:
     restart: always
     volumes:
       - ./Reverse Proxy/development_templates:/etc/nginx/templates
-networks:
-  sub-etha:
