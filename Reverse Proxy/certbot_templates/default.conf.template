@@ -1,0 +1,16 @@
+server {
+    listen [::]:80;
+    listen 80;
+
+    server_name ${NGINX_DOMAIN} www.${NGINX_DOMAIN};
+
+    location /.well-known/acme-challenge {
+        allow all;
+        root /var/www/certbot;
+    }
+
+    # redirect http to https non-www
+    location / {
+        return 301 https://${NGINX_DOMAIN}$request_uri;
+    }
+}
