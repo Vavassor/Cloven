@@ -18,7 +18,8 @@ export const createTransporter = (): EmailTransporter => {
       pass: process.env.EMAIL_PASSWORD,
     },
     host: process.env.EMAIL_HOST,
-    port: 587,
+    port: 465,
+    secure: true,
   });
   
   return { transporter };
